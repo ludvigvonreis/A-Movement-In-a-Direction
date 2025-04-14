@@ -7,21 +7,29 @@ public struct CameraInput
 
 public class PlayerCamera : MonoBehaviour
 {
-    private Vector3 _eulerAngels;
+    private Vector3 _eulerAngles;
 
     [SerializeField]
     private float sensitivity = 12;
 
+	[SerializeField, Range(0, 180)]
+	private float maxXAngle;
+
     public void Initialize(Transform cameraTarget)
     {
         transform.position = cameraTarget.position;
-        _eulerAngels = transform.eulerAngles = cameraTarget.eulerAngles;
+        _eulerAngles = transform.eulerAngles = cameraTarget.eulerAngles;
     }
 
     public void UpdateRotation(CameraInput input)
     {
-        _eulerAngels += new Vector3(-input.Look.y, input.Look.x);
-        transform.eulerAngles = _eulerAngels * sensitivity;
+        _eulerAngles += new Vector3(-input.Look.y, input.Look.x);
+
+		if (_eulerAngles.x > 180f) _eulerAngles.x -= 360f;
+
+		_eulerAngles.x = Mathf.Clamp(_eulerAngles.x, -85f, 85f);
+
+        transform.eulerAngles = _eulerAngles * sensitivity;
     }
 
     public void UpdatePosition(Transform target)

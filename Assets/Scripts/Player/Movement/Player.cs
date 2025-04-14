@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         var input = playerInputActions.Gameplay;
-		var deltaTime = Time.deltaTime;
+        var deltaTime = Time.deltaTime;
 
         // Get mouse input and move camera.
         CameraInput cameraInput = new CameraInput { Look = input.Mouse.ReadValue<Vector2>() };
@@ -37,18 +37,18 @@ public class Player : MonoBehaviour
 
         CharacterInput characterInput = new CharacterInput
         {
-            Rotation = playerCamera.transform.rotation,
-            Move = input.Move.ReadValue<Vector2>(),
-            Jump = input.Jump.WasPressedThisFrame(),
-			Crouch = input.Crouch.WasPressedThisFrame() 
-				? CrouchInput.Toggle 
-				: CrouchInput.None,
+            Rotation    = playerCamera.transform.rotation,
+            Move        = input.Move.ReadValue<Vector2>(),
+            Jump        = input.Jump.WasPressedThisFrame(),
+			JumpSustain = input.Jump.IsPressed(),
+            Crouch      = input.Crouch.WasPressedThisFrame() ? CrouchInput.Toggle : CrouchInput.None,
         };
         playerCharacter.UpdateInput(characterInput);
-		playerCharacter.UpdateBody(deltaTime);
+        playerCharacter.UpdateBody(deltaTime);
     }
 
-	void LateUpdate() {
-		playerCamera.UpdatePosition(playerCharacter.GetCameraTarget());
-	}
+    void LateUpdate()
+    {
+        playerCamera.UpdatePosition(playerCharacter.GetCameraTarget());
+    }
 }
