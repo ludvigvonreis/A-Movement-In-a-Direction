@@ -31,8 +31,7 @@ public class PlayerWeaponHandler : MonoBehaviour
 	{
 		// Find all equipped weapons and add them to the list.
 		foreach (var weaponObject in weaponObjects) {
-			var weaponBehaviour = weaponObject.GetComponent<WeaponBehaviour>();
-			if (weaponBehaviour == null) continue;
+			if (!weaponObject.TryGetComponent<WeaponBehaviour>(out var weaponBehaviour)) continue;
 
 			weaponBehaviours.Add(weaponBehaviour);
 

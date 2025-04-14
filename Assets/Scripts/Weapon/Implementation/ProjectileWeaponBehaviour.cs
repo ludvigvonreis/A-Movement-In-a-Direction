@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class ProjectileWeaponBehaviour : WeaponBehaviour
 {
-	private bool _requestPrimaryAction;
-	private bool _requestSecondaryAction;
+	private bool _requestPrimaryAction = false;
+	private bool _requestSecondaryAction = false;
 
 	public override void Initialize()
 	{

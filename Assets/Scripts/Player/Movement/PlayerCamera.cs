@@ -10,7 +10,7 @@ public class PlayerCamera : MonoBehaviour
     private Vector3 _eulerAngles;
 
     [SerializeField]
-    private float sensitivity = 12;
+    private float sensitivity = 1;
 
 	[SerializeField, Range(0, 180)]
 	private float maxXAngle;
@@ -27,7 +27,7 @@ public class PlayerCamera : MonoBehaviour
 
 		if (_eulerAngles.x > 180f) _eulerAngles.x -= 360f;
 
-		_eulerAngles.x = Mathf.Clamp(_eulerAngles.x, -85f, 85f);
+		_eulerAngles.x = Mathf.Clamp(_eulerAngles.x, -maxXAngle, maxXAngle);
 
         transform.eulerAngles = _eulerAngles * sensitivity;
     }

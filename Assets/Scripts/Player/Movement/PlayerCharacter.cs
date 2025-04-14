@@ -29,11 +29,12 @@ public struct CharacterInput
 	public Vector2 Move;
 	public bool Jump;
 	public bool JumpSustain;
+	public bool Sprint;
 
 	public CrouchInput Crouch;
 }
 
-public class PlayerCharacter : MonoBehaviour, ICharacterController
+public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackable
 {
 	[SerializeField]
 	private KinematicCharacterMotor motor;
@@ -47,6 +48,8 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
 	[Space]
 	[SerializeField]
 	private float walkSpeed = 15f;
+	[SerializeField]
+	private float sprintSpeed = 25f;
 
 	[SerializeField]
 	private float crouchSpeed = 7f;
@@ -113,6 +116,8 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
 
 	private Quaternion _requestedRotation;
 	private Vector3 _requestedMovement;
+	private Vector3 _requestedKnockback;
+	private bool _requestedSprint;
 	private bool _requestedJump;
 	private bool _requestedSustainedJump;
 	private bool _requestedCrouch;
@@ -133,6 +138,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
 		_requestedMovement = new Vector3(characterInput.Move.x, 0, characterInput.Move.y);
 		_requestedMovement = Vector3.ClampMagnitude(_requestedMovement, 1f);
 		_requestedMovement = characterInput.Rotation * _requestedMovement;
+		_requestedSprint = characterInput.Sprint;
 
 		_requestedJump = _requestedJump || characterInput.Jump;
 		_requestedSustainedJump = characterInput.JumpSustain;
@@ -202,7 +208,9 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
 			if (_state.Stance is Stance.Stand || _state.Stance is Stance.Crouch)
 			{
 
-				var speed = _state.Stance is Stance.Stand ? walkSpeed : crouchSpeed;
+				var requestedSpeed = _requestedSprint ? sprintSpeed : walkSpeed;
+				var speed = _state.Stance is Stance.Stand ? requestedSpeed : crouchSpeed;
+
 				var response = _state.Stance is Stance.Stand ? walkResponse : crouchResponse;
 
 				var targetVelocity = groundedMovement * speed;
@@ -334,6 +342,10 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
 			// Add the difference to current velocity.
 			currentVelocity += motor.CharacterUp * (targetVerticalSpeed - currentVerticalSpeed);
 		}
+
+		// Add knockback.
+		currentVelocity += _requestedKnockback;
+		_requestedKnockback = Vector3.zero;
 	}
 
 	public void UpdateBody(float deltaTime)
@@ -342,7 +354,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
 		var normalizedHeight = currentHeight / standHeight;
 		var cameraTargetHeight =
 			currentHeight
-			* (_state.Stance is Stance.Stand ? standCameraTargetHeight : crouchCameraTargetHeight);
+			* ((_state.Stance is Stance.Stand) ? standCameraTargetHeight : crouchCameraTargetHeight);
 
 		var rootTargetScale = new Vector3(1f, normalizedHeight, 1f);
 
@@ -362,7 +374,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
 	public void AfterCharacterUpdate(float deltaTime)
 	{
 		// Crouch..
-		if (_requestedCrouch && _state.Stance is Stance.Stand)
+		if (_requestedCrouch && (_state.Stance is Stance.Stand))
 		{
 			_state.Stance = Stance.Crouch;
 
@@ -454,4 +466,9 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController
 	{ }
 
 	public Transform GetCameraTarget() => cameraTarget;
+
+	public void AddKnockback(Vector3 force)
+	{	
+		_requestedKnockback = force;
+	}
 }

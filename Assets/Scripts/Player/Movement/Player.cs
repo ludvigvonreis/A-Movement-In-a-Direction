@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
             Move        = input.Move.ReadValue<Vector2>(),
             Jump        = input.Jump.WasPressedThisFrame(),
 			JumpSustain = input.Jump.IsPressed(),
+			Sprint      = input.Sprint.IsPressed(),
             Crouch      = input.Crouch.WasPressedThisFrame() ? CrouchInput.Toggle : CrouchInput.None,
         };
         playerCharacter.UpdateInput(characterInput);
