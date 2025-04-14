@@ -12,4 +12,5 @@ public class Projectile : ScriptableObject
 	public AnimationCurve damageFalloff;
 
 	public GameObject projectilePrefab;
+	public GameObject projectileHitVFX;
 }
