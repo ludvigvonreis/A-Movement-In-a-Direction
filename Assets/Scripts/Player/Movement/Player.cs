@@ -54,7 +54,9 @@ public class Player : MonoBehaviour
 			PrimaryAction          = input.Primary.WasPressedThisFrame(),
 			PrimaryActionSustain   = input.Primary.IsPressed(),
 			SecondaryAction        = input.Secondary.WasPressedThisFrame(),
-			SecondaryActionSustain = input.Secondary.IsPressed()
+			SecondaryActionSustain = input.Secondary.IsPressed(),
+			Scroll                 = input.Scroll.ReadValue<Vector2>(),
+			Reload                 = input.Reload.WasPressedThisFrame(),
 		};
 
 		playerWeaponHandler.UpdateInput(playerWeaponInput);

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -5,10 +6,13 @@ public class DestroyVFX : MonoBehaviour
 {
 	private VisualEffect visualEffect;
 	private bool hasPlayed;
+	private float killAfterSeconds = 3;
 
 	void Start()
 	{
 		visualEffect = GetComponent<VisualEffect>();
+
+		StartCoroutine(KillAfterTime());
 	}
 
 	void Update()
@@ -29,5 +33,12 @@ public class DestroyVFX : MonoBehaviour
         {
             hasPlayed = true;
         }
+	}
+
+
+	IEnumerator KillAfterTime() {
+		yield return new WaitForSeconds(killAfterSeconds);
+
+		Destroy(gameObject);
 	}
 }

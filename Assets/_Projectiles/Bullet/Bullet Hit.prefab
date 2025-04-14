@@ -61,6 +61,12 @@ VisualEffect:
       - m_Value: {x: 14.928529, y: 2.1543686, z: 0, w: 1}
         m_Name: Color
         m_Overridden: 1
+      - m_Value: {x: 1351.1757, y: 1351.1757, z: 1351.1757, w: 0}
+        m_Name: Color02
+        m_Overridden: 1
+      - m_Value: {x: 1.4980392, y: 1.0342668, z: 0.06359598, w: 0}
+        m_Name: Color01
+        m_Overridden: 1
     m_Uint:
       m_Array: []
     m_Int:

@@ -21,3 +21,6 @@ MonoBehaviour:
   projectile: {fileID: 11400000, guid: 07bada66b76664c5b8e0c2e25b4cc227, type: 2}
   projectileCount: 1
   spreadAngle: 4
+  magazineAmount: 10
+  maxCarriedAmmo: 150
+  reloadDuration: 0.2
