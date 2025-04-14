@@ -40,3 +40,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   projectilePrefab: {fileID: 252535996635401246, guid: 45e89b4a69f7e4a79a48ad62d0cfe4c1, type: 3}
+  projectileHitVFX: {fileID: 6169563663477389123, guid: ff4ecbc0997eb04408cead3d5046a53a, type: 3}

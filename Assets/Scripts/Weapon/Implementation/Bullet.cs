@@ -67,5 +67,7 @@ public class Bullet : ProjectileObject
 		{
 			
 		}
+
+		Destroy(gameObject);
 	}
 }

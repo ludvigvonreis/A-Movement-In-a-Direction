@@ -1,12 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-public class ProjectileWeaponBehaviour : WeaponBehaviour<WeaponStats>
+public class ProjectileWeaponBehaviour : WeaponBehaviour
 {
 	private bool _requestPrimaryAction;
 	private bool _requestSecondaryAction;
 
-	public override void PrimaryAction()
+	protected override void PrimaryAction()
 	{
 		var projectileStats = WeaponStats.projectile;
 		var projectilePrefab = projectileStats.projectilePrefab;
@@ -38,42 +38,56 @@ public class ProjectileWeaponBehaviour : WeaponBehaviour<WeaponStats>
 		}
 	}
 
-	public override void SecondaryAction()
+	protected override void SecondaryAction()
 	{
 		Debug.Log("Hello im secondary action");
-	}
-
-	void Update()
-	{
-		_requestPrimaryAction = WeaponStats.fireMode is FireMode.Single ?
-			Input.GetKeyDown(KeyCode.G) :
-			Input.GetKey(KeyCode.G);
-
-		// TODO: Secondary action is often aiming, but can be another thing. 
-		// implement that for both stats and stuff.
-		_requestSecondaryAction = Input.GetKeyDown(KeyCode.H);
-	}
-
-	void Start()
-	{
-		StartCoroutine(EventHandler());
 	}
 
 	IEnumerator EventHandler()
 	{
 		while (true)
 		{
-			yield return new WaitForSeconds(WeaponStats.Firerate);
 
 			if (_requestPrimaryAction)
-			{
+			{	
+				// To make you relase the button after shooting.
+				if (WeaponStats.fireMode is FireMode.Single) {
+					_requestPrimaryAction = false;
+				}
+
 				PrimaryAction();
+				yield return new WaitForSeconds(WeaponStats.Firerate);
 			}
 
 			if (_requestSecondaryAction)
 			{
 				SecondaryAction();
 			}
+
+			yield return null;
 		}
+	}
+
+	public override void Initialize()
+	{
+		// Initialize ammo.
+		weaponAmmo.currentAmmo = WeaponStats.magazineAmount;
+		weaponAmmo.currentCarriedAmmo = WeaponStats.maxCarriedAmmo;
+		weaponAmmo.canReload = false;
+
+		isEnabled = true;
+
+		StartCoroutine(EventHandler());
+	}
+
+	public override void RequestPrimaryAction(bool value)
+	{
+		if (value == true) Debug.Log("Hello shoot");
+		_requestPrimaryAction = value;
+	}
+
+	public override void RequestSecondaryAction(bool value)
+	{
+		_requestSecondaryAction = value;
 	}
 }

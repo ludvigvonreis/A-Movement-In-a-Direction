@@ -37,4 +37,11 @@ public class WeaponStats : ScriptableObject
 	public Projectile projectile;
 	public int projectileCount = 1;
 	public float spreadAngle;
+
+	[Space]
+	[Header("Ammo & Reloading")]
+	public int magazineAmount = 10;
+	public int maxCarriedAmmo = 150;
+	public float reloadDuration = 1.5f;
+	
 }

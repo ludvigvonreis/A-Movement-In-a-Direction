@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private PlayerCamera playerCamera;
 
+	[SerializeField]
+	private PlayerWeaponHandler playerWeaponHandler;
+
     private PlayerInputActions playerInputActions;
 
     void Start()
@@ -32,11 +35,11 @@ public class Player : MonoBehaviour
         var deltaTime = Time.deltaTime;
 
         // Get mouse input and move camera.
-        CameraInput cameraInput = new CameraInput { Look = input.Mouse.ReadValue<Vector2>() };
+        CameraInput cameraInput = new() { Look = input.Mouse.ReadValue<Vector2>() };
         playerCamera.UpdateRotation(cameraInput);
 
-        CharacterInput characterInput = new CharacterInput
-        {
+        CharacterInput characterInput = new()
+		{
             Rotation    = playerCamera.transform.rotation,
             Move        = input.Move.ReadValue<Vector2>(),
             Jump        = input.Jump.WasPressedThisFrame(),
@@ -45,6 +48,16 @@ public class Player : MonoBehaviour
         };
         playerCharacter.UpdateInput(characterInput);
         playerCharacter.UpdateBody(deltaTime);
+
+		PlayerWeaponInput playerWeaponInput = new()
+		{
+			PrimaryAction          = input.Primary.WasPressedThisFrame(),
+			PrimaryActionSustain   = input.Primary.IsPressed(),
+			SecondaryAction        = input.Secondary.WasPressedThisFrame(),
+			SecondaryActionSustain = input.Secondary.IsPressed()
+		};
+
+		playerWeaponHandler.UpdateInput(playerWeaponInput);
     }
 
     void LateUpdate()
