@@ -9,7 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6642311537699093279}
-  - component: {fileID: 926796297397657500}
+  - component: {fileID: 7785071165752220590}
+  - component: {fileID: 1200444116658200660}
+  - component: {fileID: 3515766838195668272}
+  - component: {fileID: 6833130418100727079}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -34,7 +37,7 @@ Transform:
   - {fileID: 8316494742936258074}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &926796297397657500
+--- !u!114 &7785071165752220590
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,7 +46,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1803461246487709442}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a4b2bf11951c40f4a25f79f58e25d5f, type: 3}
+  m_Script: {fileID: 11500000, guid: aa0f8b265f7bb403087a1d0da6c53a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponStats: {fileID: 11400000, guid: e0dfd734589ba4a5da961bc9a04f6f9f, type: 2}
@@ -53,7 +56,46 @@ MonoBehaviour:
     currentCarriedAmmo: 0
     isReloading: 0
   modelObject: {fileID: 2616155959597462433}
+  primaryActionSource: {fileID: 1200444116658200660}
+  secondaryActionSource: {fileID: 6833130418100727079}
+  reloadActionSource: {fileID: 3515766838195668272}
   isEnabled: 0
+--- !u!114 &1200444116658200660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803461246487709442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5deac65bbb2cf4023860f10a72034d3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3515766838195668272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803461246487709442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a28fc8da7267d4307a8fd3489893f3d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6833130418100727079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803461246487709442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 592a73559e7a140f58f52d72808a08cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2616155959597462433
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,7 +141,7 @@ GameObject:
   - component: {fileID: 6541955117619591176}
   - component: {fileID: 1466654623721185778}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -185,7 +227,7 @@ GameObject:
   - component: {fileID: 488130647322480071}
   - component: {fileID: 1166786606413535613}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

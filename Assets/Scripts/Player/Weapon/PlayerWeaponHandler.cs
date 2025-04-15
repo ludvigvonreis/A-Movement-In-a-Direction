@@ -59,6 +59,7 @@ public class PlayerWeaponHandler : MonoBehaviour
 			SwitchWeaponToIndex(newIndex);
 	}
 
+	// TODO: Check for some kind of canSwitch flag before, to not disturb animations, etc.
 	void SwitchWeaponToIndex(int newIndex) {
 		if (newIndex < 0 || newIndex > (weaponBehaviours.Count - 1)) {
 			Debug.LogError("Invalid weapon index");

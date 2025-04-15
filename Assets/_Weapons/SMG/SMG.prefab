@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3989474502044317860}
   - component: {fileID: 6960626967285991798}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 4387922768661169140}
   - component: {fileID: 1352414628828885291}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -246,7 +246,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8702366034463904889}
-  - component: {fileID: 2992517449501743060}
+  - component: {fileID: 6539579725154736101}
+  - component: {fileID: 5221535218559477545}
+  - component: {fileID: 6684076400792550786}
+  - component: {fileID: 4743583153890946923}
   m_Layer: 0
   m_Name: SMG
   m_TagString: Untagged
@@ -271,7 +274,7 @@ Transform:
   - {fileID: 2371034961962061986}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2992517449501743060
+--- !u!114 &6539579725154736101
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -280,7 +283,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6245445128924739161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a4b2bf11951c40f4a25f79f58e25d5f, type: 3}
+  m_Script: {fileID: 11500000, guid: aa0f8b265f7bb403087a1d0da6c53a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponStats: {fileID: 11400000, guid: 3800ee898cbd6c14593b4ce5c0a6a531, type: 2}
@@ -290,7 +293,46 @@ MonoBehaviour:
     currentCarriedAmmo: 0
     isReloading: 0
   modelObject: {fileID: 1585692607311324487}
+  primaryActionSource: {fileID: 5221535218559477545}
+  secondaryActionSource: {fileID: 6684076400792550786}
+  reloadActionSource: {fileID: 4743583153890946923}
   isEnabled: 0
+--- !u!114 &5221535218559477545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6245445128924739161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5deac65bbb2cf4023860f10a72034d3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6684076400792550786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6245445128924739161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 592a73559e7a140f58f52d72808a08cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4743583153890946923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6245445128924739161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a28fc8da7267d4307a8fd3489893f3d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6609294608812518630
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,7 +345,7 @@ GameObject:
   - component: {fileID: 6722377219504239269}
   - component: {fileID: 2886382623354041088}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Grip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

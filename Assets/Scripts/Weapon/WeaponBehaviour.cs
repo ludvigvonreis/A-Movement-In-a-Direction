@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [System.Serializable]
@@ -7,31 +8,89 @@ public struct WeaponAmmo {
 	public bool isReloading;
 }
 
-public abstract class WeaponBehaviour : MonoBehaviour
+public class WeaponBehaviour : MonoBehaviour
 {
-	[SerializeField] protected WeaponStats WeaponStats;
-	[SerializeField] protected Transform projectileFirePoint;
-	[SerializeField] protected WeaponAmmo weaponAmmo;
-	[SerializeField] protected GameObject modelObject;
-	public bool	isEnabled = false;
+	// TODO: Make these getters nd setters.
+	[SerializeField] public WeaponStats WeaponStats;
+	[SerializeField] public Transform projectileFirePoint;
+	[SerializeField] public GameObject modelObject;
 
-	// What the weapon will do when the primary fire action is pressed, 
-	// usually by a player using Mouse1
-	protected abstract void PrimaryAction();
+	// Modular action handlers
+	[SerializeField] private MonoBehaviour primaryActionSource;
+	[SerializeField] private MonoBehaviour secondaryActionSource;
+	[SerializeField] private MonoBehaviour reloadActionSource;
 
-	// What the weapon will do when the secondary fire action is pressed.
-	protected abstract void SecondaryAction();
+	private IWeaponAction primaryAction;
+	private IWeaponAction secondaryAction;
+	private IWeaponAction reloadAction;
 
-	protected abstract void ReloadAction();
+	public bool isEnabled = false;
+	public bool hasBeenInitialized = false;
 
-	// What needs to happen before we can shoot.
-	public abstract void Initialize();
 
-	public abstract void RequestReload(bool value);
+	[SerializeField] public WeaponAmmo weaponAmmo;
 
-	public abstract void RequestPrimaryAction(bool value);
-	public abstract void RequestPrimaryActionSustain(bool value);
+	public void Initialize() {
+		if (hasBeenInitialized) return;
 
-	public abstract void RequestSecondaryAction(bool value);
-	public abstract void RequestSecondaryActionSustain(bool value);
+		primaryAction = primaryActionSource as IWeaponAction;
+		secondaryAction = secondaryActionSource as IWeaponAction;
+		reloadAction = reloadActionSource as IWeaponAction;
+
+		weaponAmmo.currentAmmo = WeaponStats.magazineAmount;
+		weaponAmmo.currentCarriedAmmo = WeaponStats.maxCarriedAmmo;
+		weaponAmmo.isReloading = false;
+
+
+		hasBeenInitialized = true;
+	}
+
+
+	public void RequestReload(bool value)
+	{
+		if (!value) return;
+
+		StartCoroutine(reloadAction.Execute(this));
+	}
+
+	public void RequestPrimaryAction(bool value)
+	{
+		if (!value) return;
+		if (weaponAmmo.currentAmmo <= 0 || weaponAmmo.isReloading)
+			return;
+
+		if (WeaponStats.fireMode is FireMode.Automatic) return;
+
+		StartCoroutine(primaryAction.Execute(this));
+	}
+
+	public void RequestSecondaryAction(bool value)
+	{
+		if (!value) return;
+
+		StartCoroutine(secondaryAction.Execute(this));
+	}
+
+	// Holding fire button
+	public void RequestPrimaryActionSustain(bool value)
+	{
+		if (WeaponStats.fireMode is not FireMode.Automatic) 
+			if (!primaryAction.IsSustained) return;
+
+		if (value)
+			StartCoroutine(primaryAction.StartAction(this));
+		else
+			StartCoroutine(primaryAction.StopAction(this));
+	}
+
+	// Holding secondary button
+	public void RequestSecondaryActionSustain(bool value)
+	{
+		if (!secondaryAction.IsSustained) return;
+
+		if (value)
+			StartCoroutine(secondaryAction.StartAction(this));
+		else
+			StartCoroutine(secondaryAction.StopAction(this));
+	}
 }

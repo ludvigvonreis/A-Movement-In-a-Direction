@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 6676205990178814941}
   - component: {fileID: 3994006708135082904}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,7 +158,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3726106899878841340}
-  - component: {fileID: 8170171122422294547}
+  - component: {fileID: 3528932174166603712}
+  - component: {fileID: 882149665761362475}
+  - component: {fileID: 8180875683256373383}
+  - component: {fileID: 3585355306564538503}
   m_Layer: 0
   m_Name: Rocket Launcher
   m_TagString: Untagged
@@ -183,7 +186,7 @@ Transform:
   - {fileID: 2984626113198934725}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8170171122422294547
+--- !u!114 &3528932174166603712
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -192,7 +195,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7050471077290951300}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a4b2bf11951c40f4a25f79f58e25d5f, type: 3}
+  m_Script: {fileID: 11500000, guid: aa0f8b265f7bb403087a1d0da6c53a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponStats: {fileID: 11400000, guid: 05072dfce9e49c343b15e438da093bed, type: 2}
@@ -202,4 +205,43 @@ MonoBehaviour:
     currentCarriedAmmo: 0
     isReloading: 0
   modelObject: {fileID: 1506093388525257897}
+  primaryActionSource: {fileID: 3585355306564538503}
+  secondaryActionSource: {fileID: 8180875683256373383}
+  reloadActionSource: {fileID: 882149665761362475}
   isEnabled: 0
+--- !u!114 &882149665761362475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7050471077290951300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a28fc8da7267d4307a8fd3489893f3d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8180875683256373383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7050471077290951300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 592a73559e7a140f58f52d72808a08cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3585355306564538503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7050471077290951300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5deac65bbb2cf4023860f10a72034d3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
