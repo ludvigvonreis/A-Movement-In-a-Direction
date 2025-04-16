@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [System.Serializable]
-public struct WeaponAmmo {
+public class WeaponAmmo {
 	public int currentAmmo;
 	public int currentCarriedAmmo;
 	public bool isReloading;
@@ -37,10 +37,11 @@ public class WeaponBehaviour : MonoBehaviour
 		secondaryAction = secondaryActionSource as IWeaponAction;
 		reloadAction = reloadActionSource as IWeaponAction;
 
-		weaponAmmo.currentAmmo = WeaponStats.magazineAmount;
-		weaponAmmo.currentCarriedAmmo = WeaponStats.maxCarriedAmmo;
-		weaponAmmo.isReloading = false;
-
+		weaponAmmo = new() {
+			currentAmmo = WeaponStats.magazineAmount,
+			currentCarriedAmmo = WeaponStats.maxCarriedAmmo,
+			isReloading = false
+		};
 
 		hasBeenInitialized = true;
 	}

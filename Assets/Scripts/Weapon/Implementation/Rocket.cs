@@ -6,9 +6,6 @@ public class Rocket : ProjectileObject
 	// Projectile fields.
 	private Vector3 direction;
 	private Vector3 origin;
-	private Projectile projectileStats;
-	private WeaponStats weaponStats;
-
 
 	private Rigidbody Rigidbody;
 

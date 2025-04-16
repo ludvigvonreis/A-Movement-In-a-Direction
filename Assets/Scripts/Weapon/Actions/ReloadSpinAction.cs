@@ -5,9 +5,6 @@ public class ReloadSpinAction : WeaponActionBase
 {
 	public override bool IsSustained => false;
 
-
-
-	// TODO: This is very buggy and sometime does not reload at all.
 	public override IEnumerator Execute(WeaponBehaviour weapon)
 	{
 		if (weapon.weaponAmmo.isReloading) yield break;
@@ -15,7 +12,12 @@ public class ReloadSpinAction : WeaponActionBase
 		// Magazine or the alike is full, we cannot reload.
 		if (weapon.weaponAmmo.currentAmmo > weapon.WeaponStats.magazineAmount) yield break;
 
+		yield return Reload(weapon);
+	}
 
+
+	IEnumerator Reload(WeaponBehaviour weapon)
+	{
 		// Start delayed weapon reloading.
 		var weaponAmmo = weapon.weaponAmmo;
 

@@ -6,9 +6,6 @@ public class Bullet : ProjectileObject
 	// Projectile fields.
 	private Vector3 direction;
 	private Vector3 origin;
-	private Projectile projectileStats;
-	private WeaponStats weaponStats;
-
 
 	private Rigidbody Rigidbody;
 
@@ -62,10 +59,19 @@ public class Bullet : ProjectileObject
 			Instantiate(projectileStats.projectileHitVFX, contactPoint.point, rotation);
 		}
 
-		// Damage handling.
-		// FIXME: Implement
 		{
-			
+			// TODO: damage falloff + body part damage multiplier.
+			// body part damage is handled there?
+			var damage = weaponStats.damageMultiplier * projectileStats.damage;
+
+			var hitCollider = collision.collider;
+			var damageable = hitCollider.GetComponentInParent<IDamageable>();
+
+			if (damageable != null)
+			{
+				string hitLocation = hitCollider.gameObject.name.ToLower();
+				damageable.TakeDamage(damage, hitLocation);
+			}
 		}
 
 		Destroy(gameObject);

@@ -5,7 +5,12 @@ public enum ObjectMaterial {
 	Flesh,
 }
 
-public abstract class ProjectileObject : MonoBehaviour {
+public abstract class ProjectileObject : MonoBehaviour 
+{
+	public Projectile projectileStats;
+	public WeaponStats weaponStats;
+
+
 	public abstract void Initialize(
 		Vector3 _direction, 
 		Vector3 _origin, 

@@ -23,4 +23,4 @@ MonoBehaviour:
   spreadAngle: 4
   magazineAmount: 10
   maxCarriedAmmo: 150
-  reloadDuration: 0.2
+  reloadDuration: 1

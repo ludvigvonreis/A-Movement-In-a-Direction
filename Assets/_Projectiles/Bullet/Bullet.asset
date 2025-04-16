@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 60
   useGravity: 1
-  damage: 50
+  mass: 1
+  radiusOfEffect: 1
+  damage: 10
   damageFalloff:
     serializedVersion: 2
     m_Curve:
