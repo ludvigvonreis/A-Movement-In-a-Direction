@@ -46,7 +46,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
 	public void Die() {
 		isDead = true;
-		Debug.Log("I am ded, not big suprise");
 		Destroy(gameObject);
 	}
 }

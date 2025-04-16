@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using NaughtyAttributes;
 using UnityEngine;
 
 public struct PlayerWeaponInput
@@ -18,11 +16,13 @@ public struct PlayerWeaponInput
 
 public class PlayerWeaponHandler : MonoBehaviour
 {
+	[SerializeField] private PlayerCamera playerCamera;
+	
+	[Header("Weapons")]
 	[SerializeField] private List<GameObject> weaponObjects = new List<GameObject>();
 	private List<WeaponBehaviour> weaponBehaviours = new List<WeaponBehaviour>();
 
 	[SerializeField] private int currentWeaponIndex = 0;
-
 
 
 	private WeaponBehaviour CurrentWeaponBehaviour => weaponBehaviours[currentWeaponIndex];
@@ -59,12 +59,14 @@ public class PlayerWeaponHandler : MonoBehaviour
 			SwitchWeaponToIndex(newIndex);
 	}
 
-	// TODO: Check for some kind of canSwitch flag before, to not disturb animations, etc.
 	void SwitchWeaponToIndex(int newIndex) {
 		if (newIndex < 0 || newIndex > (weaponBehaviours.Count - 1)) {
 			Debug.LogError("Invalid weapon index");
 			return;
 		}
+
+		// We cannot change weapon as it would disturb some kind of process running.
+		if (CurrentWeaponBehaviour.canUnequip == false) return;
 
 		currentWeaponIndex = newIndex;
 
@@ -81,6 +83,8 @@ public class PlayerWeaponHandler : MonoBehaviour
 
 		weaponObjects[currentWeaponIndex].SetActive(true);
 
-		CurrentWeaponBehaviour.Initialize();
+		// Only initialize when needed.
+		//if (!CurrentWeaponBehaviour.hasBeenInitialized)
+		CurrentWeaponBehaviour.Initialize(new PlayerWeaponContext(playerCamera));
 	}
 }

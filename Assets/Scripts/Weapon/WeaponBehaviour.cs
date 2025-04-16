@@ -1,4 +1,4 @@
-using System.Collections;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 [System.Serializable]
@@ -10,15 +10,24 @@ public class WeaponAmmo {
 
 public class WeaponBehaviour : MonoBehaviour
 {
-	// TODO: Make these getters nd setters.
-	[SerializeField] public WeaponStats WeaponStats;
-	[SerializeField] public Transform projectileFirePoint;
-	[SerializeField] public GameObject modelObject;
+	[SerializeField]
+	private WeaponStats weaponStats;
+	[SerializeField]
+	private Transform projectileFirePoint;
+	[SerializeField]
+	private GameObject modelObject;
+
+	public WeaponStats WeaponStats => weaponStats;
+	public Transform ProjectileFirePoint => projectileFirePoint;
+	public GameObject ModelObject => modelObject;
 
 	// Modular action handlers
-	[SerializeField] private MonoBehaviour primaryActionSource;
-	[SerializeField] private MonoBehaviour secondaryActionSource;
-	[SerializeField] private MonoBehaviour reloadActionSource;
+	[SerializeField] 
+	private MonoBehaviour primaryActionSource;
+	[SerializeField] 
+	private MonoBehaviour secondaryActionSource;
+	[SerializeField] 
+	private MonoBehaviour reloadActionSource;
 
 	private IWeaponAction primaryAction;
 	private IWeaponAction secondaryAction;
@@ -26,11 +35,16 @@ public class WeaponBehaviour : MonoBehaviour
 
 	public bool isEnabled = false;
 	public bool hasBeenInitialized = false;
+	public bool canUnequip = true;
 
+	private WeaponAmmo weaponAmmo;
+	public WeaponAmmo WeaponAmmo => weaponAmmo;
 
-	[SerializeField] public WeaponAmmo weaponAmmo;
+	private IWeaponContext context;
+	public IWeaponContext Context => context;
 
-	public void Initialize() {
+	public void Initialize(IWeaponContext newContext)
+	{
 		if (hasBeenInitialized) return;
 
 		primaryAction = primaryActionSource as IWeaponAction;
@@ -43,9 +57,10 @@ public class WeaponBehaviour : MonoBehaviour
 			isReloading = false
 		};
 
+		context = newContext;
+
 		hasBeenInitialized = true;
 	}
-
 
 	public void RequestReload(bool value)
 	{

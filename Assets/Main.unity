@@ -607,6 +607,39 @@ Transform:
   - {fileID: 491390840}
   m_Father: {fileID: 747094420}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &286386820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 286386821}
+  m_Layer: 0
+  m_Name: Shakeable
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &286386821
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286386820}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2025342396}
+  - {fileID: 606622832}
+  m_Father: {fileID: 846298706}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &379229256
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,7 +1126,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 491390839}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1385,6 +1418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbcf7b7b33b62a4eb9871d5a8ebe2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCamera: {fileID: 846298708}
   weaponObjects:
   - {fileID: 830602714}
   - {fileID: 90101091420998655}
@@ -1399,7 +1433,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 606622830}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1408,7 +1442,7 @@ Transform:
   - {fileID: 4929487911794718690}
   - {fileID: 2507101585935689508}
   - {fileID: 2375673454138521701}
-  m_Father: {fileID: 846298706}
+  m_Father: {fileID: 286386821}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &656535527
 GameObject:
@@ -1753,8 +1787,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2025342396}
-  - {fileID: 606622832}
+  - {fileID: 286386821}
   m_Father: {fileID: 379229258}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &846298708
@@ -1771,6 +1804,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: 0.5
   maxXAngle: 160
+  shakeable: {fileID: 286386821}
+  traumaDecay: 1
+  maxShakeMagnitude: 1
+  noiseFrequency: 25
 --- !u!1 &861190934
 GameObject:
   m_ObjectHideFlags: 0
@@ -3179,7 +3216,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 846298706}
+  m_Father: {fileID: 286386821}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2025342397
 MonoBehaviour:
@@ -3500,6 +3537,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 606622832}
     m_Modifications:
+    - target: {fileID: 601761282048453786, guid: 2fd6a8ba78b7ba44b9ddb09009f7c884, type: 3}
+      propertyPath: weaponStats
+      value: 
+      objectReference: {fileID: 11400000, guid: a97aa6198a372444fa977b5b15ab35a5, type: 2}
     - target: {fileID: 1018136174583145705, guid: 2fd6a8ba78b7ba44b9ddb09009f7c884, type: 3}
       propertyPath: m_Name
       value: Shotgun
@@ -3628,6 +3669,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.251
       objectReference: {fileID: 0}
+    - target: {fileID: 7785071165752220590, guid: 0e8608db94d7ee04898d6f0a3e9fcbe8, type: 3}
+      propertyPath: weaponStats
+      value: 
+      objectReference: {fileID: 11400000, guid: e0dfd734589ba4a5da961bc9a04f6f9f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3742,6 +3787,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6539579725154736101, guid: 77d34cc99be882542956018460a5d751, type: 3}
+      propertyPath: weaponStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 3800ee898cbd6c14593b4ce5c0a6a531, type: 2}
     - target: {fileID: 6960626967285991798, guid: 77d34cc99be882542956018460a5d751, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -3799,6 +3848,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 606622832}
     m_Modifications:
+    - target: {fileID: 3528932174166603712, guid: 34e7387fd6d05334d8fa755688a509b5, type: 3}
+      propertyPath: weaponStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 05072dfce9e49c343b15e438da093bed, type: 2}
     - target: {fileID: 3726106899878841340, guid: 34e7387fd6d05334d8fa755688a509b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.411

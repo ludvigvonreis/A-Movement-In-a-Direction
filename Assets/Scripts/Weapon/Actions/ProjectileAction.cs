@@ -23,28 +23,27 @@ public class ProjectileAction : WeaponActionBase
 				// Spread.
 				var rotation = Quaternion.AngleAxis(
 						Random.Range(0f, weapon.WeaponStats.spreadAngle), Random.onUnitSphere
-					) * weapon.projectileFirePoint.forward;
+					) * weapon.ProjectileFirePoint.forward;
 
 				// Summon projectile
 				var spawnedProjectile = Instantiate
 				(
 					original: projectilePrefab,
-					position: weapon.projectileFirePoint.position,
+					position: weapon.ProjectileFirePoint.position,
 					rotation: Quaternion.Euler(rotation)
 				);
 
 				var projectileObject = spawnedProjectile.GetComponent<ProjectileObject>();
 				projectileObject.Initialize(
 					rotation,
-					weapon.projectileFirePoint.position,
+					weapon.ProjectileFirePoint.position,
 					projectileStats,
 					weapon.WeaponStats
 				);
 			}
 		}
-
 		// Decrease ammo.
-		weapon.weaponAmmo.currentAmmo -= 1;
+		weapon.WeaponAmmo.currentAmmo -= 1;
 
 		yield return new WaitForSeconds(weapon.WeaponStats.Firerate);
 	}
@@ -76,7 +75,7 @@ public class ProjectileAction : WeaponActionBase
 		while (true)
 		{
 			// Prevent firing when no ammo or reloading
-			if (weapon.weaponAmmo.currentAmmo > 0 && !weapon.weaponAmmo.isReloading)
+			if (weapon.WeaponAmmo.currentAmmo > 0 && !weapon.WeaponAmmo.isReloading)
 			{
 				yield return Execute(weapon);
 			}
