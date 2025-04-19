@@ -1,4 +1,4 @@
-public class EmptySecondaryAction : WeaponActionBase
+public class NullSecondaryAction : WeaponActionBase
 {
 	public override bool IsSustained => false;
 }

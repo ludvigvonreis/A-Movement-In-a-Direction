@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -5,6 +6,19 @@ public struct CameraInput
 {
 	public Vector2 Look;
 }
+
+public struct FovAnimationParams
+{
+	public float duration;
+	public Func<float, float> Easing;
+
+	public static FovAnimationParams Default => new FovAnimationParams
+	{
+		duration = 0.05f,
+		Easing = t => t
+	};
+}
+
 
 public class PlayerCamera : MonoBehaviour
 {
@@ -16,9 +30,11 @@ public class PlayerCamera : MonoBehaviour
 	[SerializeField, Range(0, 180)]
 	private float maxXAngle;
 
+	[SerializeField]
+	private Camera mainCamera;
+	private float originalFov;
+
 	[SerializeField] private Transform shakeable;
-
-
 	[Header("Shake Settings")]
 	public float traumaDecay = 1.0f;
 	public float maxShakeMagnitude = 1.0f;
@@ -34,6 +50,7 @@ public class PlayerCamera : MonoBehaviour
 	{
 		transform.position = cameraTarget.position;
 		_eulerAngles = transform.eulerAngles = cameraTarget.eulerAngles;
+		originalFov = mainCamera.fieldOfView;
 	}
 
 	public void UpdateRotation(CameraInput input)
@@ -53,6 +70,7 @@ public class PlayerCamera : MonoBehaviour
 	}
 
 
+	// FIXME: This should be its own thing, not related to camera directly.
 	public void Shake(float intensity)
 	{
 		trauma = Mathf.Clamp01(trauma + intensity);
@@ -81,6 +99,49 @@ public class PlayerCamera : MonoBehaviour
 			Quaternion.Euler(initialRotation + new Vector3(0, 0, z * 5f * shakeAmount))
 		);
 		trauma = Mathf.Clamp01(trauma - Time.deltaTime * traumaDecay);
+	}
+
+	public void ChangeCameraFov(float value, bool animated = false, FovAnimationParams? animParams = null)
+	{
+		if (mainCamera == null) return;
+
+		if (animated)
+			StartCoroutine(FovAnimation(value, animParams ?? FovAnimationParams.Default));
+		else
+			mainCamera.fieldOfView = value;
+	}
+
+	public void ResetCameraFov(bool animated = false, FovAnimationParams? animParams = null)
+	{
+		if (mainCamera == null) return;
+
+		if (animated)
+			StartCoroutine(FovAnimation(originalFov, animParams ?? FovAnimationParams.Default));
+		else
+			mainCamera.fieldOfView = originalFov;
+	}
+
+
+	IEnumerator FovAnimation(float target, FovAnimationParams animParams)
+	{
+		if (mainCamera == null)
+			yield break;
+
+		float duration = Mathf.Max(0.0001f, animParams.duration);
+
+		float startFov = mainCamera.fieldOfView;
+		float elapsed = 0f;
+
+		while (elapsed < duration)
+		{
+			elapsed += Time.deltaTime;
+			float t = Mathf.Clamp01(elapsed / duration);
+			float easedT = animParams.Easing(t);
+			mainCamera.fieldOfView = Mathf.Lerp(startFov, target, easedT);
+			yield return null;
+		}
+
+		mainCamera.fieldOfView = target;
 	}
 
 }

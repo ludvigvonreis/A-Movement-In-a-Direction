@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7785071165752220590}
   - component: {fileID: 1200444116658200660}
   - component: {fileID: 3515766838195668272}
-  - component: {fileID: 6833130418100727079}
+  - component: {fileID: 1839001406287712702}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -35,6 +35,8 @@ Transform:
   m_Children:
   - {fileID: 6843968529750686049}
   - {fileID: 8316494742936258074}
+  - {fileID: 3705533335136459897}
+  - {fileID: 5969155126567073431}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7785071165752220590
@@ -49,17 +51,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa0f8b265f7bb403087a1d0da6c53a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponStats: {fileID: 11400000, guid: e0dfd734589ba4a5da961bc9a04f6f9f, type: 2}
+  weaponStats: {fileID: 0}
   projectileFirePoint: {fileID: 6843968529750686049}
-  weaponAmmo:
-    currentAmmo: 0
-    currentCarriedAmmo: 0
-    isReloading: 0
   modelObject: {fileID: 2616155959597462433}
   primaryActionSource: {fileID: 1200444116658200660}
-  secondaryActionSource: {fileID: 6833130418100727079}
+  secondaryActionSource: {fileID: 1839001406287712702}
   reloadActionSource: {fileID: 3515766838195668272}
   isEnabled: 0
+  hasBeenInitialized: 0
+  canUnequip: 1
 --- !u!114 &1200444116658200660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a28fc8da7267d4307a8fd3489893f3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6833130418100727079
+--- !u!114 &1839001406287712702
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,9 +93,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1803461246487709442}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 592a73559e7a140f58f52d72808a08cc, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a3e6018d8c7a794ea43fe0ba79c789d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aimPointBack: {fileID: 3705533335136459897}
+  aimPointFront: {fileID: 5969155126567073431}
+  weaponDistance: 0.06
 --- !u!1 &2616155959597462433
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,6 +304,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &4944315212890472170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3705533335136459897}
+  m_Layer: 0
+  m_Name: AimpointBack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3705533335136459897
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4944315212890472170}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0708, z: -0.192}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6642311537699093279}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6400227499408450950
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,7 +360,38 @@ Transform:
   m_GameObject: {fileID: 6400227499408450950}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.509}
+  m_LocalPosition: {x: 0, y: 0, z: 0.271}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6642311537699093279}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8461462055735942713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5969155126567073431}
+  m_Layer: 0
+  m_Name: AimpointFront
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5969155126567073431
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8461462055735942713}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.07080002, z: 0.1888}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

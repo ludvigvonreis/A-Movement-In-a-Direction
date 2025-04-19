@@ -6,6 +6,8 @@ public interface IWeaponAction {
 	IEnumerator StartAction(WeaponBehaviour weapon);
 	IEnumerator StopAction(WeaponBehaviour weapon);
 	bool IsSustained { get; }
+
+	void Initialize(WeaponBehaviour weapon);
 }
 
 
@@ -14,5 +16,8 @@ public abstract class WeaponActionBase : MonoBehaviour, IWeaponAction
 	public virtual IEnumerator Execute(WeaponBehaviour weapon) { yield return null; }
 	public virtual IEnumerator StartAction(WeaponBehaviour weapon) { yield return null; }
 	public virtual IEnumerator StopAction(WeaponBehaviour weapon) { yield return null; }
+
+	public virtual void Initialize(WeaponBehaviour weapon) {}
+
 	public abstract bool IsSustained { get; }
 }

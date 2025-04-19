@@ -59,7 +59,20 @@ public class WeaponBehaviour : MonoBehaviour
 
 		context = newContext;
 
+		primaryAction.Initialize(this);
+		secondaryAction.Initialize(this);
+		reloadAction.Initialize(this);
+
 		hasBeenInitialized = true;
+	}
+
+	public void OnEnable()
+	{
+		if (hasBeenInitialized == false) return;
+
+		primaryAction.Initialize(this);
+		secondaryAction.Initialize(this);
+		reloadAction.Initialize(this);
 	}
 
 	public void RequestReload(bool value)
