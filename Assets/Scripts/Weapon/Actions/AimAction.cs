@@ -13,6 +13,7 @@ public class AimAction : WeaponActionBase
 	private float aimFov = 55f;
 
 	private Vector3 origin;
+	private Quaternion originRotation;
 
 	// Its just zero...
 	private Vector3 crosshairMiddle;
@@ -51,6 +52,7 @@ public class AimAction : WeaponActionBase
 	void Awake()
 	{
 		origin = transform.localPosition;
+		originRotation = transform.localRotation;
 	}
 	Coroutine currentMovement;
 
@@ -65,16 +67,14 @@ public class AimAction : WeaponActionBase
 
 	IEnumerator AimTransition(IWeaponContext weaponContext)
 	{
-		float duration = 0.08f;
-		float elapsed = 0f;
-
 		Vector3 start = transform.localPosition;
 		Vector3 target;
+		Quaternion targetRotation = Quaternion.Euler(0, 0, 0);
 
 		var animParams = new FovAnimationParams
 		{
-			duration = 0.07f,
-			Easing = t => -(Mathf.Cos(Mathf.PI * t) - 1) / 2,
+			duration = 0.24f,
+			Easing = Ease,
 		};
 
 		if (isAiming)
@@ -83,40 +83,50 @@ public class AimAction : WeaponActionBase
 			Vector3 rearSight = aimPointBack.localPosition;
 			Vector3 middlePoint = ((frontSight + rearSight) / 2f) - (Vector3.forward * weaponDistance);
 			target = crosshairMiddle - middlePoint;
+
+			weaponContext.ChangeCameraFov(
+				value: aimFov,
+				animated: true,
+				animParams: animParams
+			);
 		}
 		else
 		{
 			target = origin;
+			targetRotation = originRotation;
 
 			// Reset fov before weapon movement.
 			weaponContext.ResetCameraFov(
-				animated: true, 
+				animated: true,
 				animParams: animParams
 			);
 		}
 
+		yield return null;
+		yield return null;
+		yield return null;
 
-		// Move weapon to target.
+		float duration = 0.27f;
+		float elapsed = 0f;
+
 		while (elapsed < duration)
 		{
 			elapsed += Time.deltaTime;
 			float t = Mathf.Clamp01(elapsed / duration);
 
 			transform.localPosition = Vector3.Lerp(start, target, animParams.Easing(t));
+			transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, animParams.Easing(t));
+
 			yield return null;
 		}
 
-		// Change fov after weapon has been moved.
-		if (isAiming)
-		{	
-			weaponContext.ChangeCameraFov(
-				value: aimFov, 
-				animated: true, 
-				animParams: animParams
-			);
-		}
-
 		transform.localPosition = target; // snap to end
+		transform.localRotation = targetRotation;
 		currentMovement = null;
+	}
+
+
+	static float Ease(float x) {
+		return x < 0.5 ? 4 * x * x * x : 1 - Mathf.Pow(-2 * x + 2, 3) / 2;
 	}
 }

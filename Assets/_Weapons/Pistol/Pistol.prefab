@@ -34,9 +34,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6843968529750686049}
-  - {fileID: 8316494742936258074}
   - {fileID: 3705533335136459897}
   - {fileID: 5969155126567073431}
+  - {fileID: 8316494742936258074}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7785071165752220590
@@ -99,6 +99,7 @@ MonoBehaviour:
   aimPointBack: {fileID: 3705533335136459897}
   aimPointFront: {fileID: 5969155126567073431}
   weaponDistance: 0.06
+  aimFov: 55
 --- !u!1 &2616155959597462433
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +161,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.1, z: -0.19}
-  m_LocalScale: {x: 0.09, y: 0.09, z: 0.2}
+  m_LocalScale: {x: 0.05, y: 0.09, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8316494742936258074}
@@ -246,7 +247,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.5}
+  m_LocalScale: {x: 0.06, y: 0.1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8316494742936258074}
