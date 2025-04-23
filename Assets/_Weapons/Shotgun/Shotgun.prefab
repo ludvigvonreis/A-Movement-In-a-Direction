@@ -13,13 +13,14 @@ GameObject:
   - component: {fileID: 2950025466597319653}
   - component: {fileID: 8502523495527751329}
   - component: {fileID: 760030109454294293}
-  m_Layer: 0
+  - component: {fileID: 1094368856183639438}
+  m_Layer: 8
   m_Name: Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4157038070544874493
 Transform:
   m_ObjectHideFlags: 0
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1018136174583145705}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.411, y: -0.33000004, z: 0.646}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -49,17 +50,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa0f8b265f7bb403087a1d0da6c53a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponStats: {fileID: 11400000, guid: a97aa6198a372444fa977b5b15ab35a5, type: 2}
+  weaponStats: {fileID: 11400000, guid: a97aa6198a372444fa977b5b15ab35a5, type: 2}
   projectileFirePoint: {fileID: 2842460342946175014}
-  weaponAmmo:
-    currentAmmo: 0
-    currentCarriedAmmo: 0
-    isReloading: 0
   modelObject: {fileID: 7245621603678944384}
   primaryActionSource: {fileID: 8502523495527751329}
   secondaryActionSource: {fileID: 760030109454294293}
   reloadActionSource: {fileID: 2950025466597319653}
+  continuousActionSources:
+  - {fileID: 1094368856183639438}
   isEnabled: 0
+  hasBeenInitialized: 0
+  canUnequip: 1
 --- !u!114 &2950025466597319653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,6 +97,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 592a73559e7a140f58f52d72808a08cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1094368856183639438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018136174583145705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6514b127553a2634389e417812358013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swayMultiplier: 10
+  maxSway: 2
+  smooth: 8
+  springiness: 4
 --- !u!1 &2334766372037743195
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +124,7 @@ GameObject:
   - component: {fileID: 7838798388683678410}
   - component: {fileID: 6420067544865991832}
   - component: {fileID: 7035010105736457703}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +210,7 @@ GameObject:
   - component: {fileID: 1025054299128474804}
   - component: {fileID: 3789249721129824731}
   - component: {fileID: 5368584946665452024}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +294,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2842460342946175014}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ProjectileFirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -308,7 +325,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2089535606214495745}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

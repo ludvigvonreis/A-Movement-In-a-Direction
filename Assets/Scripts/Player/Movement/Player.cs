@@ -58,6 +58,7 @@ public class Player : MonoBehaviour
 			SecondaryActionSustain = input.Secondary.IsPressed(),
 			Scroll                 = input.Scroll.ReadValue<Vector2>(),
 			Reload                 = input.Reload.WasPressedThisFrame(),
+			Mouse                  = cameraInput.Look,
 		};
 
 		playerWeaponHandler.UpdateInput(playerWeaponInput);

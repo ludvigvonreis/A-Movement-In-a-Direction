@@ -1,4 +1,4 @@
-using UnityEditor.Rendering.LookDev;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -33,6 +33,12 @@ public class WeaponBehaviour : MonoBehaviour
 	private IWeaponAction secondaryAction;
 	private IWeaponAction reloadAction;
 
+	[SerializeField] 
+	private MonoBehaviour[] continuousActionSources;
+
+	private IWeaponAction[] continuousActions;
+
+	[Space]
 	public bool isEnabled = false;
 	public bool hasBeenInitialized = false;
 	public bool canUnequip = true;
@@ -43,6 +49,11 @@ public class WeaponBehaviour : MonoBehaviour
 	private IWeaponContext context;
 	public IWeaponContext Context => context;
 
+	// Mouse delta from player.
+	private Vector2 mouseDelta;
+	[HideInInspector]
+	public Vector2 MouseDelta => mouseDelta;
+
 	public void Initialize(IWeaponContext newContext)
 	{
 		if (hasBeenInitialized) return;
@@ -50,6 +61,10 @@ public class WeaponBehaviour : MonoBehaviour
 		primaryAction = primaryActionSource as IWeaponAction;
 		secondaryAction = secondaryActionSource as IWeaponAction;
 		reloadAction = reloadActionSource as IWeaponAction;
+
+		continuousActions = continuousActionSources
+			.Select(e => e as IWeaponAction)
+			.ToArray();
 
 		weaponAmmo = new() {
 			currentAmmo = WeaponStats.magazineAmount,
@@ -64,6 +79,15 @@ public class WeaponBehaviour : MonoBehaviour
 		reloadAction.Initialize(this);
 
 		hasBeenInitialized = true;
+	}
+
+	void Update()
+	{
+		// Run every continuous action if it exists.
+		foreach (var continuousAction in continuousActions)
+		{
+			StartCoroutine(continuousAction.Execute(this));
+		}
 	}
 
 	public void OnEnable()
@@ -121,5 +145,9 @@ public class WeaponBehaviour : MonoBehaviour
 			StartCoroutine(secondaryAction.StartAction(this));
 		else
 			StartCoroutine(secondaryAction.StopAction(this));
+	}
+
+	public void ProvideMouseDelta(Vector2 _mouseDelta) {
+		mouseDelta = _mouseDelta;
 	}
 }

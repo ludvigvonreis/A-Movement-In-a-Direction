@@ -10,6 +10,7 @@ public struct PlayerWeaponInput
 	public bool SecondaryActionSustain;
 
 	public Vector2 Scroll;
+	public Vector2 Mouse;
 
 	public bool Reload;
 }
@@ -51,6 +52,7 @@ public class PlayerWeaponHandler : MonoBehaviour
 		CurrentWeaponBehaviour.RequestSecondaryAction(playerWeaponInput.SecondaryAction);
 		CurrentWeaponBehaviour.RequestSecondaryActionSustain(playerWeaponInput.SecondaryActionSustain);
 		CurrentWeaponBehaviour.RequestReload(playerWeaponInput.Reload);
+		CurrentWeaponBehaviour.ProvideMouseDelta(playerWeaponInput.Mouse);
 
 		var scrollDelta = Mathf.CeilToInt(Math.Clamp(playerWeaponInput.Scroll.y, -1, 1));
 		int newIndex = (currentWeaponIndex + scrollDelta + weaponBehaviours.Count) % weaponBehaviours.Count;

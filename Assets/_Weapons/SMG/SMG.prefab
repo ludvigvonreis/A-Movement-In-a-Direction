@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1015845721010507980}
   - component: {fileID: 3989474502044317860}
   - component: {fileID: 6960626967285991798}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d78d6cd3137a8824699cde034b4270c0, type: 2}
+  - {fileID: 2100000, guid: 720ea100b5a5ea741a0e79cfb3ab65c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2371034961962061986}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2011913945340046988}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ProjectileFirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 4316078068852088636}
   - component: {fileID: 4387922768661169140}
   - component: {fileID: 1352414628828885291}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d78d6cd3137a8824699cde034b4270c0, type: 2}
+  - {fileID: 2100000, guid: 720ea100b5a5ea741a0e79cfb3ab65c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -250,13 +250,14 @@ GameObject:
   - component: {fileID: 5221535218559477545}
   - component: {fileID: 6684076400792550786}
   - component: {fileID: 4743583153890946923}
-  m_Layer: 0
+  - component: {fileID: 6064802477643734633}
+  m_Layer: 8
   m_Name: SMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8702366034463904889
 Transform:
   m_ObjectHideFlags: 0
@@ -265,7 +266,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6245445128924739161}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.411, y: -0.33000004, z: 0.646}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -286,17 +287,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa0f8b265f7bb403087a1d0da6c53a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponStats: {fileID: 11400000, guid: 3800ee898cbd6c14593b4ce5c0a6a531, type: 2}
+  weaponStats: {fileID: 11400000, guid: 3800ee898cbd6c14593b4ce5c0a6a531, type: 2}
   projectileFirePoint: {fileID: 2011913945340046988}
-  weaponAmmo:
-    currentAmmo: 0
-    currentCarriedAmmo: 0
-    isReloading: 0
   modelObject: {fileID: 1585692607311324487}
   primaryActionSource: {fileID: 5221535218559477545}
   secondaryActionSource: {fileID: 6684076400792550786}
   reloadActionSource: {fileID: 4743583153890946923}
+  continuousActionSources:
+  - {fileID: 6064802477643734633}
   isEnabled: 0
+  hasBeenInitialized: 0
+  canUnequip: 1
 --- !u!114 &5221535218559477545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +334,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a28fc8da7267d4307a8fd3489893f3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6064802477643734633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6245445128924739161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6514b127553a2634389e417812358013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swayMultiplier: 10
+  maxSway: 2
+  smooth: 8
+  springiness: 4
 --- !u!1 &6609294608812518630
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,7 +361,7 @@ GameObject:
   - component: {fileID: 8572339862279945150}
   - component: {fileID: 6722377219504239269}
   - component: {fileID: 2886382623354041088}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +414,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d78d6cd3137a8824699cde034b4270c0, type: 2}
+  - {fileID: 2100000, guid: 720ea100b5a5ea741a0e79cfb3ab65c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

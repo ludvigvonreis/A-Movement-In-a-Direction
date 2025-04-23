@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 7785071165752220590}
   - component: {fileID: 1200444116658200660}
   - component: {fileID: 3515766838195668272}
-  - component: {fileID: 1839001406287712702}
+  - component: {fileID: 2592757346651837420}
+  - component: {fileID: 170724303982072680}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1803461246487709442}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.411, y: -0.33000004, z: 0.646}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -51,12 +52,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa0f8b265f7bb403087a1d0da6c53a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponStats: {fileID: 0}
+  weaponStats: {fileID: 11400000, guid: e0dfd734589ba4a5da961bc9a04f6f9f, type: 2}
   projectileFirePoint: {fileID: 6843968529750686049}
   modelObject: {fileID: 2616155959597462433}
   primaryActionSource: {fileID: 1200444116658200660}
-  secondaryActionSource: {fileID: 1839001406287712702}
+  secondaryActionSource: {fileID: 2592757346651837420}
   reloadActionSource: {fileID: 3515766838195668272}
+  continuousActionSources:
+  - {fileID: 170724303982072680}
   isEnabled: 0
   hasBeenInitialized: 0
   canUnequip: 1
@@ -84,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a28fc8da7267d4307a8fd3489893f3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1839001406287712702
+--- !u!114 &2592757346651837420
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,13 +96,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1803461246487709442}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a3e6018d8c7a794ea43fe0ba79c789d, type: 3}
+  m_Script: {fileID: 11500000, guid: 592a73559e7a140f58f52d72808a08cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimPointBack: {fileID: 3705533335136459897}
-  aimPointFront: {fileID: 5969155126567073431}
-  weaponDistance: 0.06
-  aimFov: 55
+--- !u!114 &170724303982072680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803461246487709442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6514b127553a2634389e417812358013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2616155959597462433
 GameObject:
   m_ObjectHideFlags: 0

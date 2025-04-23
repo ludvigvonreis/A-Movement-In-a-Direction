@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2984626113198934725}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 4542583141257273226}
   - component: {fileID: 6676205990178814941}
   - component: {fileID: 3994006708135082904}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d78d6cd3137a8824699cde034b4270c0, type: 2}
+  - {fileID: 2100000, guid: f1e38594f14520c48bc546f3a41f4f56, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,7 +127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6218982536912767808}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ProjectileFirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -162,13 +162,13 @@ GameObject:
   - component: {fileID: 882149665761362475}
   - component: {fileID: 8180875683256373383}
   - component: {fileID: 3585355306564538503}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rocket Launcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3726106899878841340
 Transform:
   m_ObjectHideFlags: 0
@@ -198,17 +198,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa0f8b265f7bb403087a1d0da6c53a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponStats: {fileID: 11400000, guid: 05072dfce9e49c343b15e438da093bed, type: 2}
+  weaponStats: {fileID: 11400000, guid: 05072dfce9e49c343b15e438da093bed, type: 2}
   projectileFirePoint: {fileID: 6218982536912767808}
-  weaponAmmo:
-    currentAmmo: 0
-    currentCarriedAmmo: 0
-    isReloading: 0
   modelObject: {fileID: 1506093388525257897}
   primaryActionSource: {fileID: 3585355306564538503}
   secondaryActionSource: {fileID: 8180875683256373383}
   reloadActionSource: {fileID: 882149665761362475}
+  continuousActionSources: []
   isEnabled: 0
+  hasBeenInitialized: 0
+  canUnequip: 1
 --- !u!114 &882149665761362475
 MonoBehaviour:
   m_ObjectHideFlags: 0
