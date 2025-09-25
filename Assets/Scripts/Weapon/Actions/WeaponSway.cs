@@ -7,10 +7,6 @@ public class WeaponSway : WeaponActionBase
 	[SerializeField] float maxSway = 0.5f;
 	[SerializeField] float verticalSwayMultiplier = 0.5f;
 
-	private Vector2 currentSway;
-	private Transform parent;
-	private Vector3 origin;
-
 	// Mouse Average delta
 	private Vector2 AverageDelta;
 	private readonly Vector2[] buffer = new Vector2[16];
@@ -22,9 +18,6 @@ public class WeaponSway : WeaponActionBase
 
 	public override void Initialize(WeaponBehaviour weapon)
 	{
-
-		parent = transform;
-		origin = transform.localPosition;
 		base.Initialize(weapon);
 	}
 
@@ -50,14 +43,15 @@ public class WeaponSway : WeaponActionBase
 		// Can unequip is often used for when the weapon is "busy"
 		// Like when performing reloading or other animations
 		// Do not interrupt them with sway.
-		if (weapon.canUnequip == false)
-			DoSway();
+		if (weapon.canUnequip == true)
+			// Add the movement to main movement to allow for multiple sources of movement.
+			weapon.ModelObjectMovement += DoSway();
 
 
 		return base.Execute(weapon);
 	}
 
-	public void DoSway()
+	public Vector3 DoSway()
 	{
 		var mouseDelta = AverageDelta;
 
@@ -66,20 +60,9 @@ public class WeaponSway : WeaponActionBase
 		Vector2 targetSway = mouseDelta * (1 / swayMultiplier);
 		targetSway = Vector2.ClampMagnitude(targetSway, maxSway);
 
-		float decay = 10f;     
-		float dt = Time.deltaTime;
-
-		float alpha = 1f - Mathf.Exp(-decay * dt);
-
-		// Update current sway
-		currentSway = Vector2.Lerp(currentSway, targetSway, alpha);
-
 		// Limit vertical sway component
-		currentSway.y *= verticalSwayMultiplier;
+		targetSway.y *= verticalSwayMultiplier;
 
-		// Apply limit
-		currentSway = Vector2.ClampMagnitude(currentSway, maxSway);
-
-		parent.localPosition = origin + (Vector3)currentSway;
+		return (Vector3)targetSway;
 	}
 }

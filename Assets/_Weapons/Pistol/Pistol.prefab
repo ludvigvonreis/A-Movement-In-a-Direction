@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3515766838195668272}
   - component: {fileID: 2592757346651837420}
   - component: {fileID: 170724303982072680}
+  - component: {fileID: 2433420111590506865}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -35,8 +36,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6843968529750686049}
-  - {fileID: 3705533335136459897}
-  - {fileID: 5969155126567073431}
   - {fileID: 8316494742936258074}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -55,11 +54,13 @@ MonoBehaviour:
   weaponStats: {fileID: 11400000, guid: e0dfd734589ba4a5da961bc9a04f6f9f, type: 2}
   projectileFirePoint: {fileID: 6843968529750686049}
   modelObject: {fileID: 2616155959597462433}
+  modelObjectMovement: {x: 0, y: 0, z: 0}
   primaryActionSource: {fileID: 1200444116658200660}
   secondaryActionSource: {fileID: 2592757346651837420}
   reloadActionSource: {fileID: 3515766838195668272}
   continuousActionSources:
   - {fileID: 170724303982072680}
+  - {fileID: 2433420111590506865}
   isEnabled: 0
   hasBeenInitialized: 0
   canUnequip: 1
@@ -111,6 +112,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6514b127553a2634389e417812358013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swayMultiplier: 500
+  maxSway: 1
+  verticalSwayMultiplier: 0.5
+--- !u!114 &2433420111590506865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803461246487709442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ba76b65af279d3488e9574c64d95901, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2616155959597462433
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +139,7 @@ GameObject:
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -171,7 +187,7 @@ Transform:
   m_GameObject: {fileID: 2632033953239560397}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.1, z: -0.19}
+  m_LocalPosition: {x: 0, y: 0.0019999966, z: -0.0029999912}
   m_LocalScale: {x: 0.05, y: 0.09, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -257,7 +273,7 @@ Transform:
   m_GameObject: {fileID: 2745192914575512560}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.102, z: 0.187}
   m_LocalScale: {x: 0.06, y: 0.1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -316,37 +332,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &4944315212890472170
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3705533335136459897}
-  m_Layer: 0
-  m_Name: AimpointBack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3705533335136459897
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4944315212890472170}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0708, z: -0.192}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6642311537699093279}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6400227499408450950
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,38 +357,7 @@ Transform:
   m_GameObject: {fileID: 6400227499408450950}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.271}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6642311537699093279}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8461462055735942713
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5969155126567073431}
-  m_Layer: 0
-  m_Name: AimpointFront
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5969155126567073431
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8461462055735942713}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.07080002, z: 0.1888}
+  m_LocalPosition: {x: 0, y: 0.099, z: 0.452}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

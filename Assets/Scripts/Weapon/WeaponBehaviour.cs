@@ -1,5 +1,7 @@
+using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 [System.Serializable]
 public class WeaponAmmo {
@@ -16,10 +18,32 @@ public class WeaponBehaviour : MonoBehaviour
 	private Transform projectileFirePoint;
 	[SerializeField]
 	private GameObject modelObject;
+	private Vector3 modelObjectMovement;
 
 	public WeaponStats WeaponStats => weaponStats;
 	public Transform ProjectileFirePoint => projectileFirePoint;
 	public GameObject ModelObject => modelObject;
+	public Vector3 ModelObjectMovement
+	{
+		get => modelObjectMovement;
+		set => modelObjectMovement = value;
+	}
+
+	private WeaponAmmo weaponAmmo;
+	public WeaponAmmo WeaponAmmo => weaponAmmo;
+
+	private IWeaponContext context;
+	public IWeaponContext Context => context;
+
+	// Mouse delta from player.
+	private Vector2 mouseDelta;
+	[HideInInspector]
+	public Vector2 MouseDelta => mouseDelta;
+
+	// Action Events
+	[HideInInspector] public UnityEvent primaryActionEvent;
+	[HideInInspector] public UnityEvent secondaryActionEvent;
+	[HideInInspector] public UnityEvent reloadActionEvent;
 
 	// Modular action handlers
 	[SerializeField] 
@@ -43,17 +67,6 @@ public class WeaponBehaviour : MonoBehaviour
 	public bool hasBeenInitialized = false;
 	public bool canUnequip = true;
 
-	private WeaponAmmo weaponAmmo;
-	public WeaponAmmo WeaponAmmo => weaponAmmo;
-
-	private IWeaponContext context;
-	public IWeaponContext Context => context;
-
-	// Mouse delta from player.
-	private Vector2 mouseDelta;
-	[HideInInspector]
-	public Vector2 MouseDelta => mouseDelta;
-
 	public void Initialize(IWeaponContext newContext)
 	{
 		if (hasBeenInitialized) return;
@@ -71,6 +84,10 @@ public class WeaponBehaviour : MonoBehaviour
 			currentCarriedAmmo = WeaponStats.maxCarriedAmmo,
 			isReloading = false
 		};
+
+		primaryActionEvent ??= new UnityEvent();
+		secondaryActionEvent ??= new UnityEvent();
+		reloadActionEvent ??= new UnityEvent();
 
 		context = newContext;
 
@@ -109,6 +126,8 @@ public class WeaponBehaviour : MonoBehaviour
 	{
 		if (!value) return;
 
+		reloadActionEvent.Invoke();
+
 		StartCoroutine(reloadAction.Execute(this));
 	}
 
@@ -120,12 +139,16 @@ public class WeaponBehaviour : MonoBehaviour
 
 		if (WeaponStats.fireMode is FireMode.Automatic) return;
 
+		primaryActionEvent.Invoke();
+
 		StartCoroutine(primaryAction.Execute(this));
 	}
 
 	public void RequestSecondaryAction(bool value)
 	{
 		if (!value) return;
+
+		secondaryActionEvent.Invoke();
 
 		StartCoroutine(secondaryAction.Execute(this));
 	}
@@ -135,6 +158,8 @@ public class WeaponBehaviour : MonoBehaviour
 	{
 		if (WeaponStats.fireMode is not FireMode.Automatic) 
 			if (!primaryAction.IsSustained) return;
+
+		primaryActionEvent.Invoke();
 
 		if (value)
 			StartCoroutine(primaryAction.StartAction(this));
@@ -146,6 +171,8 @@ public class WeaponBehaviour : MonoBehaviour
 	public void RequestSecondaryActionSustain(bool value)
 	{
 		if (!secondaryAction.IsSustained) return;
+
+		secondaryActionEvent.Invoke();
 
 		if (value)
 			StartCoroutine(secondaryAction.StartAction(this));
