@@ -82,6 +82,10 @@ public class PlayerWeaponHandler : MonoBehaviour
 			weaponObjects[i].SetActive(false);
 		}
 
+		// Works once
+		// var weaponPos = weaponObjects[currentWeaponIndex].transform.localPosition;
+		// transform.localPosition = weaponPos;
+		// weaponObjects[currentWeaponIndex].transform.localPosition = Vector3.zero;
 
 		weaponObjects[currentWeaponIndex].SetActive(true);
 

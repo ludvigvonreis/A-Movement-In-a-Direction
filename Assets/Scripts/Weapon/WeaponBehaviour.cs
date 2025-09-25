@@ -78,6 +78,12 @@ public class WeaponBehaviour : MonoBehaviour
 		secondaryAction.Initialize(this);
 		reloadAction.Initialize(this);
 
+		// Initialize all continuous actions
+		foreach (var continuousAction in continuousActions)
+		{
+			continuousAction.Initialize(this);
+		}
+
 		hasBeenInitialized = true;
 	}
 

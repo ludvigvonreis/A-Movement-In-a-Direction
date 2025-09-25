@@ -9,6 +9,7 @@ public class ProjectileAction : WeaponActionBase
 	private Coroutine currentRoutine;
 	private bool isRunning = false;
 
+	// Add a way to "listen" to these actions  
 	public override IEnumerator Execute(WeaponBehaviour weapon)
 	{
 		// Spawn projectile(s)

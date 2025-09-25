@@ -57,9 +57,9 @@ public class PlayerCamera : MonoBehaviour
 	{
 		_eulerAngles += new Vector3(-input.Look.y, input.Look.x);
 
-		if (_eulerAngles.x > 180f) _eulerAngles.x -= 360f;
-
-		_eulerAngles.x = Mathf.Clamp(_eulerAngles.x, -maxXAngle, maxXAngle);
+		//if (_eulerAngles.x > 180f) _eulerAngles.x -= 360f;
+		var _maxXAngle = maxXAngle * (1 / sensitivity);
+		_eulerAngles.x = Mathf.Clamp(_eulerAngles.x, -_maxXAngle, _maxXAngle);
 
 		transform.eulerAngles = _eulerAngles * sensitivity;
 	}

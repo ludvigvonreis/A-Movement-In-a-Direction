@@ -3,36 +3,83 @@ using UnityEngine;
 
 public class WeaponSway : WeaponActionBase
 {
-	[SerializeField] float swayMultiplier = 0.02f;
-	[SerializeField] float maxSway = 2f;
-	[SerializeField] float smooth = 8f;
-	[SerializeField] float springiness = 4f;
+	[SerializeField, InspectorName("Sway Multiplier (inverse)")] float swayMultiplier = 5f;
+	[SerializeField] float maxSway = 0.5f;
+	[SerializeField] float verticalSwayMultiplier = 0.5f;
 
 	private Vector2 currentSway;
-	private Vector2 swayVelocity;
+	private Transform parent;
+	private Vector3 origin;
 
-	public override bool IsSustained => throw new System.NotImplementedException();
+	// Mouse Average delta
+	private Vector2 AverageDelta;
+	private readonly Vector2[] buffer = new Vector2[16];
+    private int index = 0;
+    private int count = 0;
+    private Vector2 sum = Vector2.zero;
+
+	public override bool IsSustained => false;
+
+	public override void Initialize(WeaponBehaviour weapon)
+	{
+
+		parent = transform;
+		origin = transform.localPosition;
+		base.Initialize(weapon);
+	}
 
 	public override IEnumerator Execute(WeaponBehaviour weapon)
 	{
-		var mouseDelta = weapon.MouseDelta;
+		Vector2 current = weapon.MouseDelta;
 
+        // subtract oldest value
+        sum -= buffer[index];
 
-		// Add input force to sway
-		Vector2 targetSway = mouseDelta * swayMultiplier;
-		targetSway = Vector2.ClampMagnitude(targetSway, maxSway);
+        // add new value
+        buffer[index] = current;
+        sum += current;
 
-		// SmoothDamp behaves like a spring
-		currentSway = Vector2.SmoothDamp(currentSway, targetSway, ref swayVelocity, 1f / springiness);
+        // advance index
+        index = (index + 1) % buffer.Length;
 
-		// Create rotation based on current sway
-		Quaternion rotX = Quaternion.AngleAxis(-currentSway.y, Vector3.right);
-		Quaternion rotY = Quaternion.AngleAxis(currentSway.x, Vector3.up);
-		Quaternion finalRotation = rotX * rotY;
+        // track number of samples (max 16)
+        if (count < buffer.Length) count++;
 
-		// Smoothly rotate
-		transform.localRotation = Quaternion.Slerp(transform.localRotation, finalRotation, smooth * Time.deltaTime);
+        AverageDelta = sum / count;
+
+		// Can unequip is often used for when the weapon is "busy"
+		// Like when performing reloading or other animations
+		// Do not interrupt them with sway.
+		if (weapon.canUnequip == false)
+			DoSway();
+
 
 		return base.Execute(weapon);
+	}
+
+	public void DoSway()
+	{
+		var mouseDelta = AverageDelta;
+
+		// Sway multiplier is inverse, to increase Dev experince.
+		// 500f is more readable than 0.005
+		Vector2 targetSway = mouseDelta * (1 / swayMultiplier);
+		targetSway = Vector2.ClampMagnitude(targetSway, maxSway);
+
+		float decay = 10f;     
+		float dt = Time.deltaTime;
+
+		float alpha = 1f - Mathf.Exp(-decay * dt);
+
+		// Update current sway
+		currentSway = Vector2.Lerp(currentSway, targetSway, alpha);
+
+		// Limit vertical sway component
+		currentSway.y *= verticalSwayMultiplier;
+
+		// Apply limit
+		currentSway = Vector2.ClampMagnitude(currentSway, maxSway);
+
+		parent.localPosition = origin + (Vector3)currentSway;
 	}
 }
