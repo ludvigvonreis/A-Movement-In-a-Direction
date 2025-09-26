@@ -9,13 +9,14 @@ public class ProjectileAction : WeaponActionBase
 	private Coroutine currentRoutine;
 	private bool isRunning = false;
 
-	// Add a way to "listen" to these actions  
 	public override IEnumerator Execute(WeaponBehaviour weapon)
 	{
 		// Spawn projectile(s)
 		{
 			var projectileStats = weapon.WeaponStats.projectile;
 			var projectilePrefab = projectileStats.projectilePrefab;
+
+			weapon.primaryActionEvent.Invoke();
 
 			// Spawn the required amount of projectiles for this weapon cycle.
 			for (int i = 0; i < weapon.WeaponStats.projectileCount; i++)

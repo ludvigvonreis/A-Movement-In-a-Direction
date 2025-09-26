@@ -157,12 +157,12 @@ public class WeaponBehaviour : MonoBehaviour
 	public void RequestPrimaryActionSustain(bool value)
 	{
 		if (WeaponStats.fireMode is not FireMode.Automatic) 
-			if (!primaryAction.IsSustained) return;
+		if (!primaryAction.IsSustained) return;
 
-		primaryActionEvent.Invoke();
 
-		if (value)
+		if (value) {
 			StartCoroutine(primaryAction.StartAction(this));
+		}
 		else
 			StartCoroutine(primaryAction.StopAction(this));
 	}
@@ -172,10 +172,10 @@ public class WeaponBehaviour : MonoBehaviour
 	{
 		if (!secondaryAction.IsSustained) return;
 
-		secondaryActionEvent.Invoke();
 
-		if (value)
+		if (value) {
 			StartCoroutine(secondaryAction.StartAction(this));
+		}
 		else
 			StartCoroutine(secondaryAction.StopAction(this));
 	}

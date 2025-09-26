@@ -162,6 +162,8 @@ GameObject:
   - component: {fileID: 882149665761362475}
   - component: {fileID: 8180875683256373383}
   - component: {fileID: 3585355306564538503}
+  - component: {fileID: 4681786839615293647}
+  - component: {fileID: 6880289670726895274}
   m_Layer: 8
   m_Name: Rocket Launcher
   m_TagString: Untagged
@@ -201,10 +203,21 @@ MonoBehaviour:
   weaponStats: {fileID: 11400000, guid: 05072dfce9e49c343b15e438da093bed, type: 2}
   projectileFirePoint: {fileID: 6218982536912767808}
   modelObject: {fileID: 1506093388525257897}
+  primaryActionEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  secondaryActionEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  reloadActionEvent:
+    m_PersistentCalls:
+      m_Calls: []
   primaryActionSource: {fileID: 3585355306564538503}
   secondaryActionSource: {fileID: 8180875683256373383}
   reloadActionSource: {fileID: 882149665761362475}
-  continuousActionSources: []
+  continuousActionSources:
+  - {fileID: 4681786839615293647}
+  - {fileID: 6880289670726895274}
   isEnabled: 0
   hasBeenInitialized: 0
   canUnequip: 1
@@ -242,5 +255,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5deac65bbb2cf4023860f10a72034d3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4681786839615293647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7050471077290951300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6514b127553a2634389e417812358013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swayMultiplier: 5
+  maxSway: 0.5
+  verticalSwayMultiplier: 0.5
+--- !u!114 &6880289670726895274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7050471077290951300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ba76b65af279d3488e9574c64d95901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

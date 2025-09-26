@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2592757346651837420}
   - component: {fileID: 170724303982072680}
   - component: {fileID: 2433420111590506865}
+  - component: {fileID: 354881597387366862}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -54,13 +55,22 @@ MonoBehaviour:
   weaponStats: {fileID: 11400000, guid: e0dfd734589ba4a5da961bc9a04f6f9f, type: 2}
   projectileFirePoint: {fileID: 6843968529750686049}
   modelObject: {fileID: 2616155959597462433}
-  modelObjectMovement: {x: 0, y: 0, z: 0}
+  primaryActionEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  secondaryActionEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  reloadActionEvent:
+    m_PersistentCalls:
+      m_Calls: []
   primaryActionSource: {fileID: 1200444116658200660}
   secondaryActionSource: {fileID: 2592757346651837420}
   reloadActionSource: {fileID: 3515766838195668272}
   continuousActionSources:
   - {fileID: 170724303982072680}
   - {fileID: 2433420111590506865}
+  - {fileID: 354881597387366862}
   isEnabled: 0
   hasBeenInitialized: 0
   canUnequip: 1
@@ -125,6 +135,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ba76b65af279d3488e9574c64d95901, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &354881597387366862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803461246487709442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca30c8f95b73274d9f142132767d8a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2616155959597462433

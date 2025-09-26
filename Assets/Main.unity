@@ -1757,18 +1757,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6642311537699093279, guid: 0e8608db94d7ee04898d6f0a3e9fcbe8, type: 3}
   m_PrefabInstance: {fileID: 2928731828304709041}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &830602725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 830602714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eca30c8f95b73274d9f142132767d8a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &846298705
 GameObject:
   m_ObjectHideFlags: 0
@@ -3554,6 +3542,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shotgun
       objectReference: {fileID: 0}
+    - target: {fileID: 1094368856183639438, guid: 2fd6a8ba78b7ba44b9ddb09009f7c884, type: 3}
+      propertyPath: maxSway
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4157038070544874493, guid: 2fd6a8ba78b7ba44b9ddb09009f7c884, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.411
@@ -3666,21 +3658,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7785071165752220590, guid: 0e8608db94d7ee04898d6f0a3e9fcbe8, type: 3}
-      propertyPath: continuousActionSources.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7785071165752220590, guid: 0e8608db94d7ee04898d6f0a3e9fcbe8, type: 3}
-      propertyPath: 'continuousActionSources.Array.data[2]'
-      value: 
-      objectReference: {fileID: 830602725}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1803461246487709442, guid: 0e8608db94d7ee04898d6f0a3e9fcbe8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 830602725}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e8608db94d7ee04898d6f0a3e9fcbe8, type: 3}
 --- !u!1001 &3646936886633388843
 PrefabInstance:
@@ -3775,9 +3756,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 606622832}
     m_Modifications:
+    - target: {fileID: 6064802477643734633, guid: 77d34cc99be882542956018460a5d751, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064802477643734633, guid: 77d34cc99be882542956018460a5d751, type: 3}
+      propertyPath: swayMultiplier
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 6245445128924739161, guid: 77d34cc99be882542956018460a5d751, type: 3}
       propertyPath: m_Name
       value: SMG
+      objectReference: {fileID: 0}
+    - target: {fileID: 6245445128924739161, guid: 77d34cc99be882542956018460a5d751, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8702366034463904889, guid: 77d34cc99be882542956018460a5d751, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3871,6 +3864,10 @@ PrefabInstance:
     - target: {fileID: 3726106899878841340, guid: 34e7387fd6d05334d8fa755688a509b5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681786839615293647, guid: 34e7387fd6d05334d8fa755688a509b5, type: 3}
+      propertyPath: swayMultiplier
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 7050471077290951300, guid: 34e7387fd6d05334d8fa755688a509b5, type: 3}
       propertyPath: m_Name

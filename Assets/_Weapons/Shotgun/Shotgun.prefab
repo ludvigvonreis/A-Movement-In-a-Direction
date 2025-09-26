@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 8502523495527751329}
   - component: {fileID: 760030109454294293}
   - component: {fileID: 1094368856183639438}
+  - component: {fileID: 6066255037122353187}
+  - component: {fileID: 6186127722983063300}
   m_Layer: 8
   m_Name: Shotgun
   m_TagString: Untagged
@@ -53,11 +55,22 @@ MonoBehaviour:
   weaponStats: {fileID: 11400000, guid: a97aa6198a372444fa977b5b15ab35a5, type: 2}
   projectileFirePoint: {fileID: 2842460342946175014}
   modelObject: {fileID: 7245621603678944384}
+  primaryActionEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  secondaryActionEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  reloadActionEvent:
+    m_PersistentCalls:
+      m_Calls: []
   primaryActionSource: {fileID: 8502523495527751329}
   secondaryActionSource: {fileID: 760030109454294293}
   reloadActionSource: {fileID: 2950025466597319653}
   continuousActionSources:
   - {fileID: 1094368856183639438}
+  - {fileID: 6066255037122353187}
+  - {fileID: 6186127722983063300}
   isEnabled: 0
   hasBeenInitialized: 0
   canUnequip: 1
@@ -109,10 +122,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6514b127553a2634389e417812358013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swayMultiplier: 10
-  maxSway: 2
-  smooth: 8
-  springiness: 4
+  swayMultiplier: 500
+  maxSway: 1
+  verticalSwayMultiplier: 0.5
+--- !u!114 &6066255037122353187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018136174583145705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ba76b65af279d3488e9574c64d95901, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6186127722983063300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018136174583145705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca30c8f95b73274d9f142132767d8a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2334766372037743195
 GameObject:
   m_ObjectHideFlags: 0

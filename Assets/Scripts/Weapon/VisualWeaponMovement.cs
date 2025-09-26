@@ -23,11 +23,16 @@ public class VisualWeaponMovement : WeaponActionBase
 
 	public override IEnumerator Execute(WeaponBehaviour weapon)
 	{
+		Vector3 limitedMovement = Vector3.ClampMagnitude(
+			weapon.ModelObjectMovement,
+			1 - Vector3.Distance(thisTransform.localPosition, origin)
+		);
+
 		// Smoothing alpha
 		float alpha = 1f - Mathf.Exp(-decay * Time.deltaTime);
 
 		// Move object towards new offset smoothly.
-		var smoothedMovement = Vector3.Lerp(thisTransform.localPosition, origin + weapon.ModelObjectMovement, alpha);
+		var smoothedMovement = Vector3.Lerp(thisTransform.localPosition, origin + limitedMovement, alpha);
 		thisTransform.localPosition = smoothedMovement;
 
 		// Reset movement offset.
