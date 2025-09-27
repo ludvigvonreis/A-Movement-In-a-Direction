@@ -18,6 +18,7 @@ public struct PlayerWeaponInput
 public class PlayerWeaponHandler : MonoBehaviour
 {
 	[SerializeField] private PlayerCamera playerCamera;
+	[SerializeField] private PlayerCharacter playerCharacter;
 	
 	[Header("Weapons")]
 	[SerializeField] private List<GameObject> weaponObjects = new List<GameObject>();
@@ -91,6 +92,6 @@ public class PlayerWeaponHandler : MonoBehaviour
 
 		// Only initialize when needed.
 		//if (!CurrentWeaponBehaviour.hasBeenInitialized)
-		CurrentWeaponBehaviour.Initialize(new PlayerWeaponContext(playerCamera));
+		CurrentWeaponBehaviour.Initialize(new PlayerWeaponContext(playerCamera, playerCharacter));
 	}
 }

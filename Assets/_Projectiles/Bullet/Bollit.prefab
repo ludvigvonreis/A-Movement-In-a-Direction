@@ -150,6 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953cce057f1124433841deb3bbe22f0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileStats: {fileID: 0}
+  weaponStats: {fileID: 0}
 --- !u!96 &-6711802982130121847
 TrailRenderer:
   serializedVersion: 3

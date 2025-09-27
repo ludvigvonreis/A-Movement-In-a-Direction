@@ -1419,6 +1419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 846298708}
+  playerCharacter: {fileID: 747094421}
   weaponObjects:
   - {fileID: 830602714}
   - {fileID: 90101091420998655}
@@ -3657,6 +3658,10 @@ PrefabInstance:
     - target: {fileID: 6642311537699093279, guid: 0e8608db94d7ee04898d6f0a3e9fcbe8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6843968529750686049, guid: 0e8608db94d7ee04898d6f0a3e9fcbe8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.473
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ProjectileAction : WeaponActionBase
 {
+	public float shake = 1;
 	public override bool IsSustained => false;
 
 	// Full auto fire.
@@ -17,6 +18,7 @@ public class ProjectileAction : WeaponActionBase
 			var projectilePrefab = projectileStats.projectilePrefab;
 
 			weapon.primaryActionEvent.Invoke();
+			//weapon.Context.AddCameraShake(shake);
 
 			// Spawn the required amount of projectiles for this weapon cycle.
 			for (int i = 0; i < weapon.WeaponStats.projectileCount; i++)
@@ -42,6 +44,8 @@ public class ProjectileAction : WeaponActionBase
 					projectileStats,
 					weapon.WeaponStats
 				);
+
+				Physics.IgnoreCollision(projectileObject.GetComponent<Collider>(), weapon.Context.GetOwnerCollider());
 			}
 		}
 		// Decrease ammo.
