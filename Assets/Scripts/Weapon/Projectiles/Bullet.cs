@@ -6,6 +6,7 @@ public class Bullet : ProjectileObject
 	// Projectile fields.
 	private Vector3 direction;
 	private Vector3 origin;
+	private float currentDistance = 0f;
 
 	private Rigidbody Rigidbody;
 
@@ -34,7 +35,7 @@ public class Bullet : ProjectileObject
 
 	void Update()
 	{
-		var currentDistance = Vector3.Distance(origin, transform.position);
+		currentDistance = Vector3.Distance(origin, transform.position);
 
 		if (currentDistance > weaponStats.range)
 		{
@@ -61,6 +62,9 @@ public class Bullet : ProjectileObject
 
 		{
 			var damage = weaponStats.damage;
+			var distanceAsPercentage = currentDistance / weaponStats.range;
+			var falloff = weaponStats.damageFalloff.Evaluate(distanceAsPercentage);
+			damage = Mathf.Clamp(damage * falloff, 0.005f, damage);
 
 			var hitCollider = collision.collider;
 			var damageable = hitCollider.GetComponentInParent<IDamageable>();
