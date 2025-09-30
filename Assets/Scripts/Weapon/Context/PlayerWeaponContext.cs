@@ -11,9 +11,9 @@ public class PlayerWeaponContext : IWeaponContext
 		playerCharacter = _playerCharacter;
 	}
 
-	public void AddCameraShake(float intensity)
+	public void AddCameraShake(Vector3 vector)
 	{
-		playerCamera.Shake(intensity);
+		playerCamera.Shake(vector);
 	}
 
 	public void ChangeCameraFov(float value, bool animated = false, FovAnimationParams? animParams = null)

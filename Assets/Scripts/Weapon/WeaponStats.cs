@@ -48,7 +48,13 @@ public class WeaponStats : ScriptableObject
 	public float reloadDuration = 1.5f;
 
 	// How many bullets used per shoot
+	[Space]
 	public int ammoPerFire = 1;
 	[EnableIf("isCharged")]
 	public int chargedAmmoPerFire = 2;
+
+	[Space]
+	[Header("Weapon Specific")]
+	[EnableIf("isCharged")]
+	public float chargeTime;
 }

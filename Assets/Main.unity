@@ -1809,9 +1809,7 @@ MonoBehaviour:
   maxXAngle: 90
   mainCamera: {fileID: 2025342399}
   shakeable: {fileID: 286386821}
-  traumaDecay: 1
-  maxShakeMagnitude: 1
-  noiseFrequency: 25
+  decay: 2
 --- !u!1 &861190934
 GameObject:
   m_ObjectHideFlags: 0
@@ -3737,6 +3735,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7415733210000645865, guid: 9841bb6c188008f45a8625edc5b2de83, type: 3}
+      propertyPath: health
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415733210000645865, guid: 9841bb6c188008f45a8625edc5b2de83, type: 3}
       propertyPath: bodyPartToDamageMultiplier.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -3915,6 +3917,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: M1 Garand
       objectReference: {fileID: 0}
+    - target: {fileID: 5175799352413185811, guid: 6e30a87332283ea458709f601d34438f, type: 3}
+      propertyPath: zoomedCameraFov
+      value: 82
+      objectReference: {fileID: 0}
     - target: {fileID: 6833531217370207052, guid: 6e30a87332283ea458709f601d34438f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.467
@@ -3954,6 +3960,22 @@ PrefabInstance:
     - target: {fileID: 6833531217370207052, guid: 6e30a87332283ea458709f601d34438f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9195707959321704318, guid: 6e30a87332283ea458709f601d34438f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 9195707959321704318, guid: 6e30a87332283ea458709f601d34438f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.4999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 9195707959321704318, guid: 6e30a87332283ea458709f601d34438f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.4999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 9195707959321704318, guid: 6e30a87332283ea458709f601d34438f, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

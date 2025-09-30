@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ProjectileAction : WeaponActionBase
 {
-	public float shake = 1;
 	public override bool IsSustained => false;
 
 	// Full auto fire.
