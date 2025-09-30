@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 public interface IWeaponAction {
+	// Edge = falling or rising edge
 	IEnumerator Execute(WeaponBehaviour weapon);
 	IEnumerator StartAction(WeaponBehaviour weapon);
 	IEnumerator StopAction(WeaponBehaviour weapon);

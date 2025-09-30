@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Shotgun
   description: 
   range: 45
-  damageMultiplier: 1.5
+  damage: 9
   RPM: 80
   fireMode: 0
   projectile: {fileID: 11400000, guid: 07bada66b76664c5b8e0c2e25b4cc227, type: 2}

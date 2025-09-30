@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Launcher
   description: 
   range: 100
-  damageMultiplier: 1
+  damage: 120
   RPM: 1000
   fireMode: 0
   projectile: {fileID: 11400000, guid: d58c8ec8e9887be4c9d2ca220c7965c1, type: 2}

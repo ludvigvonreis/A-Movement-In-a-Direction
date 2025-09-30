@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Pistol
   description: 
   range: 100
-  damageMultiplier: 1.7
+  damage: 10
   RPM: 120
   fireMode: 0
   projectile: {fileID: 11400000, guid: 07bada66b76664c5b8e0c2e25b4cc227, type: 2}

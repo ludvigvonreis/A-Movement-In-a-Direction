@@ -137,9 +137,7 @@ public class WeaponBehaviour : MonoBehaviour
 		if (weaponAmmo.currentAmmo <= 0 || weaponAmmo.isReloading)
 			return;
 
-		if (WeaponStats.fireMode is FireMode.Automatic) return;
-
-		primaryActionEvent.Invoke();
+		if (WeaponStats.fireMode is FireMode.Automatic || weaponStats.fireMode is FireMode.Charged) return;
 
 		StartCoroutine(primaryAction.Execute(this));
 	}
@@ -156,7 +154,8 @@ public class WeaponBehaviour : MonoBehaviour
 	// Holding fire button
 	public void RequestPrimaryActionSustain(bool value)
 	{
-		if (WeaponStats.fireMode is not FireMode.Automatic) 
+		if (weaponStats.fireMode is FireMode.Single) return;
+
 		if (!primaryAction.IsSustained) return;
 
 

@@ -21,6 +21,11 @@ public class PlayerWeaponContext : IWeaponContext
 		playerCamera.ChangeCameraFov(value, animated, animParams);
 	}
 
+	public float GetCameraFov()
+	{
+		return playerCamera.OriginalFov;
+	}
+
 	public Collider GetOwnerCollider()
 	{
 		return playerCharacter.GetComponent<Collider>();

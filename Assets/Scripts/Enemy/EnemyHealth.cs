@@ -35,9 +35,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 		}
 
 		health -= amount;
+		Debug.LogFormat("OW, you hit me for: {0}", amount);
 
 		// Set health to 0 if its lower than 0.
-		if (health <= 0) {	
+		if (health <= 0)
+		{
 			health = 0;
 
 			Die();

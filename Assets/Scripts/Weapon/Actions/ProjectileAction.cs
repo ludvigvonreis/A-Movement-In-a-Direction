@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProjectileAction : WeaponActionBase
@@ -12,13 +13,28 @@ public class ProjectileAction : WeaponActionBase
 
 	public override IEnumerator Execute(WeaponBehaviour weapon)
 	{
+		yield return SpawnProjectile(weapon);
+	}
+
+	protected virtual float ModifyDamage(float baseDamage)
+	{
+		return baseDamage;
+	}
+
+	protected virtual int GetAmmoUsage()
+	{
+		return 1;
+	}
+
+	protected IEnumerator SpawnProjectile(WeaponBehaviour weapon)
+	{
 		// Spawn projectile(s)
 		{
 			var projectileStats = weapon.WeaponStats.projectile;
+			var weaponStats = Instantiate(weapon.WeaponStats);
 			var projectilePrefab = projectileStats.projectilePrefab;
 
 			weapon.primaryActionEvent.Invoke();
-			//weapon.Context.AddCameraShake(shake);
 
 			// Spawn the required amount of projectiles for this weapon cycle.
 			for (int i = 0; i < weapon.WeaponStats.projectileCount; i++)
@@ -37,19 +53,21 @@ public class ProjectileAction : WeaponActionBase
 					rotation: Quaternion.Euler(rotation)
 				);
 
+				weaponStats.damage = ModifyDamage(weaponStats.damage);
+
 				var projectileObject = spawnedProjectile.GetComponent<ProjectileObject>();
 				projectileObject.Initialize(
 					rotation,
 					weapon.ProjectileFirePoint.position,
 					projectileStats,
-					weapon.WeaponStats
+					weaponStats
 				);
 
 				Physics.IgnoreCollision(projectileObject.GetComponent<Collider>(), weapon.Context.GetOwnerCollider());
 			}
 		}
 		// Decrease ammo.
-		weapon.WeaponAmmo.currentAmmo -= 1;
+		weapon.WeaponAmmo.currentAmmo -= GetAmmoUsage();
 
 		yield return new WaitForSeconds(weapon.WeaponStats.Firerate);
 	}

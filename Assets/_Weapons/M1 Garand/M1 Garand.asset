@@ -9,25 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdc76da7bfc0345eabbe4b2b00b7139b, type: 3}
-  m_Name: Bullet
+  m_Script: {fileID: 11500000, guid: 5abe18d24111448ae991de771462f7da, type: 3}
+  m_Name: M1 Garand
   m_EditorClassIdentifier: 
-  speed: 200
-  useGravity: 1
-  mass: 1
-  radiusOfEffect: 1
+  name: M1 Garand
+  description: 
+  range: 100
   damageFalloff:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -0.3301858
-      outSlope: -0.3301858
+      inSlope: -2.1369116
+      outSlope: -2.1369116
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.43028083
+      outWeight: 0.059664454
     - serializedVersion: 3
       time: 1
       value: 0
@@ -40,5 +39,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  projectilePrefab: {fileID: 252535996635401246, guid: 45e89b4a69f7e4a79a48ad62d0cfe4c1, type: 3}
-  projectileHitVFX: {fileID: 6169563663477389123, guid: ff4ecbc0997eb04408cead3d5046a53a, type: 3}
+  damage: 36
+  chargedDamageMultiplier: 1.5
+  RPM: 360
+  fireMode: 2
+  projectile: {fileID: 11400000, guid: 07bada66b76664c5b8e0c2e25b4cc227, type: 2}
+  projectileCount: 1
+  spreadAngle: 1.4
+  magazineAmount: 14
+  maxCarriedAmmo: 140
+  reloadDuration: 1.5
+  ammoPerFire: 1
+  chargedAmmoPerFire: 2

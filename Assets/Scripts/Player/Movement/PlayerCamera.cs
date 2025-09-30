@@ -34,6 +34,8 @@ public class PlayerCamera : MonoBehaviour
 	private Camera mainCamera;
 	private float originalFov;
 
+	public float OriginalFov => originalFov;
+
 	[SerializeField] private Transform shakeable;
 	[Header("Shake Settings")]
 	public float traumaDecay = 1.0f;
@@ -113,6 +115,7 @@ public class PlayerCamera : MonoBehaviour
 
 	public void ResetCameraFov(bool animated = false, FovAnimationParams? animParams = null)
 	{
+
 		if (mainCamera == null) return;
 
 		if (animated)

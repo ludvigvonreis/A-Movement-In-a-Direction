@@ -15,7 +15,7 @@ MonoBehaviour:
   name: SMG
   description: 
   range: 180
-  damageMultiplier: 0.7
+  damage: 7
   RPM: 850
   fireMode: 1
   projectile: {fileID: 11400000, guid: 07bada66b76664c5b8e0c2e25b4cc227, type: 2}

@@ -4,26 +4,30 @@ using NaughtyAttributes;
 public enum FireMode {
 	Single,
 	Automatic,
-	Burst,
+	Charged,
 }
 
 [CreateAssetMenu(fileName = "New WeaponStats", menuName = "Weapon/Weapon Stats")]
 public class WeaponStats : ScriptableObject
 {
-
 	public new string name;
 	public string description;
 
 	[Space, Header("Damage & Range")]
 	// Range in unity units.
 	public float range = 100f;
-	public float damageMultiplier = 1f;
+	public AnimationCurve damageFalloff;
+
+	public float damage = 1f;
+	[EnableIf("isCharged")]
+	public float chargedDamageMultiplier = 0f;
 
 	[Header("Fire Rate")]
 	[Tooltip("Rounds per minute")]
 	[SerializeField]
 	private float RPM = 16.6666f;
 	public FireMode fireMode;
+	private bool isCharged => fireMode is FireMode.Charged;
 
 	// Internal firerate.
 	// Delay between shots in seconds.
@@ -33,7 +37,6 @@ public class WeaponStats : ScriptableObject
 
 	[Space]
 	[Header("Projectiles")]
-	// Projectile contains damage, falloff, splash and so forth.
 	public Projectile projectile;
 	public int projectileCount = 1;
 	public float spreadAngle;
@@ -43,5 +46,9 @@ public class WeaponStats : ScriptableObject
 	public int magazineAmount = 10;
 	public int maxCarriedAmmo = 150;
 	public float reloadDuration = 1.5f;
-	
+
+	// How many bullets used per shoot
+	public int ammoPerFire = 1;
+	[EnableIf("isCharged")]
+	public int chargedAmmoPerFire = 2;
 }

@@ -60,9 +60,7 @@ public class Bullet : ProjectileObject
 		}
 
 		{
-			// TODO: damage falloff + body part damage multiplier.
-			// body part damage is handled there?
-			var damage = weaponStats.damageMultiplier * projectileStats.damage;
+			var damage = weaponStats.damage;
 
 			var hitCollider = collision.collider;
 			var damageable = hitCollider.GetComponentInParent<IDamageable>();
