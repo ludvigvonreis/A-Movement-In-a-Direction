@@ -1,23 +1,29 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProjectileAction : WeaponActionBase
 {
-	public override bool IsSustained => false;
+	public override bool IsSustained => true;
 
 	// Full auto fire.
 	private Coroutine currentRoutine;
 	private bool isRunning = false;
+	protected bool canShoot = true;
 
 	public override IEnumerator Execute(WeaponBehaviour weapon)
 	{
-		yield return SpawnProjectile(weapon);
+		if (canShoot == false) yield break;
+
+		SpawnProjectile(weapon);
+
+		canShoot = false;
+		yield return new WaitForSeconds(weapon.WeaponStats.Firerate);
+		canShoot = true;
 	}
 
-	protected virtual float ModifyDamage(float baseDamage)
+	protected virtual void ModifyWeaponStats(ref WeaponStats weaponStats)
 	{
-		return baseDamage;
+		return;
 	}
 
 	protected virtual int GetAmmoUsage()
@@ -25,7 +31,7 @@ public class ProjectileAction : WeaponActionBase
 		return 1;
 	}
 
-	protected IEnumerator SpawnProjectile(WeaponBehaviour weapon)
+	protected void SpawnProjectile(WeaponBehaviour weapon)
 	{
 		// Spawn projectile(s)
 		{
@@ -52,7 +58,8 @@ public class ProjectileAction : WeaponActionBase
 					rotation: Quaternion.Euler(rotation)
 				);
 
-				weaponStats.damage = ModifyDamage(weaponStats.damage);
+				// Modifies in place.
+				ModifyWeaponStats(ref weaponStats);
 
 				var projectileObject = spawnedProjectile.GetComponent<ProjectileObject>();
 				projectileObject.Initialize(
@@ -67,8 +74,6 @@ public class ProjectileAction : WeaponActionBase
 		}
 		// Decrease ammo.
 		weapon.WeaponAmmo.currentAmmo -= GetAmmoUsage();
-
-		yield return new WaitForSeconds(weapon.WeaponStats.Firerate);
 	}
 
 

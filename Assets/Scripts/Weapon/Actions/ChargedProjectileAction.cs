@@ -17,7 +17,7 @@ public class ChargedProjectileAction : ProjectileAction
 
 	public override bool IsSustained => true;
 
-	[SerializeField] private bool canShoot = true;
+	protected new bool canShoot = true;
 
 	public override void Initialize(WeaponBehaviour weapon)
 	{
@@ -30,9 +30,11 @@ public class ChargedProjectileAction : ProjectileAction
 		base.Initialize(weapon);
 	}
 
-	protected override float ModifyDamage(float baseDamage)
+	protected override void ModifyWeaponStats(ref WeaponStats  weaponStats)
 	{
-		return Mathf.Abs(chargeTime - timer) > epsilon ? baseDamage * chargedDamageMultiplier : baseDamage;
+		var baseDamage = weaponStats.damage;
+		// Increase damage by chargedDamageMultiplier when fully charged.
+		weaponStats.damage = Mathf.Abs(chargeTime - timer) > epsilon ? baseDamage * chargedDamageMultiplier : baseDamage;
 	}
 
 	protected override int GetAmmoUsage()
@@ -68,9 +70,7 @@ public class ChargedProjectileAction : ProjectileAction
 
 			if (weapon.WeaponAmmo.currentAmmo > 0 && !weapon.WeaponAmmo.isReloading)
 			{
-				weapon.Context.AddCameraShake(new Vector3(-20, -20, 1) + (Random.insideUnitSphere * (timer / chargeTime) * 3.5f));
-
-				StartCoroutine(SpawnProjectile(weapon));
+				SpawnProjectile(weapon);
 			}
 
 			timer = 0f;

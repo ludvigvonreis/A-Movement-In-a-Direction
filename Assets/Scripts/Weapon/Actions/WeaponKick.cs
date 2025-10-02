@@ -15,5 +15,7 @@ public class WeaponKick : WeaponActionBase
 	public void Kick(WeaponBehaviour weapon)
 	{
 		weapon.ModelObjectMovement -= new Vector3(0, 0, 1);
+
+		weapon.Context.AddCameraShake(new Vector3(-20, -20, 1) + (Random.insideUnitSphere * 3.5f));
 	}
 }
