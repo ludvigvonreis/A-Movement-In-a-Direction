@@ -56,5 +56,7 @@ public class ReloadSpinAction : WeaponActionBase
 		// End reloading process
 		weaponAmmo.isReloading = false;
 		weapon.canUnequip = true;
+
+		weapon.WeaponAmmo = weapon.WeaponAmmo;
 	}
 }

@@ -41,14 +41,14 @@ MonoBehaviour:
     m_RotationOrder: 4
   damage: 56
   chargedDamageMultiplier: 0
-  RPM: 360
+  RPM: 460
   fireMode: 0
   projectile: {fileID: 11400000, guid: 07bada66b76664c5b8e0c2e25b4cc227, type: 2}
   projectileCount: 1
   spreadAngle: 6
   magazineAmount: 6
   maxCarriedAmmo: 42
-  reloadDuration: 5
+  reloadDuration: 3
   ammoPerFire: 1
   chargedAmmoPerFire: 2
   chargeTime: 0

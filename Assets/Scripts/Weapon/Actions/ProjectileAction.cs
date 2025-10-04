@@ -74,6 +74,7 @@ public class ProjectileAction : WeaponActionBase
 		}
 		// Decrease ammo.
 		weapon.WeaponAmmo.currentAmmo -= GetAmmoUsage();
+		weapon.WeaponAmmo = weapon.WeaponAmmo;
 	}
 
 

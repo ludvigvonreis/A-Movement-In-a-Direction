@@ -15,8 +15,15 @@ MonoBehaviour:
   name: Pistol
   description: 
   range: 100
+  damageFalloff:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   damage: 10
-  RPM: 120
+  chargedDamageMultiplier: 0
+  RPM: 550
   fireMode: 0
   projectile: {fileID: 11400000, guid: 07bada66b76664c5b8e0c2e25b4cc227, type: 2}
   projectileCount: 1
@@ -24,3 +31,6 @@ MonoBehaviour:
   magazineAmount: 10
   maxCarriedAmmo: 150
   reloadDuration: 1
+  ammoPerFire: 1
+  chargedAmmoPerFire: 2
+  chargeTime: 0

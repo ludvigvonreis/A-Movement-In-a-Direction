@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -30,7 +29,15 @@ public class WeaponBehaviour : MonoBehaviour
 	}
 
 	private WeaponAmmo weaponAmmo;
-	public WeaponAmmo WeaponAmmo => weaponAmmo;
+	public WeaponAmmo WeaponAmmo
+	{
+		get => weaponAmmo;
+		set
+		{
+			OnAmmoUpdate(value);
+			weaponAmmo = value;
+		}
+	}
 
 	private IWeaponContext context;
 	public IWeaponContext Context => context;
@@ -45,19 +52,21 @@ public class WeaponBehaviour : MonoBehaviour
 	[HideInInspector] public UnityEvent secondaryActionEvent;
 	[HideInInspector] public UnityEvent reloadActionEvent;
 
+	// Outgoing messages, usually. Goes to player.
+	public MessageBus ownerMessageBus;
+	// Internal messages.
+	public MessageBus weaponMessageBus;
+
 	// Modular action handlers
-	[SerializeField] 
-	private MonoBehaviour primaryActionSource;
-	[SerializeField] 
-	private MonoBehaviour secondaryActionSource;
-	[SerializeField] 
-	private MonoBehaviour reloadActionSource;
+	[SerializeField] private MonoBehaviour primaryActionSource;
+	[SerializeField] private MonoBehaviour secondaryActionSource;
+	[SerializeField] private MonoBehaviour reloadActionSource;
 
 	private IWeaponAction primaryAction;
 	private IWeaponAction secondaryAction;
 	private IWeaponAction reloadAction;
 
-	[SerializeField] 
+	[SerializeField]
 	private MonoBehaviour[] continuousActionSources;
 
 	private IWeaponAction[] continuousActions;
@@ -79,7 +88,8 @@ public class WeaponBehaviour : MonoBehaviour
 			.Select(e => e as IWeaponAction)
 			.ToArray();
 
-		weaponAmmo = new() {
+		weaponAmmo = new()
+		{
 			currentAmmo = WeaponStats.magazineAmount,
 			currentCarriedAmmo = WeaponStats.maxCarriedAmmo,
 			isReloading = false
@@ -109,17 +119,28 @@ public class WeaponBehaviour : MonoBehaviour
 		// Run every continuous action if it exists.
 		foreach (var continuousAction in continuousActions)
 		{
-			StartCoroutine(continuousAction.Execute(this));
+			continuousAction.Execute(this);
 		}
 	}
 
 	public void OnEnable()
 	{
+		// Will run even though this weapon has been initialized.
+		OnAmmoUpdate(weaponAmmo);
+
 		if (hasBeenInitialized == false) return;
 
 		primaryAction.Initialize(this);
 		secondaryAction.Initialize(this);
 		reloadAction.Initialize(this);
+
+	}
+
+	public void OnDisable()
+	{
+		//playerMessageBus.Unsubscribe<OnUpdateAmmo>();
+
+		ownerMessageBus = null;
 	}
 
 	public void RequestReload(bool value)
@@ -159,7 +180,8 @@ public class WeaponBehaviour : MonoBehaviour
 		if (!primaryAction.IsSustained) return;
 
 
-		if (value) {
+		if (value)
+		{
 			StartCoroutine(primaryAction.StartAction(this));
 		}
 		else
@@ -172,14 +194,22 @@ public class WeaponBehaviour : MonoBehaviour
 		if (!secondaryAction.IsSustained) return;
 
 
-		if (value) {
+		if (value)
+		{
 			StartCoroutine(secondaryAction.StartAction(this));
 		}
 		else
 			StartCoroutine(secondaryAction.StopAction(this));
 	}
 
-	public void ProvideMouseDelta(Vector2 _mouseDelta) {
+	public void ProvideMouseDelta(Vector2 _mouseDelta)
+	{
 		mouseDelta = _mouseDelta;
+	}
+
+	void OnAmmoUpdate(WeaponAmmo weaponAmmo)
+	{
+		if (ownerMessageBus == null) return;
+		ownerMessageBus.Publish(new OnUpdateAmmo { CurrentAmmo = weaponAmmo.currentAmmo, AmmoReserves = weaponAmmo.currentCarriedAmmo});
 	}
 }

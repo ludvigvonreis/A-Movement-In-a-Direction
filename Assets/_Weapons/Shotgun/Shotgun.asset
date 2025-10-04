@@ -15,8 +15,15 @@ MonoBehaviour:
   name: Shotgun
   description: 
   range: 45
+  damageFalloff:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   damage: 9
-  RPM: 80
+  chargedDamageMultiplier: 0
+  RPM: 220
   fireMode: 0
   projectile: {fileID: 11400000, guid: 07bada66b76664c5b8e0c2e25b4cc227, type: 2}
   projectileCount: 6
@@ -24,3 +31,6 @@ MonoBehaviour:
   magazineAmount: 6
   maxCarriedAmmo: 30
   reloadDuration: 0.7
+  ammoPerFire: 1
+  chargedAmmoPerFire: 2
+  chargeTime: 0

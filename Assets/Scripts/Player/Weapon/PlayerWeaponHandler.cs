@@ -19,6 +19,8 @@ public class PlayerWeaponHandler : MonoBehaviour
 {
 	[SerializeField] private PlayerCamera playerCamera;
 	[SerializeField] private PlayerCharacter playerCharacter;
+
+	private MessageBus playerMessageBus;
 	
 	[Header("Weapons")]
 	[SerializeField] private List<GameObject> weaponObjects = new List<GameObject>();
@@ -46,6 +48,11 @@ public class PlayerWeaponHandler : MonoBehaviour
 			SwitchWeaponToIndex(0);
 	}
 
+	public void Initialize(MessageBus _playerMessageBus)
+	{
+		playerMessageBus = _playerMessageBus;
+	}
+
 	public void UpdateInput(PlayerWeaponInput playerWeaponInput)
 	{
 		CurrentWeaponBehaviour.RequestPrimaryAction(playerWeaponInput.PrimaryAction);
@@ -62,8 +69,10 @@ public class PlayerWeaponHandler : MonoBehaviour
 			SwitchWeaponToIndex(newIndex);
 	}
 
-	void SwitchWeaponToIndex(int newIndex) {
-		if (newIndex < 0 || newIndex > (weaponBehaviours.Count - 1)) {
+	void SwitchWeaponToIndex(int newIndex)
+	{
+		if (newIndex < 0 || newIndex > (weaponBehaviours.Count - 1))
+		{
 			Debug.LogError("Invalid weapon index");
 			return;
 		}
@@ -75,7 +84,7 @@ public class PlayerWeaponHandler : MonoBehaviour
 
 		// Equipping game object.
 		for (int i = 0; i < weaponBehaviours.Count; i++)
-		{	
+		{
 			// Only perform these actions on this weapon.
 			if (i == currentWeaponIndex) continue;
 
@@ -83,15 +92,11 @@ public class PlayerWeaponHandler : MonoBehaviour
 			weaponObjects[i].SetActive(false);
 		}
 
-		// Works once
-		// var weaponPos = weaponObjects[currentWeaponIndex].transform.localPosition;
-		// transform.localPosition = weaponPos;
-		// weaponObjects[currentWeaponIndex].transform.localPosition = Vector3.zero;
+		// Only initialize when needed.
+		CurrentWeaponBehaviour.ownerMessageBus = playerMessageBus;
+		CurrentWeaponBehaviour.Initialize(new PlayerWeaponContext(playerCamera, playerCharacter));
+		CurrentWeaponBehaviour.isEnabled = true;
 
 		weaponObjects[currentWeaponIndex].SetActive(true);
-
-		// Only initialize when needed.
-		//if (!CurrentWeaponBehaviour.hasBeenInitialized)
-		CurrentWeaponBehaviour.Initialize(new PlayerWeaponContext(playerCamera, playerCharacter));
 	}
 }

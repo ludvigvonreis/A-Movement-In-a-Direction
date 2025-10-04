@@ -403,7 +403,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 205515d2e9245284a9951b8d43892146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 300
+  isDead: 0
+  bodyPartToDamageMultiplier:
+  - name: head
+    value: 2
+  - name: leg
+    value: 0.7
+  - name: arm
+    value: 0.75
 --- !u!1001 &8793319771876669878
 PrefabInstance:
   m_ObjectHideFlags: 0

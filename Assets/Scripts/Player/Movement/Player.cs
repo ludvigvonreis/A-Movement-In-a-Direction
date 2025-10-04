@@ -9,19 +9,29 @@ public class Player : MonoBehaviour
     private PlayerCamera playerCamera;
 
 	[SerializeField]
+	private PlayerUI playerUI;
+
+	[SerializeField]
 	private PlayerWeaponHandler playerWeaponHandler;
 
     private PlayerInputActions playerInputActions;
 
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
+	private MessageBus messageBus;
 
-        playerInputActions = new PlayerInputActions();
-        playerInputActions.Enable();
+	void Start()
+	{
+		Cursor.lockState = CursorLockMode.Locked;
 
-        playerCharacter.Initialize();
-        playerCamera.Initialize(playerCharacter.GetCameraTarget());
+		playerInputActions = new PlayerInputActions();
+		playerInputActions.Enable();
+
+		playerCharacter.Initialize();
+		playerCamera.Initialize(playerCharacter.GetCameraTarget());
+
+
+		messageBus = new();
+		playerWeaponHandler.Initialize(messageBus);
+		playerUI.Initialize(messageBus);
     }
 
     void OnDestroy()
