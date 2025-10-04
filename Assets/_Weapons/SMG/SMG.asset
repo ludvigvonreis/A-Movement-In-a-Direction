@@ -15,7 +15,32 @@ MonoBehaviour:
   name: SMG
   description: 
   range: 180
+  damageFalloff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -1.0522497
+      outSlope: -1.0522497
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.06724137
+    - serializedVersion: 3
+      time: 1
+      value: 0.2
+      inSlope: -0.030971885
+      outSlope: -0.030971885
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.091379404
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   damage: 7
+  chargedDamageMultiplier: 0
   RPM: 850
   fireMode: 1
   projectile: {fileID: 11400000, guid: 07bada66b76664c5b8e0c2e25b4cc227, type: 2}
@@ -24,3 +49,6 @@ MonoBehaviour:
   magazineAmount: 30
   maxCarriedAmmo: 210
   reloadDuration: 0.5
+  ammoPerFire: 1
+  chargedAmmoPerFire: 2
+  chargeTime: 0
