@@ -1,7 +1,6 @@
 using System;
 using KinematicCharacterController;
 using UnityEngine;
-using UnityEngine.UI;
 
 public enum CrouchInput
 {
@@ -14,8 +13,10 @@ public enum Stance
 	Stand,
 	Crouch,
 	Slide,
+	Dashing,
 }
 
+[Serializable]
 public struct CharacterState
 {
 	public Stance Stance;
@@ -32,6 +33,8 @@ public struct CharacterInput
 	public bool Sprint;
 
 	public CrouchInput Crouch;
+
+	public bool Dash;
 }
 
 public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackable
@@ -110,6 +113,22 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 	[SerializeField]
 	private float crouchHeightResponse = 15f;
 
+	[Space]
+	[SerializeField]
+	private float dashTimeout = 1.2f;
+
+	[SerializeField]
+	private float dashDuration = 0.25f;
+
+	[SerializeField]
+	private float dashSpeed = 100f;
+
+	[SerializeField]
+	private float dashMaxSpeed = 120f;
+
+	// Count time since last dash. kinda obvious.
+	private float timeSinceLastDash = 0f;
+
 	private CharacterState _state;
 	private CharacterState _lastState;
 	private CharacterState _tempState;
@@ -121,14 +140,19 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 	private bool _requestedJump;
 	private bool _requestedSustainedJump;
 	private bool _requestedCrouch;
+	private bool _requestedDash;
 	private Collider[] _uncrouchOverlapResults;
+	private MessageBus _playerMessageBus;
 
-	public void Initialize()
+	public void Initialize(MessageBus playerMessageBus)
 	{
 		_state.Stance = Stance.Stand;
 		_uncrouchOverlapResults = new Collider[8];
 
 		motor.CharacterController = this;
+
+		_playerMessageBus = playerMessageBus;
+		timeSinceLastDash = dashTimeout;
 	}
 
 	public void UpdateInput(CharacterInput characterInput)
@@ -139,6 +163,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 		_requestedMovement = Vector3.ClampMagnitude(_requestedMovement, 1f);
 		_requestedMovement = characterInput.Rotation * _requestedMovement;
 		_requestedSprint = characterInput.Sprint;
+		_requestedDash = characterInput.Dash;
 
 		_requestedJump = _requestedJump || characterInput.Jump;
 		_requestedSustainedJump = characterInput.JumpSustain;
@@ -166,6 +191,32 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 	{
 		var isGrounded = motor.GroundingStatus.IsStableOnGround;
 
+		// Dash and Air Dash
+		if (_requestedDash && (timeSinceLastDash >= dashTimeout))
+		{
+			_requestedDash = false;
+			timeSinceLastDash = 0f;
+
+			// Set stance to dashing, for duration of dash.
+			_state.Stance = Stance.Dashing;
+
+			// Remove the vertical component of velocity.
+			var direction = currentVelocity.normalized;
+			direction.y = 0;
+
+			// If player is not moving dash forward.
+			if (direction.magnitude <= 0f)
+			{
+				direction = motor.CharacterForward;
+			}
+
+			var calculatedSpeed = dashSpeed * direction;
+
+			currentVelocity = calculatedSpeed;
+
+			return;
+		}
+
 		// Is on ground...
 		if (isGrounded)
 		{
@@ -186,7 +237,8 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 				{
 					_state.Stance = Stance.Slide;
 
-					if (wasInAir) {
+					if (wasInAir)
+					{
 						currentVelocity = Vector3.ProjectOnPlane
 						(
 							vector: _lastState.Velocity,
@@ -224,7 +276,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 			}
 			// Continue Sliding.
 			else
-			{	
+			{
 				// Friction.
 				currentVelocity -= currentVelocity * (slideFriction * deltaTime);
 
@@ -232,7 +284,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 				{
 					var force = Vector3.ProjectOnPlane
 					(
-						vector: -motor.CharacterUp, 
+						vector: -motor.CharacterUp,
 						planeNormal: motor.GroundingStatus.GroundNormal
 					) * slideGravity;
 
@@ -279,15 +331,17 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 					planeNormal: motor.CharacterUp
 				);
 
-				var movementForce = planarMovement * airAcceleration * deltaTime;
+				var movementForce = airAcceleration * deltaTime * planarMovement;
 
-				if (currentPlanarMovement.magnitude < airSpeed) {
+				if (currentPlanarMovement.magnitude < airSpeed)
+				{
 					var targetPlanarVelocity = currentPlanarMovement + movementForce;
 
 					targetPlanarVelocity = Vector3.ClampMagnitude(targetPlanarVelocity, airSpeed);
 					movementForce = targetPlanarVelocity - currentPlanarMovement;
 				}
-				else if (Vector3.Dot(currentPlanarMovement, movementForce) > 0f) {
+				else if (Vector3.Dot(currentPlanarMovement, movementForce) > 0f)
+				{
 					var constrainedMovementForce = Vector3.ProjectOnPlane
 					(
 						vector: movementForce,
@@ -298,12 +352,14 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 				}
 
 				// Prevent air-climbing.
-				if (motor.GroundingStatus.FoundAnyGround) {
+				if (motor.GroundingStatus.FoundAnyGround)
+				{
 					// If moving in the same direction as velocity
-					if (Vector3.Dot(movementForce, currentVelocity) > 0f) {
+					if (Vector3.Dot(movementForce, currentVelocity) > 0f)
+					{
 						var obstructionNormal = Vector3.Cross
 						(
-							motor.CharacterUp, 
+							motor.CharacterUp,
 							Vector3.Cross
 							(
 								motor.CharacterUp,
@@ -323,7 +379,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 			if (_requestedSustainedJump && verticalSpeed > 0f)
 				effectiveGravity *= jumpSustainGravity;
 
-			currentVelocity += effectiveGravity * motor.CharacterUp * deltaTime;
+			currentVelocity += deltaTime * effectiveGravity * motor.CharacterUp;
 		}
 
 		// Jump is requested
@@ -354,7 +410,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 		var normalizedHeight = currentHeight / standHeight;
 		var cameraTargetHeight =
 			currentHeight
-			* ((_state.Stance is Stance.Stand) ? standCameraTargetHeight : crouchCameraTargetHeight);
+			* ((_state.Stance is Stance.Stand || _state.Stance is Stance.Dashing) ? standCameraTargetHeight : crouchCameraTargetHeight);
 
 		var rootTargetScale = new Vector3(1f, normalizedHeight, 1f);
 
@@ -391,6 +447,20 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 		_state.Velocity = motor.Velocity;
 		// Store the temp state as last state after last state has been used during this frame.
 		_lastState = _tempState;
+
+		if (timeSinceLastDash >= dashDuration)
+		{
+			_state.Stance = Stance.Stand;
+		}
+
+		if (timeSinceLastDash <= dashTimeout)
+		{
+			// Increase time since last dash.
+			timeSinceLastDash += deltaTime;
+
+			// Tell player that dash is refreshing.
+			_playerMessageBus?.Publish(new OnUpdateDashTimeout { Timeout = timeSinceLastDash / dashTimeout });
+		}
 	}
 
 	public void BeforeCharacterUpdate(float deltaTime)
@@ -436,7 +506,8 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 		Vector3 hitPoint,
 		ref HitStabilityReport hitStabilityReport
 	)
-	{ }
+	{
+	}
 
 	public void OnMovementHit(
 		Collider hitCollider,
@@ -468,7 +539,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 	public Transform GetCameraTarget() => cameraTarget;
 
 	public void AddKnockback(Vector3 force)
-	{	
+	{
 		_requestedKnockback = force;
 	}
 }

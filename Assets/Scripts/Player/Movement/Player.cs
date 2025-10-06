@@ -20,16 +20,17 @@ public class Player : MonoBehaviour
 
 	void Start()
 	{
+		messageBus = new();
+
 		Cursor.lockState = CursorLockMode.Locked;
 
 		playerInputActions = new PlayerInputActions();
 		playerInputActions.Enable();
 
-		playerCharacter.Initialize();
+		playerCharacter.Initialize(messageBus);
 		playerCamera.Initialize(playerCharacter.GetCameraTarget());
 
 
-		messageBus = new();
 		playerWeaponHandler.Initialize(messageBus);
 		playerUI.Initialize(messageBus);
     }
@@ -50,12 +51,13 @@ public class Player : MonoBehaviour
 
         CharacterInput characterInput = new()
 		{
-            Rotation    = playerCamera.transform.rotation,
-            Move        = input.Move.ReadValue<Vector2>(),
-            Jump        = input.Jump.WasPressedThisFrame(),
+			Rotation = playerCamera.transform.rotation,
+			Move = input.Move.ReadValue<Vector2>(),
+			Jump = input.Jump.WasPressedThisFrame(),
 			JumpSustain = input.Jump.IsPressed(),
-			Sprint      = input.Sprint.IsPressed(),
-            Crouch      = input.Crouch.WasPressedThisFrame() ? CrouchInput.Toggle : CrouchInput.None,
+			Sprint = input.Sprint.IsPressed(),
+			Crouch = input.Crouch.WasPressedThisFrame() ? CrouchInput.Toggle : CrouchInput.None,
+			Dash = input.Dash.WasPressedThisFrame(),
         };
         playerCharacter.UpdateInput(characterInput);
         playerCharacter.UpdateBody(deltaTime);
