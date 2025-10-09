@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,15 +7,31 @@ public class PlayerUI : MonoBehaviour
 	[SerializeField] private Canvas canvas;
 
 	// Elements
-	[SerializeField] private TextMeshProUGUI ammoCounter;
-	[SerializeField] private Image dashBar;
+	[SerializeField]
+	private TextMeshProUGUI ammoCounter;
 
-	private Coroutine dashBarCoroutine;
+	[Space]
+	[SerializeField]
+	private Image staminaBar;
+
+	[SerializeField, Range(0, 1), Tooltip("Amount of fill that the dashbar will have at full.")]
+	private float staminaBarFillAmount = 0.5f;
+
+	[SerializeField]
+	private Color staminaBarColor;
+
+	[SerializeField]
+	private Color staminaBarAltColor;
 
 	public void Initialize(MessageBus playerMessageBus)
 	{
 		playerMessageBus.Subscribe<OnUpdateAmmo>((x) => UpdateAmmoCounter(x.CurrentAmmo, x.AmmoReserves));
-		playerMessageBus.Subscribe<OnUpdateDashTimeout>((x) => UpdateDashBar(x.Timeout));
+		playerMessageBus.Subscribe<OnUpdateStamina>((x) => UpdateStaminaBar(x.Stamina, x.MaxStamina));
+	}
+
+	void OnValidate()
+	{
+		staminaBar.color = staminaBarColor;
 	}
 
 	void UpdateAmmoCounter(int currentAmmo, int ammoReserves)
@@ -26,9 +40,19 @@ public class PlayerUI : MonoBehaviour
 	}
 
 
-	void UpdateDashBar(float value)
+	void UpdateStaminaBar(float value, float max)
 	{
-		Color c = dashBar.color;
-		dashBar.fillAmount = Mathf.Min(value, 1) * 0.25f;
+		var fillPercentage = value / max;
+
+		if (fillPercentage <= 0.3f)
+		{
+			staminaBar.color = staminaBarAltColor;
+		}
+		else
+		{
+			staminaBar.color = staminaBarColor;
+		}
+
+		staminaBar.fillAmount = Mathf.Min(fillPercentage, 1) * staminaBarFillAmount;
 	}
 }

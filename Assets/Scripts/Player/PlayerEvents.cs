@@ -4,7 +4,8 @@ public struct OnUpdateAmmo : IMessage
 	public int AmmoReserves;
 }
 
-public struct OnUpdateDashTimeout : IMessage
+public struct OnUpdateStamina : IMessage
 {
-	public float Timeout;
+	public float Stamina;
+	public float MaxStamina;
 }

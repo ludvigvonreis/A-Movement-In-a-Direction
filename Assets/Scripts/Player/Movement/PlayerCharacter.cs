@@ -50,9 +50,9 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 
 	[Space]
 	[SerializeField]
-	private float walkSpeed = 15f;
-	[SerializeField]
-	private float sprintSpeed = 25f;
+	private float walkSpeed = 40f;
+	// [SerializeField]
+	// private float sprintSpeed = 25f;
 
 	[SerializeField]
 	private float crouchSpeed = 7f;
@@ -115,7 +115,16 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 
 	[Space]
 	[SerializeField]
-	private float dashTimeout = 1.2f;
+	private float stamina = 0f;
+	[SerializeField]
+	private float maxStamina = 100f;
+
+	[SerializeField]
+	private float staminaRechargePerFrame = 5f;
+
+	[Space]
+	[SerializeField]
+	private float dashStaminaCost = 33;
 
 	[SerializeField]
 	private float dashDuration = 0.25f;
@@ -126,7 +135,6 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 	[SerializeField]
 	private float dashMaxSpeed = 120f;
 
-	// Count time since last dash. kinda obvious.
 	private float timeSinceLastDash = 0f;
 
 	private CharacterState _state;
@@ -136,7 +144,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 	private Quaternion _requestedRotation;
 	private Vector3 _requestedMovement;
 	private Vector3 _requestedKnockback;
-	private bool _requestedSprint;
+	//private bool _requestedSprint;
 	private bool _requestedJump;
 	private bool _requestedSustainedJump;
 	private bool _requestedCrouch;
@@ -152,7 +160,8 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 		motor.CharacterController = this;
 
 		_playerMessageBus = playerMessageBus;
-		timeSinceLastDash = dashTimeout;
+
+		stamina = maxStamina;
 	}
 
 	public void UpdateInput(CharacterInput characterInput)
@@ -162,8 +171,8 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 		_requestedMovement = new Vector3(characterInput.Move.x, 0, characterInput.Move.y);
 		_requestedMovement = Vector3.ClampMagnitude(_requestedMovement, 1f);
 		_requestedMovement = characterInput.Rotation * _requestedMovement;
-		_requestedSprint = characterInput.Sprint;
-		_requestedDash = characterInput.Dash;
+		//_requestedSprint = characterInput.Sprint;
+		_requestedDash = _requestedDash || characterInput.Dash;
 
 		_requestedJump = _requestedJump || characterInput.Jump;
 		_requestedSustainedJump = characterInput.JumpSustain;
@@ -191,30 +200,44 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 	{
 		var isGrounded = motor.GroundingStatus.IsStableOnGround;
 
-		// Dash and Air Dash
-		if (_requestedDash && (timeSinceLastDash >= dashTimeout))
 		{
-			_requestedDash = false;
-			timeSinceLastDash = 0f;
+			var canAffordDash = stamina >= dashStaminaCost;
+			var isCurrentlyInDash = timeSinceLastDash >= dashDuration;
 
-			// Set stance to dashing, for duration of dash.
-			_state.Stance = Stance.Dashing;
-
-			// Remove the vertical component of velocity.
-			var direction = currentVelocity.normalized;
-			direction.y = 0;
-
-			// If player is not moving dash forward.
-			if (direction.magnitude <= 0f)
+			// Prevent queueing dash when player doesnt have enough stamina.
+			if (!canAffordDash)
 			{
-				direction = motor.CharacterForward;
+				_requestedDash = false;
 			}
 
-			var calculatedSpeed = dashSpeed * direction;
+			// Dash and Air Dash
+			if (_requestedDash && canAffordDash && isCurrentlyInDash)
+			{
+				_requestedDash = false;
+				stamina -= dashStaminaCost;
 
-			currentVelocity = calculatedSpeed;
+				// Reset dash timeout.
+				timeSinceLastDash = 0f;
 
-			return;
+				// Set stance to dashing, for duration of dash.
+				_state.Stance = Stance.Dashing;
+
+				// Dash direction is the current requested movement direction.
+				var direction = _requestedMovement;
+
+				// If player is not moving dash forward.
+				if (direction.magnitude <= 0f)
+				{
+					direction = motor.CharacterForward;
+				}
+
+				var calculatedSpeed = dashSpeed * direction;
+
+				currentVelocity = calculatedSpeed;
+
+				return;
+			}
+
 		}
 
 		// Is on ground...
@@ -260,7 +283,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 			if (_state.Stance is Stance.Stand || _state.Stance is Stance.Crouch)
 			{
 
-				var requestedSpeed = _requestedSprint ? sprintSpeed : walkSpeed;
+				var requestedSpeed = walkSpeed; //_requestedSprint ? sprintSpeed : walkSpeed;
 				var speed = _state.Stance is Stance.Stand ? requestedSpeed : crouchSpeed;
 
 				var response = _state.Stance is Stance.Stand ? walkResponse : crouchResponse;
@@ -382,21 +405,29 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 			currentVelocity += deltaTime * effectiveGravity * motor.CharacterUp;
 		}
 
-		// Jump is requested
-		if (_requestedJump && isGrounded)
 		{
-			_requestedJump = false;
-			_requestedCrouch = false;
+			// Jump is requested
+			if (_requestedJump && isGrounded)
+			{
+				_requestedJump = false;
+				_requestedCrouch = false;
 
-			// Allow character to unstick from ground.
-			motor.ForceUnground(0);
+				// Allow character to unstick from ground.
+				motor.ForceUnground(0);
 
-			// Calculate minimum vertical speed.
-			var currentVerticalSpeed = Vector3.Dot(currentVelocity, motor.CharacterUp);
-			var targetVerticalSpeed = Mathf.Max(currentVerticalSpeed, jumpSpeed);
+				// Calculate minimum vertical speed.
+				var currentVerticalSpeed = Vector3.Dot(currentVelocity, motor.CharacterUp);
+				var targetVerticalSpeed = Mathf.Max(currentVerticalSpeed, jumpSpeed);
 
-			// Add the difference to current velocity.
-			currentVelocity += motor.CharacterUp * (targetVerticalSpeed - currentVerticalSpeed);
+				// Add the difference to current velocity.
+				currentVelocity += motor.CharacterUp * (targetVerticalSpeed - currentVerticalSpeed);
+			}
+
+			// Prevent queueing a jump when in the air.
+			if (_requestedJump && !isGrounded)
+			{
+				_requestedJump = false;
+			}
 		}
 
 		// Add knockback.
@@ -448,18 +479,27 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 		// Store the temp state as last state after last state has been used during this frame.
 		_lastState = _tempState;
 
+
+		if (stamina <= maxStamina)
+		{
+			stamina += staminaRechargePerFrame * deltaTime;
+
+			// Clamp stamina between zero and max.
+			stamina = Mathf.Clamp(stamina, 0, maxStamina);
+
+			// Let player know its stamina.
+			_playerMessageBus?.Publish(new OnUpdateStamina { Stamina = stamina, MaxStamina = maxStamina });
+		}
+
 		if (timeSinceLastDash >= dashDuration)
 		{
 			_state.Stance = Stance.Stand;
 		}
 
-		if (timeSinceLastDash <= dashTimeout)
+		if (timeSinceLastDash <= dashDuration)
 		{
 			// Increase time since last dash.
 			timeSinceLastDash += deltaTime;
-
-			// Tell player that dash is refreshing.
-			_playerMessageBus?.Publish(new OnUpdateDashTimeout { Timeout = timeSinceLastDash / dashTimeout });
 		}
 	}
 
