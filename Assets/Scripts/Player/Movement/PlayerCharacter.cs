@@ -48,6 +48,9 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 	[SerializeField]
 	private Transform root;
 
+	[SerializeField]
+	private LayerMask ignoredLayerMask;
+
 	[Space]
 	[SerializeField]
 	private float walkSpeed = 40f;
@@ -122,7 +125,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 	[SerializeField]
 	private float staminaRechargePerFrame = 5f;
 
-	[Space]
+	[Space] 
 	[SerializeField]
 	private float dashStaminaCost = 33;
 
@@ -536,7 +539,15 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 		}
 	}
 
-	public bool IsColliderValidForCollisions(Collider coll) => true;
+	public bool IsColliderValidForCollisions(Collider coll) {
+		// Check if object fits layermask.
+		if (((1 << coll.gameObject.layer) & ignoredLayerMask.value) != 0)
+		{
+			return false;
+		}
+
+		return true;
+	}
 
 	public void OnDiscreteCollisionDetected(Collider hitCollider) { }
 
@@ -559,11 +570,10 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 
 	public void PostGroundingUpdate(float deltaTime)
 	{
-		if (!motor.GroundingStatus.IsStableOnGround && _state.Stance is Stance.Slide)
-		{
-			_state.Stance = Stance.Crouch;
-		}
-
+		// if (!motor.GroundingStatus.IsStableOnGround && _state.Stance is Stance.Slide)
+		// {
+		// 	_state.Stance = Stance.Crouch;
+		// }
 	}
 
 	public void ProcessHitStabilityReport(

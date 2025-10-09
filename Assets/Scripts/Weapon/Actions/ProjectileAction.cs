@@ -58,6 +58,8 @@ public class ProjectileAction : WeaponActionBase
 					rotation: Quaternion.Euler(rotation)
 				);
 
+				Physics.IgnoreCollision(weapon.Context.GetOwnerCollider(), spawnedProjectile.GetComponent<Collider>());
+
 				// Modifies in place.
 				ModifyWeaponStats(ref weaponStats);
 
@@ -68,8 +70,6 @@ public class ProjectileAction : WeaponActionBase
 					projectileStats,
 					weaponStats
 				);
-
-				Physics.IgnoreCollision(projectileObject.GetComponent<Collider>(), weapon.Context.GetOwnerCollider());
 			}
 		}
 		// Decrease ammo.
