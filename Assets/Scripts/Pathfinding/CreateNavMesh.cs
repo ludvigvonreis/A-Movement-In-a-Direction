@@ -2,10 +2,12 @@ using System.Linq;
 using UnityEngine;
 using DotRecast.Recast.Geom;
 using DotRecast.Core;
-
+using UnityEditor;
 using DotRecast.Recast;
 using NaughtyAttributes;
 using System.Collections.Generic;
+using DotRecast.Detour;
+using DotRecast.Core.Numerics;
 
 [System.Serializable]
 public struct RecastConfig
@@ -29,26 +31,65 @@ public struct RecastConfig
 	public bool buildMeshDetail;
 }
 
+[System.Serializable]
+public class RcPolyMeshData
+{
+	public int[] verts;
+	public int[] polys;
+	public int[] regs;
+	public int[] areas;
+	public int nverts;
+	public int npolys;
+	public int nvp;
+	public int maxpolys;
+	public int[] flags;
+	public Vector3 bmin;
+	public Vector3 bmax;
+	public float cs;
+	public float ch;
+	public int borderSize;
+	public float maxEdgeError;
+
+	public RcPolyMeshData() { }
+
+	// Create surrogate from library object
+	public RcPolyMeshData(RcPolyMesh mesh)
+	{
+		verts = mesh.verts;
+		polys = mesh.polys;
+		regs = mesh.regs;
+		areas = mesh.areas;
+		nverts = mesh.nverts;
+		npolys = mesh.npolys;
+		nvp = mesh.nvp;
+		maxpolys = mesh.maxpolys;
+		flags = mesh.flags;
+		bmin = new Vector3(mesh.bmin.X, mesh.bmin.Y, mesh.bmin.Z);
+		bmax = new Vector3(mesh.bmax.X, mesh.bmax.Y, mesh.bmax.Z);
+		cs = mesh.cs;
+		ch = mesh.ch;
+		borderSize = mesh.borderSize;
+		maxEdgeError = mesh.maxEdgeError;
+	}
+
+}
+
 public class CreateNavMesh : MonoBehaviour
 {
 	[SerializeField]
 	private RecastConfig config = new RecastConfig();
-
 	[SerializeField]
+	private GameObject geometryParent;
+
 	private List<GameObject> levelGeometry;
 
-	private RcPolyMesh finalPolyMesh;
-
 	[SerializeField]
+	private RcPolyMeshData finalPolyMesh;
+
+	//[SerializeField]
 	private List<float> vertexPositions;
-	[SerializeField]
+	//[SerializeField]
 	private List<int> meshFaces;
-
-	[SerializeField]
-	private int[] navMeshVerticies;
-
-	[SerializeField]
-	private int[] navMeshPolygons;
 
 	[Button("Generate Mesh")]
 	private void GenerateRecastMesh()
@@ -61,7 +102,7 @@ public class CreateNavMesh : MonoBehaviour
 		var bmin = geomProvider.GetMeshBoundsMin();
 		var bmax = geomProvider.GetMeshBoundsMax();
 
-		var m_ctx = new RcContext();
+		//var m_ctx = new RcContext();
 
 		var rcAreaMod = new RcAreaModification(0x1);
 		var cfg = new RcConfig(
@@ -86,56 +127,66 @@ public class CreateNavMesh : MonoBehaviour
 			config.buildMeshDetail
 		);
 
-
 		var bcfg = new RcBuilderConfig(cfg, bmin, bmax);
 
-		// RcHeightfield m_solid = new RcHeightfield(bcfg.width, bcfg.height, bcfg.bmin, bcfg.bmax, cfg.Cs, cfg.Ch, cfg.BorderSize);
+		RcBuilder rcBuilder = new RcBuilder();
+		var result = rcBuilder.Build(geomProvider, bcfg, true);
 
-		// foreach (RcTriMesh geom in geomProvider.Meshes())
-		// {
-		// 	float[] verts = geom.GetVerts();
-		// 	int[] tris = geom.GetTris();
-		// 	int ntris = tris.Length / 3;
+		finalPolyMesh = new RcPolyMeshData(result.Mesh);
 
-		// 	int[] m_triareas = RcRecast.MarkWalkableTriangles(m_ctx, cfg.WalkableSlopeAngle, verts, tris, ntris, cfg.WalkableAreaMod);
+		// // Create navmesh data
+		// DtNavMeshCreateParams param = new DtNavMeshCreateParams();
+		// param.verts = polyMesh.verts;
+		// param.vertCount = polyMesh.nverts;
+		// param.polys = polyMesh.polys;
+		// param.polyAreas = polyMesh.areas;
+		// param.polyFlags = polyMesh.flags;
+		// param.polyCount = polyMesh.npolys;
+		// param.nvp = polyMesh.nvp;
+		// param.detailMeshes = detailMesh.meshes;
+		// param.detailVerts = detailMesh.verts;
+		// param.detailVertsCount = detailMesh.nverts;
+		// param.detailTris = detailMesh.tris;
+		// param.detailTriCount = detailMesh.ntris;
+		// param.walkableHeight = config.agentHeight;
+		// param.walkableRadius = config.agentHeight;
+		// param.walkableClimb = config.agentMaxClimb;
+		// param.bmin = bmin;
+		// param.bmax = bmax;
+		// param.cs = config.cellSize;
+		// param.ch = config.cellHeight;
+		// param.buildBvTree = true;
 
-		// 	RcRasterizations.RasterizeTriangles(m_ctx, verts, tris, m_triareas, ntris, m_solid, cfg.WalkableClimb);
-		// }
+		// var data = DtNavMeshBuilder.CreateNavMeshData(param);
+		// DtNavMesh navMesh = new DtNavMesh();
+		// navMesh.Init(data, config.vertsPerPoly, 0);
 
-		// RcFilters.FilterLowHangingWalkableObstacles(m_ctx, cfg.WalkableClimb, m_solid);
-		// RcFilters.FilterLedgeSpans(m_ctx, cfg.WalkableHeight, cfg.WalkableClimb, m_solid);
-		// RcFilters.FilterWalkableLowHeightSpans(m_ctx, cfg.WalkableHeight, m_solid);
+		// var navMeshQuery = new DtNavMeshQuery(navMesh);
+		// var center = new RcVec3f(0f, 0f, -5.5f);      // The point to check
+		// var halfExtents = new RcVec3f(0.5f, 1f, 0.5f); // Search box size
+		// IDtQueryFilter filter = new DtQueryDefaultFilter();  // Default filter
 
-		// RcCompactHeightfield m_chf = RcCompacts.BuildCompactHeightfield(m_ctx, cfg.WalkableHeight, cfg.WalkableClimb, m_solid);
-		// RcRegions.BuildDistanceField(m_ctx, m_chf);
-		// RcRegions.BuildRegions(m_ctx, m_chf, cfg.MinRegionArea, cfg.MergeRegionArea);
+		// long nearestRef;
+		// RcVec3f nearestPt;
+		// bool isOverPoly;
 
-		// RcContourSet m_cset = RcContours.BuildContours(m_ctx, m_chf, cfg.MaxSimplificationError, cfg.MaxEdgeLen, RcBuildContoursFlags.RC_CONTOUR_TESS_WALL_EDGES);
-
-		// RcPolyMesh m_pmesh = RcMeshs.BuildPolyMesh(m_ctx, m_cset, cfg.MaxVertsPerPoly);
-		// Debug.Log($"PolyMesh: {m_pmesh != null} Polys: {m_pmesh.npolys} Verts: {m_pmesh.nverts}");
-
-		// RcPolyMeshDetail m_dmesh = RcMeshDetails.BuildPolyMeshDetail(
-		// 	m_ctx,
-		// 	m_pmesh,
-		// 	m_chf,
-		// 	cfg.DetailSampleDist,
-		// 	cfg.DetailSampleMaxError
+		// DtStatus status = navMeshQuery.FindNearestPoly(
+		// 	center,
+		// 	halfExtents,
+		// 	filter,
+		// 	out nearestRef,
+		// 	out nearestPt,
+		// 	out isOverPoly
 		// );
 
-		//finalPolyMesh = m_pmesh;
-		//navMeshVerticies = m_pmesh.verts;
+		// print(nearestRef);
 
-
-		RcBuilder rcBuilder = new RcBuilder();
-		var navMesh = rcBuilder.Build(geomProvider, bcfg, true);
-		print(navMesh.Mesh.verts);
-
-		finalPolyMesh = navMesh.Mesh;
-		navMeshVerticies = navMesh.Mesh.verts;
-		navMeshPolygons = navMesh.Mesh.polys;
+		// if (status.Succeeded())
+		// {
+		// 	var polyCenter = navMesh.GetPolyCenter(nearestRef);
+		// 	print($"{nearestRef} : {nearestPt} : {isOverPoly} : {polyCenter}");
+		// }
 	}
-
 	(List<float> vertexPositions, List<int> meshFaces)
 	FeedMeshToSimpleInputGeom(List<GameObject> objects)
 	{
@@ -177,6 +228,17 @@ public class CreateNavMesh : MonoBehaviour
 		return (allVerts, allTris);
 	}
 
+	[Button("Fetch Geometry")]
+	private void FetchGeometry()
+	{
+		levelGeometry = new();
+
+		foreach (Transform child in geometryParent.transform)
+		{
+			levelGeometry.Add(child.gameObject);
+		}
+	}
+
 	const int RC_MESH_NULL_IDX = 65535;
 
 	void OnDrawGizmos()
@@ -184,14 +246,14 @@ public class CreateNavMesh : MonoBehaviour
 		if (finalPolyMesh == null) return;
 
 		var mesh = finalPolyMesh;
-		var minBounds = new Vector3(mesh.bmin.X, mesh.bmin.Y, mesh.bmin.Z);
+		var minBounds = mesh.bmin;
 
-		print("Polys: " + mesh.npolys);
+		Color[] colors = { Color.blue, Color.green, Color.yellow, Color.magenta, Color.cyan};
 
 		for (int i = 0; i < mesh.npolys; i++)
 		{
 			Vector3[] polyVerts = new Vector3[mesh.nvp];
-   			int vertCount = 0;
+			int vertCount = 0;
 
 			for (int j = 0; j < mesh.nvp; j++)
 			{
@@ -203,15 +265,14 @@ public class CreateNavMesh : MonoBehaviour
 
 				int neighborIndex = mesh.polys[i * mesh.nvp * 2 + mesh.nvp + j];
 
-				Gizmos.color = neighborIndex != RC_MESH_NULL_IDX ? Color.blue : Color.red;
+				Gizmos.color = Color.red;
 
 				var vert = new Vector3(
-					mesh.verts[vertexIndex * 3],
-					mesh.verts[vertexIndex * 3 + 1],
-					mesh.verts[vertexIndex * 3 + 2]
+					mesh.verts[vertexIndex * 3] * config.cellSize,
+					mesh.verts[vertexIndex * 3 + 1] * config.cellHeight,
+					mesh.verts[vertexIndex * 3 + 2] * config.cellSize
 				);
 
-				vert *= config.cellSize;
 				vert += minBounds;
 
 				Gizmos.DrawSphere(vert, 0.2f);
@@ -220,17 +281,27 @@ public class CreateNavMesh : MonoBehaviour
 				vertCount++;
 			}
 
-			Gizmos.color = Color.green;
+			Gizmos.color = colors[mesh.regs[i] % 4];
+			//Handles.color = colors[mesh.regs[i] % 4];
+			//Handles.color = new Color(0, 1, 0, 0.5f);
+
+			Vector3 centroid = new();
+
 			// Draw edges
 			for (int j = 0; j < vertCount; j++)
 			{
-				int neighborIdx = mesh.polys[i * mesh.nvp * 2 + mesh.nvp + j];
-				Gizmos.color = neighborIdx != RC_MESH_NULL_IDX ? Color.blue : Color.red;
-
 				Vector3 start = polyVerts[j];
 				Vector3 end = polyVerts[(j + 1) % vertCount]; // wrap around to form closed polygon
+
 				Gizmos.DrawLine(start, end);
+
+				centroid += start;
 			}
+
+			centroid /= vertCount;
+			Gizmos.DrawSphere(centroid, 0.4f);
+			//Handles.DrawAAConvexPolygon(polyVerts.Where(v => v != Vector3.zero).ToArray());
 		}
 	}
 }
+  
