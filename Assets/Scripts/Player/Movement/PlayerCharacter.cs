@@ -77,12 +77,17 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 	[SerializeField]
 	private float jumpSpeed = 10f;
 
-	[SerializeField]
-	[Range(0f, 1f)]
-	private float jumpSustainGravity = 0.4f;
+	// [SerializeField]
+	// [Range(0f, 1f)]
+	// private float jumpSustainGravity = 0.4f;
 
 	[SerializeField]
 	private float gravity = -90f;
+
+	[SerializeField]
+	private float coyoteDuration = 0.25f;
+	private float coyoteTimer = 0f;
+	private bool canJump = false;
 
 	[Space]
 	[SerializeField]
@@ -118,14 +123,13 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 
 	[Space]
 	[SerializeField]
-	private float stamina = 0f;
-	[SerializeField]
 	private float maxStamina = 100f;
+	private float stamina = 0f;
 
 	[SerializeField]
 	private float staminaRechargePerFrame = 5f;
 
-	[Space] 
+	[Space]
 	[SerializeField]
 	private float dashStaminaCost = 33;
 
@@ -140,6 +144,19 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 
 	private float timeSinceLastDash = 0f;
 
+	[Space]
+	[SerializeField]
+	private float wallGrabGravity = -10f;
+
+	[SerializeField]
+	private bool grabWall = false;
+
+	private bool wasGrabbingWallLastFrame = false;
+	private RaycastHit[] wallGrabResults = new RaycastHit[1];
+
+	/// --------
+
+
 	private CharacterState _state;
 	private CharacterState _lastState;
 	private CharacterState _tempState;
@@ -147,7 +164,6 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 	private Quaternion _requestedRotation;
 	private Vector3 _requestedMovement;
 	private Vector3 _requestedKnockback;
-	//private bool _requestedSprint;
 	private bool _requestedJump;
 	private bool _requestedSustainedJump;
 	private bool _requestedCrouch;
@@ -202,10 +218,13 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 	public void UpdateVelocity(ref Vector3 currentVelocity, float deltaTime)
 	{
 		var isGrounded = motor.GroundingStatus.IsStableOnGround;
+		var effectiveGravity = gravity;
 
+		// Dashing
 		{
 			var canAffordDash = stamina >= dashStaminaCost;
 			var isCurrentlyInDash = timeSinceLastDash >= dashDuration;
+			var isCorrectStance = _state.Stance is Stance.Stand;
 
 			// Prevent queueing dash when player doesnt have enough stamina.
 			if (!canAffordDash)
@@ -214,9 +233,10 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 			}
 
 			// Dash and Air Dash
-			if (_requestedDash && canAffordDash && isCurrentlyInDash)
+			if (_requestedDash && canAffordDash && isCurrentlyInDash && isCorrectStance)
 			{
 				_requestedDash = false;
+				_requestedCrouch = false;
 				stamina -= dashStaminaCost;
 
 				// Reset dash timeout.
@@ -243,174 +263,196 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 
 		}
 
-		// Is on ground...
-		if (isGrounded)
+		// Movement
 		{
-			var groundedMovement = motor.GetDirectionTangentToSurface
-			(
-				direction: _requestedMovement,
-				surfaceNormal: motor.GroundingStatus.GroundNormal
-			);
-
-
-			// Start sliding.
+			// Is on ground...
+			if (isGrounded)
 			{
-				var moving = groundedMovement.sqrMagnitude > 0f;
-				var crouching = _state.Stance is Stance.Crouch;
-				var wasStanding = _lastState.Stance is Stance.Stand;
-				var wasInAir = !_lastState.Grounded;
-				if (moving && crouching && (wasStanding || wasInAir))
-				{
-					_state.Stance = Stance.Slide;
+				var groundedMovement = motor.GetDirectionTangentToSurface
+				(
+					direction: _requestedMovement,
+					surfaceNormal: motor.GroundingStatus.GroundNormal
+				);
 
-					if (wasInAir)
+
+				// Start sliding.
+				{
+					var moving = groundedMovement.sqrMagnitude > 0f;
+					var crouching = _state.Stance is Stance.Crouch;
+					var wasStanding = _lastState.Stance is Stance.Stand;
+					var wasInAir = !_lastState.Grounded;
+					if (moving && crouching && (wasStanding || wasInAir))
 					{
-						currentVelocity = Vector3.ProjectOnPlane
+						_state.Stance = Stance.Slide;
+
+						if (wasInAir)
+						{
+							currentVelocity = Vector3.ProjectOnPlane
+							(
+								vector: _lastState.Velocity,
+								planeNormal: motor.GroundingStatus.GroundNormal
+							);
+						}
+
+						var slideSpeed = Mathf.Max(slideStartSpeed, currentVelocity.magnitude);
+
+						currentVelocity = motor.GetDirectionTangentToSurface
 						(
-							vector: _lastState.Velocity,
+							direction: currentVelocity,
+							surfaceNormal: motor.GroundingStatus.GroundNormal
+						) * slideSpeed;
+					}
+				}
+
+				// Move.
+				if (_state.Stance is Stance.Stand || _state.Stance is Stance.Crouch)
+				{
+
+					var requestedSpeed = walkSpeed; //_requestedSprint ? sprintSpeed : walkSpeed;
+					var speed = _state.Stance is Stance.Stand ? requestedSpeed : crouchSpeed;
+
+					var response = _state.Stance is Stance.Stand ? walkResponse : crouchResponse;
+
+					var targetVelocity = groundedMovement * speed;
+
+					currentVelocity = Vector3.Lerp
+					(
+						a: currentVelocity,
+						b: targetVelocity,
+						t: 1f - Mathf.Exp(-response * deltaTime)
+					);
+				}
+				// Continue Sliding.
+				else
+				{
+					// Friction.
+					currentVelocity -= currentVelocity * (slideFriction * deltaTime);
+
+					// Slope.
+					{
+						var force = Vector3.ProjectOnPlane
+						(
+							vector: -motor.CharacterUp,
 							planeNormal: motor.GroundingStatus.GroundNormal
-						);
+						) * slideGravity;
+
+						currentVelocity -= force;
 					}
 
-					var slideSpeed = Mathf.Max(slideStartSpeed, currentVelocity.magnitude);
+					// Steer.
+					{
+						var currentSpeed = currentVelocity.magnitude;
+						var targetVelocity = groundedMovement * currentSpeed;
+						var steerForce = deltaTime * slideSteerAcceleration * (targetVelocity - currentVelocity);
+						// Add steerforce but dont change velocity.
+						currentVelocity += steerForce;
+						currentVelocity = Vector3.ClampMagnitude(currentVelocity, currentSpeed);
+					}
 
-					currentVelocity = motor.GetDirectionTangentToSurface
-					(
-						direction: currentVelocity,
-						surfaceNormal: motor.GroundingStatus.GroundNormal
-					) * slideSpeed;
+					// Stop.
+					if (currentVelocity.magnitude < slideEndSpeed)
+					{
+						_state.Stance = Stance.Crouch;
+					}
 				}
+
+				// Is in air...
 			}
-
-			// Move.
-			if (_state.Stance is Stance.Stand || _state.Stance is Stance.Crouch)
-			{
-
-				var requestedSpeed = walkSpeed; //_requestedSprint ? sprintSpeed : walkSpeed;
-				var speed = _state.Stance is Stance.Stand ? requestedSpeed : crouchSpeed;
-
-				var response = _state.Stance is Stance.Stand ? walkResponse : crouchResponse;
-
-				var targetVelocity = groundedMovement * speed;
-
-				currentVelocity = Vector3.Lerp
-				(
-					a: currentVelocity,
-					b: targetVelocity,
-					t: 1f - Mathf.Exp(-response * deltaTime)
-				);
-			}
-			// Continue Sliding.
 			else
 			{
-				// Friction.
-				currentVelocity -= currentVelocity * (slideFriction * deltaTime);
+				// Move..
 
-				// Slope.
+				if (_requestedMovement.sqrMagnitude > 0)
 				{
-					var force = Vector3.ProjectOnPlane
+					// Requested movement normalized
+					var planarMovement =
+						Vector3.ProjectOnPlane
+						(
+							vector: _requestedMovement,
+							planeNormal: motor.CharacterUp
+						) * _requestedMovement.magnitude;
+
+					// Current movement
+					var currentPlanarMovement = Vector3.ProjectOnPlane
 					(
-						vector: -motor.CharacterUp,
-						planeNormal: motor.GroundingStatus.GroundNormal
-					) * slideGravity;
-
-					currentVelocity -= force;
-				}
-
-				// Steer.
-				{
-					var currentSpeed = currentVelocity.magnitude;
-					var targetVelocity = groundedMovement * currentSpeed;
-					var steerForce = (targetVelocity - currentVelocity) * slideSteerAcceleration * deltaTime;
-					// Add steerforce but dont change velocity.
-					currentVelocity += steerForce;
-					currentVelocity = Vector3.ClampMagnitude(currentVelocity, currentSpeed);
-				}
-
-				// Stop.
-				if (currentVelocity.magnitude < slideEndSpeed)
-				{
-					_state.Stance = Stance.Crouch;
-				}
-			}
-
-			// Is in air...
-		}
-		else
-		{
-			// Move..
-
-			if (_requestedMovement.sqrMagnitude > 0)
-			{
-				// Requested movement normalized
-				var planarMovement =
-					Vector3.ProjectOnPlane
-					(
-						vector: _requestedMovement,
+						vector: currentVelocity,
 						planeNormal: motor.CharacterUp
-					) * _requestedMovement.magnitude;
-
-				// Current movement
-				var currentPlanarMovement = Vector3.ProjectOnPlane
-				(
-					vector: currentVelocity,
-					planeNormal: motor.CharacterUp
-				);
-
-				var movementForce = airAcceleration * deltaTime * planarMovement;
-
-				if (currentPlanarMovement.magnitude < airSpeed)
-				{
-					var targetPlanarVelocity = currentPlanarMovement + movementForce;
-
-					targetPlanarVelocity = Vector3.ClampMagnitude(targetPlanarVelocity, airSpeed);
-					movementForce = targetPlanarVelocity - currentPlanarMovement;
-				}
-				else if (Vector3.Dot(currentPlanarMovement, movementForce) > 0f)
-				{
-					var constrainedMovementForce = Vector3.ProjectOnPlane
-					(
-						vector: movementForce,
-						planeNormal: currentPlanarMovement.normalized
 					);
 
-					movementForce = constrainedMovementForce;
-				}
+					var movementForce = airAcceleration * deltaTime * planarMovement;
 
-				// Prevent air-climbing.
-				if (motor.GroundingStatus.FoundAnyGround)
-				{
-					// If moving in the same direction as velocity
-					if (Vector3.Dot(movementForce, currentVelocity) > 0f)
+					if (currentPlanarMovement.magnitude < airSpeed)
 					{
-						var obstructionNormal = Vector3.Cross
+						var targetPlanarVelocity = currentPlanarMovement + movementForce;
+
+						targetPlanarVelocity = Vector3.ClampMagnitude(targetPlanarVelocity, airSpeed);
+						movementForce = targetPlanarVelocity - currentPlanarMovement;
+					}
+					else if (Vector3.Dot(currentPlanarMovement, movementForce) > 0f)
+					{
+						var constrainedMovementForce = Vector3.ProjectOnPlane
 						(
-							motor.CharacterUp,
-							Vector3.Cross
+							vector: movementForce,
+							planeNormal: currentPlanarMovement.normalized
+						);
+
+						movementForce = constrainedMovementForce;
+					}
+
+					// Prevent air-climbing.
+					if (motor.GroundingStatus.FoundAnyGround)
+					{
+						// If moving in the same direction as velocity
+						if (Vector3.Dot(movementForce, currentVelocity) > 0f)
+						{
+							var obstructionNormal = Vector3.Cross
 							(
 								motor.CharacterUp,
-								motor.GroundingStatus.GroundNormal
-							)
-						).normalized;
+								Vector3.Cross
+								(
+									motor.CharacterUp,
+									motor.GroundingStatus.GroundNormal
+								)
+							).normalized;
+						}
+					}
+
+
+					currentVelocity += movementForce;
+				}
+			}
+		}
+
+		
+		// Gravity
+		{
+			if (!isGrounded)
+			{
+				// var verticalSpeed = Vector3.Dot(currentVelocity, motor.CharacterUp);
+				// if (_requestedSustainedJump && verticalSpeed > 0f)
+				// 	effectiveGravity *= jumpSustainGravity;
+
+				if (grabWall)
+				{
+					effectiveGravity = wallGrabGravity;
+
+					// Clear velocity on first frame of wall grab.
+					if (wasGrabbingWallLastFrame == false)
+					{
+						currentVelocity = Vector3.zero;
 					}
 				}
 
+				wasGrabbingWallLastFrame = grabWall;
 
-				currentVelocity += movementForce;
+				currentVelocity += deltaTime * effectiveGravity * motor.CharacterUp;
 			}
-
-			// Gravity
-			var effectiveGravity = gravity;
-			var verticalSpeed = Vector3.Dot(currentVelocity, motor.CharacterUp);
-			if (_requestedSustainedJump && verticalSpeed > 0f)
-				effectiveGravity *= jumpSustainGravity;
-
-			currentVelocity += deltaTime * effectiveGravity * motor.CharacterUp;
 		}
 
+		// Jumping
 		{
 			// Jump is requested
-			if (_requestedJump && isGrounded)
+			if (_requestedJump && canJump)
 			{
 				_requestedJump = false;
 				_requestedCrouch = false;
@@ -423,7 +465,17 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 				var targetVerticalSpeed = Mathf.Max(currentVerticalSpeed, jumpSpeed);
 
 				// Add the difference to current velocity.
-				currentVelocity += motor.CharacterUp * (targetVerticalSpeed - currentVerticalSpeed);
+				currentVelocity += (grabWall ? 0.8f : 1) * (targetVerticalSpeed - currentVerticalSpeed) * motor.CharacterUp;
+
+				// If grabbing wall, add horizontal push away
+				if (grabWall)
+				{
+					Vector3 wallJumpDir = (motor.CharacterUp + wallGrabResults[0].normal).normalized;
+
+					// Tune wallJumpAwayStrength for desired push power
+					float wallJumpAwayStrength = jumpSpeed * 0.8f	;
+					currentVelocity += wallJumpDir * wallJumpAwayStrength;
+				}
 			}
 
 			// Prevent queueing a jump when in the air.
@@ -496,7 +548,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 
 		if (timeSinceLastDash >= dashDuration)
 		{
-			_state.Stance = Stance.Stand;
+			_state.Stance = _state.Stance is not Stance.Dashing ? _state.Stance : Stance.Stand;
 		}
 
 		if (timeSinceLastDash <= dashDuration)
@@ -509,6 +561,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 	public void BeforeCharacterUpdate(float deltaTime)
 	{
 		_tempState = _state;
+
 		// Uncrouch..
 		if (!_requestedCrouch && _state.Stance is Stance.Crouch)
 		{
@@ -537,9 +590,50 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 				_state.Stance = Stance.Stand;
 			}
 		}
+
+		if (!_state.Grounded)
+		{
+			int numRays = 8;
+
+			grabWall = false; // default
+			//RaycastHit firstHit = default;
+
+			for (int i = 0; i < numRays; i++)
+			{
+				float angle = i * Mathf.PI * 2f / numRays;
+				Vector3 dir = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
+
+				int hits = Physics.RaycastNonAlloc(motor.TransientPosition, dir, wallGrabResults, motor.Capsule.radius * 1.2f);
+				Debug.DrawRay(motor.TransientPosition, 1.2f * motor.Capsule.radius * dir, Color.green, 1f);
+
+				if (hits > 0)
+				{
+					var toTarget = (wallGrabResults[0].transform.position - motor.TransientPosition).normalized;
+					var groundedMovement = motor.GetDirectionTangentToSurface(
+						direction: _requestedMovement,
+						surfaceNormal: motor.GroundingStatus.GroundNormal
+					);
+
+					var wallDot = Vector3.Dot(groundedMovement, toTarget);
+					var normalDot = Vector3.Dot(groundedMovement, wallGrabResults[0].normal);
+
+					if (wallDot > 0 && normalDot < 0)
+					{
+						grabWall = true;
+						//firstHit = wallGrabResults[0];
+						break; // stop at first valid hit
+					}
+				}
+			}
+		}
+		else
+		{
+			grabWall = false;
+		}
 	}
 
-	public bool IsColliderValidForCollisions(Collider coll) {
+	public bool IsColliderValidForCollisions(Collider coll)
+	{
 		// Check if object fits layermask.
 		if (((1 << coll.gameObject.layer) & ignoredLayerMask.value) != 0)
 		{
@@ -549,7 +643,9 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 		return true;
 	}
 
-	public void OnDiscreteCollisionDetected(Collider hitCollider) { }
+	public void OnDiscreteCollisionDetected(Collider hitCollider)
+	{
+	}
 
 	public void OnGroundHit(
 		Collider hitCollider,
@@ -570,6 +666,20 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 
 	public void PostGroundingUpdate(float deltaTime)
 	{
+		{
+			if (_state.Grounded)
+			{
+				coyoteTimer = coyoteDuration;
+			}
+			else
+			{
+				coyoteTimer -= deltaTime;
+			}
+
+			canJump = coyoteTimer > 0f;
+			canJump = canJump || grabWall;
+		}
+
 		// if (!motor.GroundingStatus.IsStableOnGround && _state.Stance is Stance.Slide)
 		// {
 		// 	_state.Stance = Stance.Crouch;
