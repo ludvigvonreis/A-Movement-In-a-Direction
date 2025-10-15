@@ -147,12 +147,20 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 	[Space]
 	[SerializeField]
 	private float wallGrabGravity = -10f;
-
 	[SerializeField]
-	private bool grabWall = false;
+	private float wallGrabJumpMultiplier = 0.8f;
+	[SerializeField]
+	private float wallGrabHorizontalJumpSpeed = 20f;
+	[SerializeField]
+	private float wallJumpAngle = 45f;
+	[SerializeField]
+	private float wallGrabVerticalVelocityLimit = 2f;
 
-	private bool wasGrabbingWallLastFrame = false;
-	private RaycastHit[] wallGrabResults = new RaycastHit[1];
+	private float wallGrabDetectionRadius = 2f;
+	private bool isTouchingWall = false;
+	private bool pushingTowardsWall = false;
+	private bool wasPushingTowardsWallLastFrame = false;
+	private RaycastHit[] wallGrabResults = new RaycastHit[10];
 
 	/// --------
 
@@ -181,6 +189,66 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 		_playerMessageBus = playerMessageBus;
 
 		stamina = maxStamina;
+		wallGrabDetectionRadius = motor.Capsule.radius * 1.2f;
+	}
+
+	public void Update()
+	{
+		int numRays = 8;
+		// Rays shoot from center of player.
+		Vector3 rayOrigin = motor.TransientPosition + (motor.CharacterUp * 1.5f);
+
+		pushingTowardsWall = false;
+
+		isTouchingWall = false;
+		pushingTowardsWall = false;
+
+		for (int i = 0; i < numRays; i++)
+		{
+			float angle = i * Mathf.PI * 2f / numRays;
+			Vector3 dir = new(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
+
+			int hits = Physics.RaycastNonAlloc(rayOrigin, dir, wallGrabResults, wallGrabDetectionRadius);
+
+			if (hits <= 0) continue; // don't reset anything here
+
+			// We have at least one hit
+			isTouchingWall = true;
+			Debug.DrawRay(rayOrigin, wallGrabDetectionRadius * dir, Color.green, 0.2f);
+
+			if (motor.GroundingStatus.IsStableOnGround) continue;
+
+			// Find the closest hit from this ray
+			int bestIndex = 0;
+			float bestDistSqr = (wallGrabResults[0].point - rayOrigin).sqrMagnitude;
+			for (int h = 1; h < hits; h++)
+			{
+				float d = (wallGrabResults[h].point - rayOrigin).sqrMagnitude;
+				if (d < bestDistSqr)
+				{
+					bestDistSqr = d;
+					bestIndex = h;
+				}
+			}
+
+			var hit = wallGrabResults[bestIndex];
+			var groundedMovement = motor.GetDirectionTangentToSurface(
+				direction: _requestedMovement,
+				surfaceNormal: motor.GroundingStatus.GroundNormal
+			);
+
+			var toTarget = (hit.point - rayOrigin).normalized; // use hit.point
+			var normalDot = Vector3.Dot(groundedMovement, hit.normal);
+			var movementTowardWall = Vector3.Dot(groundedMovement, toTarget);
+			var isBelowVelocityLimit = _state.Velocity.y < wallGrabVerticalVelocityLimit;
+
+			if (movementTowardWall > 0.025f && normalDot < 0f && isBelowVelocityLimit)
+			{
+				pushingTowardsWall = true;
+				break; // found valid hit, stop scanning
+			}
+		}
+
 	}
 
 	public void UpdateInput(CharacterInput characterInput)
@@ -308,7 +376,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 				if (_state.Stance is Stance.Stand || _state.Stance is Stance.Crouch)
 				{
 
-					var requestedSpeed = walkSpeed; //_requestedSprint ? sprintSpeed : walkSpeed;
+					var requestedSpeed = walkSpeed;
 					var speed = _state.Stance is Stance.Stand ? requestedSpeed : crouchSpeed;
 
 					var response = _state.Stance is Stance.Stand ? walkResponse : crouchResponse;
@@ -423,7 +491,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 			}
 		}
 
-		
+
 		// Gravity
 		{
 			if (!isGrounded)
@@ -432,18 +500,18 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 				// if (_requestedSustainedJump && verticalSpeed > 0f)
 				// 	effectiveGravity *= jumpSustainGravity;
 
-				if (grabWall)
+				if (pushingTowardsWall)
 				{
 					effectiveGravity = wallGrabGravity;
 
 					// Clear velocity on first frame of wall grab.
-					if (wasGrabbingWallLastFrame == false)
+					if (wasPushingTowardsWallLastFrame == false)
 					{
-						currentVelocity = Vector3.zero;
+						currentVelocity *= 0.1f;
 					}
 				}
 
-				wasGrabbingWallLastFrame = grabWall;
+				wasPushingTowardsWallLastFrame = pushingTowardsWall;
 
 				currentVelocity += deltaTime * effectiveGravity * motor.CharacterUp;
 			}
@@ -465,15 +533,17 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 				var targetVerticalSpeed = Mathf.Max(currentVerticalSpeed, jumpSpeed);
 
 				// Add the difference to current velocity.
-				currentVelocity += (grabWall ? 0.8f : 1) * (targetVerticalSpeed - currentVerticalSpeed) * motor.CharacterUp;
+				currentVelocity += (pushingTowardsWall ? wallGrabJumpMultiplier : 1) * (targetVerticalSpeed - currentVerticalSpeed) * motor.CharacterUp;
 
-				// If grabbing wall, add horizontal push away
-				if (grabWall)
+				// If touching wall, add horizontal push away
+				if (isTouchingWall && !isGrounded)
 				{
-					Vector3 wallJumpDir = (motor.CharacterUp + wallGrabResults[0].normal).normalized;
+					Vector3 wallNormal = wallGrabResults[0].normal;
+
+					Vector3 wallJumpDir = Vector3.Slerp(wallNormal, motor.CharacterUp, wallJumpAngle / 90f).normalized;
 
 					// Tune wallJumpAwayStrength for desired push power
-					float wallJumpAwayStrength = jumpSpeed * 0.8f	;
+					float wallJumpAwayStrength = wallGrabHorizontalJumpSpeed;
 					currentVelocity += wallJumpDir * wallJumpAwayStrength;
 				}
 			}
@@ -590,46 +660,6 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 				_state.Stance = Stance.Stand;
 			}
 		}
-
-		if (!_state.Grounded)
-		{
-			int numRays = 8;
-
-			grabWall = false; // default
-			//RaycastHit firstHit = default;
-
-			for (int i = 0; i < numRays; i++)
-			{
-				float angle = i * Mathf.PI * 2f / numRays;
-				Vector3 dir = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
-
-				int hits = Physics.RaycastNonAlloc(motor.TransientPosition, dir, wallGrabResults, motor.Capsule.radius * 1.2f);
-				Debug.DrawRay(motor.TransientPosition, 1.2f * motor.Capsule.radius * dir, Color.green, 1f);
-
-				if (hits > 0)
-				{
-					var toTarget = (wallGrabResults[0].transform.position - motor.TransientPosition).normalized;
-					var groundedMovement = motor.GetDirectionTangentToSurface(
-						direction: _requestedMovement,
-						surfaceNormal: motor.GroundingStatus.GroundNormal
-					);
-
-					var wallDot = Vector3.Dot(groundedMovement, toTarget);
-					var normalDot = Vector3.Dot(groundedMovement, wallGrabResults[0].normal);
-
-					if (wallDot > 0 && normalDot < 0)
-					{
-						grabWall = true;
-						//firstHit = wallGrabResults[0];
-						break; // stop at first valid hit
-					}
-				}
-			}
-		}
-		else
-		{
-			grabWall = false;
-		}
 	}
 
 	public bool IsColliderValidForCollisions(Collider coll)
@@ -677,7 +707,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 			}
 
 			canJump = coyoteTimer > 0f;
-			canJump = canJump || grabWall;
+			canJump = canJump || pushingTowardsWall || isTouchingWall;
 		}
 
 		// if (!motor.GroundingStatus.IsStableOnGround && _state.Stance is Stance.Slide)
