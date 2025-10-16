@@ -119,6 +119,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &2987276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2987277}
+  m_Layer: 0
+  m_Name: Goal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2987277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2987276}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.65, y: 0, z: -8.88}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &57465442
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,7 +971,7 @@ Transform:
   m_GameObject: {fileID: 379229256}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -12}
+  m_LocalPosition: {x: 0.5, y: 1, z: -10.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3038,7 +3069,7 @@ Transform:
   m_GameObject: {fileID: 1495560017}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5.5}
+  m_LocalPosition: {x: -8.864362, y: 0.009920463, z: -9.823942}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3056,6 +3087,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d415f63e598f514680cb105ad033126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goal: {fileID: 747094420}
+  path:
+  - {x: 16.6, y: 0.009750137, z: -4.024999}
+  - {x: 1.9500008, y: 0.009750137, z: -10.099999}
+  - {x: 10.450001, y: 0.009750137, z: -12.44}
+  - {x: 10.7875, y: 0.009750137, z: -5.2249994}
+  - {x: 17.550001, y: 0.009750137, z: -5.149999}
+  - {x: 16.6, y: 0.009750137, z: -4.024999}
+  enemy: {fileID: 1740605866}
+  speed: 3
+  reachThreshold: 0.1
+  pathUpdateRate: 0.2
   Visualize: 1
   navMesh:
     nodes:
@@ -3066,6 +3109,8 @@ MonoBehaviour:
       - {x: -19.4, y: 0.009750137, z: -19.4}
       - {x: -19.4, y: 0.009750137, z: -12.5}
       edges: 02000000
+      centroid: {x: -16.199999, y: 0.009750137, z: -17.1}
+      normal: {x: 0, y: 1, z: -0}
     - polyIndex: 1
       regionId: 1
       vertices:
@@ -3073,6 +3118,8 @@ MonoBehaviour:
       - {x: 19.45, y: 0.009750137, z: -19.4}
       - {x: 9.700001, y: 0.009750137, z: -19.4}
       edges: 03000000
+      centroid: {x: 16.2, y: 0.009750137, z: -17.1}
+      normal: {x: 0, y: 1, z: 0}
     - polyIndex: 2
       regionId: 1
       vertices:
@@ -3082,6 +3129,8 @@ MonoBehaviour:
       - {x: -2.75, y: 0.009750137, z: -5.45}
       - {x: -0.049999237, y: 0.009750137, z: -19.4}
       edges: 000000000800000005000000
+      centroid: {x: -10.28, y: 0.009750137, z: -12.44}
+      normal: {x: 0, y: 1, z: -0}
     - polyIndex: 3
       regionId: 1
       vertices:
@@ -3091,6 +3140,8 @@ MonoBehaviour:
       - {x: 9.700001, y: 0.009750137, z: -19.4}
       - {x: -0.049999237, y: 0.009750137, z: -19.4}
       edges: 0b0000000100000004000000
+      centroid: {x: 10.450001, y: 0.009750137, z: -12.44}
+      normal: {x: -0, y: 1, z: 0}
     - polyIndex: 4
       regionId: 1
       vertices:
@@ -3098,6 +3149,8 @@ MonoBehaviour:
       - {x: 2.2000008, y: 0.009750137, z: -5.45}
       - {x: 3.7000008, y: 0.009750137, z: -5.45}
       edges: 0600000003000000
+      centroid: {x: 1.9500008, y: 0.009750137, z: -10.099999}
+      normal: {x: 0, y: 1, z: 0}
     - polyIndex: 5
       regionId: 1
       vertices:
@@ -3105,6 +3158,8 @@ MonoBehaviour:
       - {x: -2.75, y: 0.009750137, z: -5.45}
       - {x: -1.25, y: 0.009750137, z: -5.45}
       edges: 0200000006000000
+      centroid: {x: -1.3499998, y: 0.009750137, z: -10.099999}
+      normal: {x: 0, y: 1, z: -0}
     - polyIndex: 6
       regionId: 1
       vertices:
@@ -3112,6 +3167,8 @@ MonoBehaviour:
       - {x: -1.25, y: 0.009750137, z: -5.45}
       - {x: 2.2000008, y: 0.009750137, z: -5.45}
       edges: 050000000900000004000000
+      centroid: {x: 0.30000052, y: 0.009750137, z: -10.099999}
+      normal: {x: 0, y: 1, z: -0}
     - polyIndex: 7
       regionId: 2
       vertices:
@@ -3120,6 +3177,8 @@ MonoBehaviour:
       - {x: 2.9500008, y: 10.00975, z: -5.45}
       - {x: 2.9500008, y: 10.00975, z: -8.45}
       edges: 
+      centroid: {x: 0.47500038, y: 10.00975, z: -6.95}
+      normal: {x: 0, y: 1, z: 0}
     - polyIndex: 8
       regionId: 3
       vertices:
@@ -3128,6 +3187,8 @@ MonoBehaviour:
       - {x: -2.75, y: 0.009750137, z: -5.45}
       - {x: -19.4, y: 0.009750137, z: -5.45}
       edges: 1200000002000000
+      centroid: {x: -11.075, y: 0.009750137, z: -2.225}
+      normal: {x: -0, y: 1, z: 0}
     - polyIndex: 9
       regionId: 4
       vertices:
@@ -3136,6 +3197,8 @@ MonoBehaviour:
       - {x: -0.94999886, y: 0.009750137, z: -1.0999985}
       - {x: 1.9000015, y: 0.009750137, z: -1.0999985}
       edges: 06000000
+      centroid: {x: 0.47500086, y: 0.009750137, z: -3.2749991}
+      normal: {x: 0, y: 1, z: -0}
     - polyIndex: 10
       regionId: 5
       vertices:
@@ -3144,6 +3207,8 @@ MonoBehaviour:
       - {x: 6.250002, y: 0.009750137, z: -4.999999}
       - {x: 3.7000008, y: 0.009750137, z: -5.45}
       edges: 0e0000000b000000
+      centroid: {x: 5.050001, y: 0.009750137, z: -4.1374993}
+      normal: {x: -0, y: 1, z: 0}
     - polyIndex: 11
       regionId: 5
       vertices:
@@ -3152,6 +3217,8 @@ MonoBehaviour:
       - {x: 3.7000008, y: 0.009750137, z: -5.45}
       - {x: 6.250002, y: 0.009750137, z: -4.999999}
       edges: 0c000000030000000a000000
+      centroid: {x: 10.7875, y: 0.009750137, z: -5.2249994}
+      normal: {x: 0, y: 1, z: 0}
     - polyIndex: 12
       regionId: 5
       vertices:
@@ -3159,6 +3226,8 @@ MonoBehaviour:
       - {x: 19.45, y: 0.009750137, z: -4.999999}
       - {x: 19.45, y: 0.009750137, z: -5.45}
       edges: 0d0000000b000000
+      centroid: {x: 17.550001, y: 0.009750137, z: -5.149999}
+      normal: {x: -0, y: 1, z: 0}
     - polyIndex: 13
       regionId: 6
       vertices:
@@ -3167,6 +3236,8 @@ MonoBehaviour:
       - {x: 19.45, y: 0.009750137, z: -4.999999}
       - {x: 13.75, y: 0.009750137, z: -4.999999}
       edges: 0f0000000c000000
+      centroid: {x: 16.6, y: 0.009750137, z: -4.024999}
+      normal: {x: -0, y: 1, z: 0}
     - polyIndex: 14
       regionId: 7
       vertices:
@@ -3174,6 +3245,8 @@ MonoBehaviour:
       - {x: 4, y: 0.009750137, z: -3.0499992}
       - {x: 3.7000008, y: 0.009750137, z: 1}
       edges: 0a00000010000000
+      centroid: {x: 4.650001, y: 0.009750137, z: -1.6999995}
+      normal: {x: 0, y: 1, z: 0}
     - polyIndex: 15
       regionId: 7
       vertices:
@@ -3181,6 +3254,8 @@ MonoBehaviour:
       - {x: 19.45, y: 0.009750137, z: -3.0499992}
       - {x: 13.75, y: 0.009750137, z: -3.0499992}
       edges: 0d00000010000000
+      centroid: {x: 17.550001, y: 0.009750137, z: -1.6999995}
+      normal: {x: 0, y: 1, z: 0}
     - polyIndex: 16
       regionId: 7
       vertices:
@@ -3189,6 +3264,8 @@ MonoBehaviour:
       - {x: 13.75, y: 0.009750137, z: -3.0499992}
       - {x: 6.250002, y: 0.009750137, z: -3.0499992}
       edges: 110000000f0000000e000000
+      centroid: {x: 10.7875, y: 0.009750137, z: -1.0249996}
+      normal: {x: -0, y: 1, z: 0}
     - polyIndex: 17
       regionId: 8
       vertices:
@@ -3197,6 +3274,8 @@ MonoBehaviour:
       - {x: 19.45, y: 0.009750137, z: 1}
       - {x: 3.7000008, y: 0.009750137, z: 1}
       edges: 170000001000000013000000
+      centroid: {x: 12.962501, y: 0.009750137, z: 4.2250004}
+      normal: {x: -0, y: 1, z: 0}
     - polyIndex: 18
       regionId: 8
       vertices:
@@ -3205,6 +3284,8 @@ MonoBehaviour:
       - {x: -2.75, y: 0.009750137, z: 1}
       - {x: -19.4, y: 0.009750137, z: 1}
       edges: 160000001300000008000000
+      centroid: {x: -8.449999, y: 0.009750137, z: 4.2250004}
+      normal: {x: -0, y: 1, z: 0}
     - polyIndex: 19
       regionId: 8
       vertices:
@@ -3213,6 +3294,8 @@ MonoBehaviour:
       - {x: 3.7000008, y: 0.009750137, z: 1}
       - {x: -2.75, y: 0.009750137, z: 1}
       edges: 1100000012000000
+      centroid: {x: 4.487501, y: 0.009750137, z: 4.2250004}
+      normal: {x: -0, y: 1, z: 0}
     - polyIndex: 20
       regionId: 9
       vertices:
@@ -3220,6 +3303,8 @@ MonoBehaviour:
       - {x: 7.450001, y: 0.009750137, z: 11.500002}
       - {x: 7.750002, y: 0.009750137, z: 7.450001}
       edges: 16000000
+      centroid: {x: 5.300001, y: 0.009750137, z: 10.150002}
+      normal: {x: -0, y: 1, z: 0}
     - polyIndex: 21
       regionId: 9
       vertices:
@@ -3227,6 +3312,8 @@ MonoBehaviour:
       - {x: 0.70000076, y: 0.23975013, z: 12.550003}
       - {x: 0.70000076, y: 0.009750137, z: 11.500002}
       edges: 1e00000016000000
+      centroid: {x: -5.9999995, y: 0.0864168, z: 12.200002}
+      normal: {x: -0.011177065, y: 0.9767783, z: -0.2139607}
     - polyIndex: 22
       regionId: 9
       vertices:
@@ -3235,6 +3322,8 @@ MonoBehaviour:
       - {x: -19.4, y: 0.009750137, z: 7.450001}
       - {x: -19.4, y: 0.009750137, z: 12.550003}
       edges: 140000001200000015000000
+      centroid: {x: -7.587499, y: 0.009750137, z: 9.737501}
+      normal: {x: 0, y: 1, z: 0}
     - polyIndex: 23
       regionId: 10
       vertices:
@@ -3243,6 +3332,8 @@ MonoBehaviour:
       - {x: 9.550001, y: 0.009750137, z: 18.400002}
       - {x: 19.45, y: 0.009750137, z: 18.400002}
       edges: 11000000
+      centroid: {x: 14.425001, y: 0.009750137, z: 12.925001}
+      normal: {x: 0, y: 1, z: -0}
     - polyIndex: 24
       regionId: 11
       vertices:
@@ -3250,6 +3341,8 @@ MonoBehaviour:
       - {x: 8.500002, y: 14.009749, z: 10.450001}
       - {x: 10.900002, y: 14.009749, z: 10.450001}
       edges: 1b0000001a000000
+      centroid: {x: 9.300002, y: 14.009749, z: 9.800001}
+      normal: {x: 0, y: 1, z: 0}
     - polyIndex: 25
       regionId: 11
       vertices:
@@ -3257,6 +3350,8 @@ MonoBehaviour:
       - {x: 19.45, y: 14.009749, z: 10.450001}
       - {x: 19.45, y: 14.009749, z: 8.500002}
       edges: 1c0000001a000000
+      centroid: {x: 18.35, y: 14.009749, z: 9.800001}
+      normal: {x: -0, y: 1, z: 0}
     - polyIndex: 26
       regionId: 11
       vertices:
@@ -3265,6 +3360,8 @@ MonoBehaviour:
       - {x: 8.500002, y: 14.009749, z: 8.500002}
       - {x: 10.900002, y: 14.009749, z: 10.450001}
       edges: 1900000018000000
+      centroid: {x: 13.750002, y: 14.009749, z: 9.475001}
+      normal: {x: 0, y: 1, z: 0}
     - polyIndex: 27
       regionId: 12
       vertices:
@@ -3273,6 +3370,8 @@ MonoBehaviour:
       - {x: 10.900002, y: 14.009749, z: 10.450001}
       - {x: 8.500002, y: 14.009749, z: 10.450001}
       edges: 2500000018000000
+      centroid: {x: 9.700002, y: 14.009749, z: 13.750002}
+      normal: {x: -0, y: 1, z: 0}
     - polyIndex: 28
       regionId: 13
       vertices:
@@ -3281,6 +3380,8 @@ MonoBehaviour:
       - {x: 19.45, y: 14.009749, z: 10.450001}
       - {x: 16.150002, y: 14.009749, z: 10.450001}
       edges: 2600000019000000
+      centroid: {x: 17.800001, y: 14.009749, z: 13.750002}
+      normal: {x: -0, y: 1, z: 0}
     - polyIndex: 29
       regionId: 14
       vertices:
@@ -3289,6 +3390,8 @@ MonoBehaviour:
       - {x: 11.500002, y: 5.00975, z: 12.550003}
       - {x: 0.70000076, y: 0.23975013, z: 12.550003}
       edges: 1e000000
+      centroid: {x: 6.1000013, y: 2.62475, z: 13.975002}
+      normal: {x: -0.40401548, y: 0.9147521, z: 0}
     - polyIndex: 30
       regionId: 14
       vertices:
@@ -3297,6 +3400,8 @@ MonoBehaviour:
       - {x: -19.4, y: 0.009750137, z: 15.400002}
       - {x: 0.70000076, y: 0.23975013, z: 15.400002}
       edges: 15000000220000001d000000
+      centroid: {x: -9.349999, y: 0.12475014, z: 13.975002}
+      normal: {x: -0.011442037, y: 0.99993455, z: 0}
     - polyIndex: 31
       regionId: 15
       vertices:
@@ -3305,6 +3410,8 @@ MonoBehaviour:
       - {x: 7.450001, y: 0.009750137, z: 15.400002}
       - {x: 7.450001, y: 0.009750137, z: 12.550003}
       edges: 
+      centroid: {x: 5.7250004, y: 0.009750137, z: 13.975002}
+      normal: {x: 0, y: 1, z: 0}
     - polyIndex: 32
       regionId: 16
       vertices:
@@ -3313,6 +3420,8 @@ MonoBehaviour:
       - {x: 19.45, y: 5.50975, z: 15.400002}
       - {x: 19.45, y: 5.50975, z: 12.550003}
       edges: 
+      centroid: {x: 18.7, y: 5.50975, z: 13.975002}
+      normal: {x: 0, y: 1, z: 0}
     - polyIndex: 33
       regionId: 17
       vertices:
@@ -3321,6 +3430,8 @@ MonoBehaviour:
       - {x: 7.450001, y: 0.009750137, z: 16.45}
       - {x: 0.70000076, y: 0.009750137, z: 16.45}
       edges: 23000000
+      centroid: {x: 4.075001, y: 0.009750137, z: 17.95}
+      normal: {x: -0, y: 1, z: 0}
     - polyIndex: 34
       regionId: 17
       vertices:
@@ -3330,6 +3441,8 @@ MonoBehaviour:
       - {x: -19.4, y: 0.009750137, z: 15.400002}
       - {x: -12.799999, y: 0.009750137, z: 19.45}
       edges: 230000001e00000024000000
+      centroid: {x: -7.37, y: 0.05575013, z: 17.230001}
+      normal: {x: 0.094672605, y: 0.97245175, z: 0.21301337}
     - polyIndex: 35
       regionId: 17
       vertices:
@@ -3337,6 +3450,8 @@ MonoBehaviour:
       - {x: 0.70000076, y: 0.009750137, z: 19.45}
       - {x: 0.70000076, y: 0.009750137, z: 16.45}
       edges: 2100000022000000
+      centroid: {x: -1.5499992, y: 0.009750137, z: 18.45}
+      normal: {x: -0, y: 1, z: 0}
     - polyIndex: 36
       regionId: 17
       vertices:
@@ -3344,6 +3459,8 @@ MonoBehaviour:
       - {x: -19.4, y: 0.009750137, z: 19.45}
       - {x: -12.799999, y: 0.009750137, z: 19.45}
       edges: 22000000
+      centroid: {x: -17.199999, y: 0.009750137, z: 18.1}
+      normal: {x: 0, y: 1, z: 0}
     - polyIndex: 37
       regionId: 18
       vertices:
@@ -3351,6 +3468,8 @@ MonoBehaviour:
       - {x: 8.500002, y: 14.009749, z: 17.050003}
       - {x: 8.500002, y: 14.009749, z: 19.45}
       edges: 1b00000027000000
+      centroid: {x: 9.300002, y: 14.009749, z: 17.850002}
+      normal: {x: 0, y: 1, z: -0}
     - polyIndex: 38
       regionId: 18
       vertices:
@@ -3358,6 +3477,8 @@ MonoBehaviour:
       - {x: 19.45, y: 14.009749, z: 17.050003}
       - {x: 16.150002, y: 14.009749, z: 17.050003}
       edges: 1c00000027000000
+      centroid: {x: 18.35, y: 14.009749, z: 17.850002}
+      normal: {x: 0, y: 1, z: 0}
     - polyIndex: 39
       regionId: 18
       vertices:
@@ -3366,6 +3487,8 @@ MonoBehaviour:
       - {x: 8.500002, y: 14.009749, z: 19.45}
       - {x: 19.45, y: 14.009749, z: 19.45}
       edges: 2500000026000000
+      centroid: {x: 13.750001, y: 14.009749, z: 18.250002}
+      normal: {x: 0, y: 1, z: 0}
 --- !u!1 &1517820841
 GameObject:
   m_ObjectHideFlags: 0
@@ -3620,6 +3743,11 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: 8c67667c6c44d814ea4392d523b11885, type: 3}
+--- !u!4 &1740605866 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2166744286467524248, guid: 9841bb6c188008f45a8625edc5b2de83, type: 3}
+  m_PrefabInstance: {fileID: 3646936886633388843}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1769502922
 GameObject:
   m_ObjectHideFlags: 0
@@ -4792,15 +4920,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2166744286467524248, guid: 9841bb6c188008f45a8625edc5b2de83, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3
+      value: 16.6
       objectReference: {fileID: 0}
     - target: {fileID: 2166744286467524248, guid: 9841bb6c188008f45a8625edc5b2de83, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.009750137
       objectReference: {fileID: 0}
     - target: {fileID: 2166744286467524248, guid: 9841bb6c188008f45a8625edc5b2de83, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.21
+      value: -4.024999
       objectReference: {fileID: 0}
     - target: {fileID: 2166744286467524248, guid: 9841bb6c188008f45a8625edc5b2de83, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5252,3 +5380,4 @@ SceneRoots:
   - {fileID: 379229258}
   - {fileID: 2013410475}
   - {fileID: 3646936886633388843}
+  - {fileID: 2987277}

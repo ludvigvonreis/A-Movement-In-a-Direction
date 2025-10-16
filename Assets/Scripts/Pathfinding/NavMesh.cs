@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using NaughtyAttributes;
 using UnityEngine;
 
 [System.Serializable]
@@ -9,7 +11,10 @@ public class NavMeshNode
 	public Vector3[] vertices;
 	public List<int> edges = new();
 
+	[SerializeField]
 	private Vector3 centroid;
+	[SerializeField]
+	private Vector3 normal;
 
 	public Vector3 Centroid
 	{
@@ -25,6 +30,18 @@ public class NavMeshNode
 			return centroid;
 		}
 	}
+
+	public Vector3 Normal
+	{
+		get
+		{
+			if (normal != Vector3.zero) return normal;
+
+			normal = Vector3.Cross(vertices[1] - vertices[0], vertices[2] - vertices[1]).normalized;
+
+			return normal;
+		}
+	}
 }
 
 [System.Serializable]
@@ -32,7 +49,7 @@ public class NavMesh
 {
 	const int RC_MESH_NULL_IDX = 65535;
 
-	[HideInInspector]
+	//[HideInInspector]
 	public List<NavMeshNode> nodes = new();
 
 	private RcPolyMeshData polyMesh;
@@ -97,4 +114,109 @@ public class NavMesh
 			}
 		}
 	}
+
+	public NavMeshNode PositionToNode(Vector3 position)
+	{
+		foreach (var node in nodes)
+		{
+			bool inside = true;
+			for (int i = 0; i < node.vertices.Length; i++)
+			{
+				Vector3 a = node.vertices[i];
+				Vector3 b = node.vertices[(i + 1) % node.vertices.Length];
+
+				Vector3 edge = b - a;
+				Vector3 toPoint = position - a;
+				Vector3 cross = Vector3.Cross(edge, toPoint);
+
+				if (Vector3.Dot(cross, node.Normal) < -1e-3f)
+				{
+					inside = false;
+					break; // early exit
+				}
+			}
+
+			if (inside)
+				return node;
+		}
+
+		return null;
+	}
+
+	public NavMeshNode GetNodeFromIndex(int nodeIndex)
+	{
+		return nodes[nodeIndex];
+	}
+
+	public List<Vector3> AStar(Vector3 origin, Vector3 goal)
+	{
+		NavMeshNode originNode = PositionToNode(origin);
+		NavMeshNode goalNode = PositionToNode(goal);
+
+		//Debug.Log(originNode + " :: " + goalNode);
+
+		if (originNode == null || goalNode == null) return null;
+
+		List<NavMeshNode> openSet = new() { originNode };
+		HashSet<NavMeshNode> closed = new();
+
+		var gScores = new Dictionary<int, float>();
+		var fScores = new Dictionary<int, float>();
+		var cameFrom = new Dictionary<NavMeshNode, NavMeshNode>();
+
+		gScores[originNode.polyIndex] = 0f;
+		fScores[originNode.polyIndex] = Vector3.Distance(origin, goal);
+
+		while (openSet.Count > 0)
+		{
+			NavMeshNode current = openSet[0];
+			foreach (var node in openSet)
+			{
+				if (fScores.TryGetValue(node.polyIndex, out float f) && f < fScores[current.polyIndex])
+					current = node;
+			}
+
+			if (current.polyIndex == goalNode.polyIndex)
+				return RetracePath(cameFrom, originNode, goalNode);
+
+			openSet.Remove(current);
+			closed.Add(current);
+
+			foreach (var edgeIndex in current.edges)
+			{
+				var neighbor = GetNodeFromIndex(edgeIndex);
+				if (closed.Contains(neighbor))
+					continue;
+
+				float currentG = gScores.TryGetValue(current.polyIndex, out float g) ? g : float.PositiveInfinity;
+				float tentativeG = currentG + Vector3.Distance(current.Centroid, neighbor.Centroid);
+
+				if (!gScores.ContainsKey(neighbor.polyIndex) || tentativeG < gScores[neighbor.polyIndex])
+				{
+					cameFrom[neighbor] = current;
+					gScores[neighbor.polyIndex] = tentativeG;
+					fScores[neighbor.polyIndex] = tentativeG + Vector3.Distance(neighbor.Centroid, goal);
+
+					if (!openSet.Contains(neighbor))
+						openSet.Add(neighbor);
+				}
+			}
+		}
+
+		return null;
+	}
+	
+	static List<Vector3> RetracePath(Dictionary<NavMeshNode, NavMeshNode> cameFrom, NavMeshNode start, NavMeshNode end)
+    {
+        List<Vector3> path = new();
+        NavMeshNode current = end;
+        while (current != start)
+        {
+            path.Add(current.Centroid);
+            current = cameFrom[current];
+        }
+		path.Add(end.Centroid);
+        path.Reverse();
+        return path;
+    }
 }
