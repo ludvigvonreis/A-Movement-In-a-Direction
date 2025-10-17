@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using NaughtyAttributes;
 using UnityEngine;
 
 [System.Serializable]
@@ -148,7 +146,7 @@ public class NavMesh
 		return nodes[nodeIndex];
 	}
 
-	public List<Vector3> AStar(Vector3 origin, Vector3 goal)
+	public List<NavMeshNode> AStar(Vector3 origin, Vector3 goal)
 	{
 		NavMeshNode originNode = PositionToNode(origin);
 		NavMeshNode goalNode = PositionToNode(goal);
@@ -206,17 +204,22 @@ public class NavMesh
 		return null;
 	}
 	
-	static List<Vector3> RetracePath(Dictionary<NavMeshNode, NavMeshNode> cameFrom, NavMeshNode start, NavMeshNode end)
-    {
-        List<Vector3> path = new();
-        NavMeshNode current = end;
-        while (current != start)
-        {
-            path.Add(current.Centroid);
-            current = cameFrom[current];
-        }
-		path.Add(end.Centroid);
-        path.Reverse();
-        return path;
-    }
+	static List<NavMeshNode> RetracePath(Dictionary<NavMeshNode, NavMeshNode> cameFrom, NavMeshNode start, NavMeshNode end)
+	{
+		List<NavMeshNode> path = new();
+		NavMeshNode current = end;
+
+		// Include goal node
+		path.Add(current);
+
+		while (current != start)
+		{
+			current = cameFrom[current];
+			path.Add(current);
+		}
+
+		path.Reverse();
+
+		return path;
+	}
 }
