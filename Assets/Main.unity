@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 57465446}
   - component: {fileID: 57465445}
   - component: {fileID: 57465444}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 91288490}
   - component: {fileID: 91288489}
   - component: {fileID: 91288488}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 157207114}
   - component: {fileID: 157207113}
   - component: {fileID: 157207115}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6500
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 5.866e-42, y: 2.524355e-29, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0.0000053969543, y: 405430.25, z: 2.1264053e-18, w: -907.66034}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -584,7 +584,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 176831271}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -618,6 +618,7 @@ Transform:
   - {fileID: 326833169}
   - {fileID: 1983508974}
   - {fileID: 692288937}
+  - {fileID: 1398608731}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &248681542
@@ -664,7 +665,7 @@ GameObject:
   - component: {fileID: 257317022}
   - component: {fileID: 257317021}
   - component: {fileID: 257317020}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -805,7 +806,7 @@ GameObject:
   - component: {fileID: 326833172}
   - component: {fileID: 326833171}
   - component: {fileID: 326833170}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -943,7 +944,7 @@ Transform:
   m_GameObject: {fileID: 379229256}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 3.5, z: 14}
+  m_LocalPosition: {x: 13.89, y: 7.12, z: 9.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1067,7 +1068,7 @@ GameObject:
   - component: {fileID: 407437023}
   - component: {fileID: 407437022}
   - component: {fileID: 407437021}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1224,7 +1225,7 @@ GameObject:
   - component: {fileID: 487252444}
   - component: {fileID: 487252443}
   - component: {fileID: 487252442}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1418,7 +1419,7 @@ GameObject:
   - component: {fileID: 527372561}
   - component: {fileID: 527372560}
   - component: {fileID: 527372559}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1637,7 +1638,7 @@ GameObject:
   - component: {fileID: 608738751}
   - component: {fileID: 608738750}
   - component: {fileID: 608738749}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1745,7 +1746,7 @@ GameObject:
   - component: {fileID: 692288940}
   - component: {fileID: 692288939}
   - component: {fileID: 692288938}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2048,7 +2049,7 @@ GameObject:
   - component: {fileID: 769013084}
   - component: {fileID: 769013083}
   - component: {fileID: 769013082}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2381,6 +2382,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ramp
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8c67667c6c44d814ea4392d523b11885, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2403,7 +2408,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 843712228}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wall Jump Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2506,7 +2511,7 @@ GameObject:
   - component: {fileID: 874457069}
   - component: {fileID: 874457068}
   - component: {fileID: 874457067}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2615,7 +2620,7 @@ GameObject:
   - component: {fileID: 894262835}
   - component: {fileID: 894262834}
   - component: {fileID: 894262833}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Shoot Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2780,6 +2785,10 @@ PrefabInstance:
       value: Ramp
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8c67667c6c44d814ea4392d523b11885, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8c67667c6c44d814ea4392d523b11885, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -2883,7 +2892,7 @@ GameObject:
   - component: {fileID: 1148406272}
   - component: {fileID: 1148406271}
   - component: {fileID: 1148406270}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3018,7 +3027,7 @@ GameObject:
   - component: {fileID: 1162461030}
   - component: {fileID: 1162461029}
   - component: {fileID: 1162461028}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3125,7 +3134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1292011973}
   - component: {fileID: 1292011972}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Adaptive Probe Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3203,7 +3212,7 @@ GameObject:
   - component: {fileID: 1334322578}
   - component: {fileID: 1334322577}
   - component: {fileID: 1334322576}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3311,7 +3320,7 @@ GameObject:
   - component: {fileID: 1377638068}
   - component: {fileID: 1377638067}
   - component: {fileID: 1377638066}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Reflection Probe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3594,33 +3603,33 @@ MonoBehaviour:
     m_Aspect: 0
   m_HasValidSHForNormalization: 1
   m_SHForNormalization:
-    'sh[ 0]': 296.33752
-    'sh[ 1]': -24.413649
-    'sh[ 2]': -27.989082
-    'sh[ 3]': -2.063763
-    'sh[ 4]': 3.954541
-    'sh[ 5]': 5.543348
-    'sh[ 6]': 3.4600086
-    'sh[ 7]': 0.87734425
-    'sh[ 8]': 0.6486869
-    'sh[ 9]': 173.22385
-    'sh[10]': -55.748573
-    'sh[11]': -84.35799
-    'sh[12]': -15.752147
-    'sh[13]': 2.7613661
-    'sh[14]': 15.949481
-    'sh[15]': 5.555511
-    'sh[16]': 5.721954
-    'sh[17]': -4.111732
-    'sh[18]': 61.237335
-    'sh[19]': -16.328382
-    'sh[20]': -39.3397
-    'sh[21]': -6.5419235
-    'sh[22]': 0.85263205
-    'sh[23]': 4.819557
-    'sh[24]': 2.6751251
-    'sh[25]': 2.5472004
-    'sh[26]': -1.3152318
+    'sh[ 0]': 328.9685
+    'sh[ 1]': -17.648685
+    'sh[ 2]': -33.84725
+    'sh[ 3]': -3.029098
+    'sh[ 4]': 3.9432256
+    'sh[ 5]': 4.494052
+    'sh[ 6]': 3.5716598
+    'sh[ 7]': 0.9911205
+    'sh[ 8]': 0.15408808
+    'sh[ 9]': 206.11359
+    'sh[10]': -48.826744
+    'sh[11]': -100.69932
+    'sh[12]': -19.870682
+    'sh[13]': 2.5839105
+    'sh[14]': 14.98839
+    'sh[15]': 6.213067
+    'sh[16]': 6.660376
+    'sh[17]': -5.379154
+    'sh[18]': 117.41073
+    'sh[19]': 8.20582
+    'sh[20]': -71.06788
+    'sh[21]': -12.757328
+    'sh[22]': -0.33425164
+    'sh[23]': -0.65031296
+    'sh[24]': 3.9084513
+    'sh[25]': 4.568257
+    'sh[26]': -4.0341864
   m_SHValidForCapturePosition: {x: 0.5, y: 10, z: 0.5}
   m_SHValidForSourcePosition: {x: 0.5, y: 10, z: 0.5}
   m_HDProbeVersion: 9
@@ -3775,6 +3784,115 @@ Transform:
   m_Children: []
   m_Father: {fileID: 176831271}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1398608730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1398608731}
+  - component: {fileID: 1398608734}
+  - component: {fileID: 1398608733}
+  - component: {fileID: 1398608732}
+  m_Layer: 3
+  m_Name: Plane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1398608731
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398608730}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.70710576, w: 0.7071079}
+  m_LocalPosition: {x: 19.95, y: 9.75, z: 14.25}
+  m_LocalScale: {x: 0.350025, y: 1, z: 0.65000004}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 176831271}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!64 &1398608732
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398608730}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1398608733
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398608730}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 8bcae0436fb709b4d8589fea71f06f61, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1398608734
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398608730}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1430314278
 GameObject:
   m_ObjectHideFlags: 19
@@ -3835,7 +3953,7 @@ GameObject:
   - component: {fileID: 1457979156}
   - component: {fileID: 1457979155}
   - component: {fileID: 1457979154}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3995,7 +4113,7 @@ GameObject:
   - component: {fileID: 1464867706}
   - component: {fileID: 1464867705}
   - component: {fileID: 1464867704}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4169,7 +4287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualizationConfig:
     ShowVisualization: 1
-    ShowNavMesh: 0
+    ShowNavMesh: 1
     NavMeshColor: {r: 1, g: 1, b: 1, a: 0.72156864}
     ShowNavGraph: 1
     NavGraphColor: {r: 0, g: 0, b: 0, a: 1}
@@ -4189,6 +4307,9 @@ MonoBehaviour:
     ShortcutLookAhead: 2
     CRPointsPerSegment: 4
   navMesh:
+    jumpLinkMinSurfaceArea: 5
+    jumpLinkMinDistance: 0.5
+    jumpLinkMaxDistance: 15
     nodes:
     - polyIndex: 0
       regionId: 1
@@ -4197,9 +4318,11 @@ MonoBehaviour:
       - {x: 19.55, y: 0.009750137, z: -4.900316}
       - {x: 19.55, y: 0.009750137, z: -12.250317}
       edges: 1700000003000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 17.566668, y: 0.009750137, z: -7.3503165}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 21.86624
     - polyIndex: 1
       regionId: 1
       vertices:
@@ -4207,9 +4330,11 @@ MonoBehaviour:
       - {x: -19.55, y: 0.009750137, z: -19.550316}
       - {x: -19.55, y: 0.009750137, z: -12.250317}
       edges: 04000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -16.3, y: 0.009750137, z: -17.116983}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 35.587494
     - polyIndex: 2
       regionId: 1
       vertices:
@@ -4217,9 +4342,11 @@ MonoBehaviour:
       - {x: 19.55, y: 0.009750137, z: -19.550316}
       - {x: 9.75, y: 0.009750137, z: -19.550316}
       edges: 03000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 16.283333, y: 0.009750137, z: -17.116983}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 35.769993
     - polyIndex: 3
       regionId: 1
       vertices:
@@ -4229,9 +4356,11 @@ MonoBehaviour:
       - {x: 9.75, y: 0.009750137, z: -19.550316}
       - {x: 0, y: 0.009750137, z: -19.550316}
       edges: 000000000200000004000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 9.860001, y: 0.009750137, z: -12.230316}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 181.89125
     - polyIndex: 4
       regionId: 1
       vertices:
@@ -4241,9 +4370,11 @@ MonoBehaviour:
       - {x: 6.3999996, y: 0.009750137, z: -4.900316}
       - {x: 0, y: 0.009750137, z: -19.550316}
       edges: 010000001100000003000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -8.5, y: 0.009750137, z: -12.230316}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 297.69998
     - polyIndex: 5
       regionId: 2
       vertices:
@@ -4251,9 +4382,23 @@ MonoBehaviour:
       - {x: 11.950001, y: 6.00975, z: 8.449684}
       - {x: 11.950001, y: 6.00975, z: 13.499683}
       edges: 06000000
-      flags: 1
+      offMeshLinks:
+      - startPolyIndex: 5
+        endPolyIndex: 56
+        startPos: {x: 14.225, y: 6.00975, z: 8.449684}
+        endPos: {x: 14.63574, y: -4.1843924e-17, z: 7.5379314}
+        bidirectional: 0
+        cost: 30
+      - startPolyIndex: 5
+        endPolyIndex: 85
+        startPos: {x: 11.950001, y: 6.00975, z: 10.974684}
+        endPos: {x: 11.075617, y: -6.361533e-17, z: 11.459919}
+        bidirectional: 0
+        cost: 30
+      flags: 0
       centroid: {x: 13.466667, y: 6.00975, z: 10.133018}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 11.488747
     - polyIndex: 6
       regionId: 2
       vertices:
@@ -4262,64 +4407,100 @@ MonoBehaviour:
       - {x: 11.950001, y: 6.00975, z: 13.499683}
       - {x: 11.950001, y: 6.00975, z: 18.599686}
       - {x: 19.55, y: 6.00975, z: 18.599686}
-      - {x: 19.55, y: 6.00975, z: 9.049685}
+      - {x: 19.55, y: 6.00975, z: 9.099684}
       edges: 0500000008000000
-      flags: 1
-      centroid: {x: 16.033333, y: 6.00975, z: 12.758018}
+      offMeshLinks: []
+      flags: 0
+      centroid: {x: 16.033333, y: 6.00975, z: 12.766351}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 64.8775
     - polyIndex: 7
       regionId: 2
       vertices:
       - {x: 19.55, y: 11.00975, z: -19.550316}
       - {x: 16.95, y: 11.00975, z: -19.550316}
       - {x: 16.95, y: 11.00975, z: -12.650316}
-      - {x: 19.55, y: 11.00975, z: -10.050317}
+      - {x: 19.55, y: 11.00975, z: -10.000317}
       edges: 09000000
-      flags: 1
-      centroid: {x: 18.25, y: 11.00975, z: -15.450315}
+      offMeshLinks:
+      - startPolyIndex: 7
+        endPolyIndex: 2
+        startPos: {x: 16.95, y: 11.00975, z: -16.100315}
+        endPos: {x: 16.059027, y: 9.1895207e-17, z: -16.554369}
+        bidirectional: 0
+        cost: 44.039
+      flags: 0
+      centroid: {x: 18.25, y: 11.00975, z: -15.437816}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 21.384987
     - polyIndex: 8
       regionId: 2
       vertices:
-      - {x: 19.55, y: 6.00975, z: 9.049685}
+      - {x: 19.55, y: 6.00975, z: 9.099684}
       - {x: 16.900002, y: 6.00975, z: 8.049685}
       - {x: 16.7, y: 6.00975, z: 8.349684}
       edges: 0b00000006000000
-      flags: 1
-      centroid: {x: 17.716667, y: 6.00975, z: 8.483018}
+      offMeshLinks: []
+      flags: 0
+      centroid: {x: 17.716667, y: 6.00975, z: 8.499684}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.502499
     - polyIndex: 9
       regionId: 2
       vertices:
-      - {x: 19.55, y: 11.00975, z: -10.050317}
+      - {x: 19.55, y: 11.00975, z: -10.000317}
       - {x: 16.95, y: 11.00975, z: -12.650316}
       - {x: 16.95, y: 11.00975, z: -5.7003164}
       edges: 070000000a000000
-      flags: 1
-      centroid: {x: 17.816668, y: 11.00975, z: -9.466984}
+      offMeshLinks:
+      - startPolyIndex: 9
+        endPolyIndex: 3
+        startPos: {x: 16.95, y: 11.00975, z: -9.175316}
+        endPos: {x: 15.996834, y: 4.9254314e-17, z: -8.872868}
+        bidirectional: 0
+        cost: 44.039
+      flags: 0
+      centroid: {x: 17.816668, y: 11.00975, z: -9.450316}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 9.034994
     - polyIndex: 10
       regionId: 2
       vertices:
-      - {x: 19.55, y: 11.00975, z: -0.5003166}
-      - {x: 19.55, y: 11.00975, z: -10.050317}
+      - {x: 19.55, y: 11.00975, z: -0.45031548}
+      - {x: 19.55, y: 11.00975, z: -10.000317}
       - {x: 16.95, y: 11.00975, z: -5.7003164}
       - {x: 16.95, y: 10.02975, z: 1.1996841}
       edges: 090000000b000000
-      flags: 1
-      centroid: {x: 18.25, y: 10.7647505, z: -3.7628164}
+      offMeshLinks:
+      - startPolyIndex: 10
+        endPolyIndex: 38
+        startPos: {x: 16.95, y: 10.519751, z: -2.2503161}
+        endPos: {x: 16.296946, y: 8.343726e-18, z: -1.503072}
+        bidirectional: 0
+        cost: 41.5867
+      flags: 0
+      centroid: {x: 18.25, y: 10.7647505, z: -3.7378159}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 21.833149
     - polyIndex: 11
       regionId: 2
       vertices:
-      - {x: 19.55, y: 6.00975, z: 9.049685}
-      - {x: 19.55, y: 11.00975, z: -0.5003166}
+      - {x: 19.55, y: 6.00975, z: 9.099684}
+      - {x: 19.55, y: 11.00975, z: -0.45031548}
       - {x: 16.95, y: 10.02975, z: 1.1996841}
       - {x: 16.900002, y: 6.00975, z: 8.049685}
       edges: 0a00000008000000
+      offMeshLinks:
+      - startPolyIndex: 11
+        endPolyIndex: 56
+        startPos: {x: 16.925001, y: 8.01975, z: 4.6246843}
+        endPos: {x: 15.948127, y: -2.6291896e-17, z: 4.7363267}
+        bidirectional: 0
+        cost: 31.349598
       flags: 1
-      centroid: {x: 18.2375, y: 8.2647505, z: 4.449684}
-      normal: {x: -0.030634375, y: 0.8855065, z: 0.46361595}
+      centroid: {x: 18.2375, y: 8.2647505, z: 4.4746842}
+      normal: {x: -0.039537847, y: 0.8852296, z: 0.46347106}
+      surfaceArea: 24.780117
     - polyIndex: 12
       regionId: 3
       vertices:
@@ -4328,9 +4509,17 @@ MonoBehaviour:
       - {x: 16.400002, y: 18.00975, z: -16.050316}
       - {x: 16.400002, y: 18.00975, z: -8.500317}
       edges: 0d000000
-      flags: 1
+      offMeshLinks:
+      - startPolyIndex: 12
+        endPolyIndex: 7
+        startPos: {x: 17.975, y: 18.00975, z: -16.050316}
+        endPos: {x: 17.975, y: 11.000008, z: -17.050316}
+        bidirectional: 0
+        cost: 30
+      flags: 0
       centroid: {x: 17.975, y: 18.00975, z: -12.275316}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 23.78248
     - polyIndex: 13
       regionId: 3
       vertices:
@@ -4339,9 +4528,17 @@ MonoBehaviour:
       - {x: 19.55, y: 18.00975, z: -0.90031624}
       - {x: 19.55, y: 18.00975, z: -8.500317}
       edges: 0c000000
-      flags: 1
+      offMeshLinks:
+      - startPolyIndex: 13
+        endPolyIndex: 10
+        startPos: {x: 17.975, y: 18.00975, z: -0.90031624}
+        endPos: {x: 17.975, y: 10.6472435, z: 0.09968376}
+        bidirectional: 0
+        cost: 30
+      flags: 0
       centroid: {x: 17.975, y: 18.00975, z: -4.7003164}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 23.939983
     - polyIndex: 14
       regionId: 4
       vertices:
@@ -4350,9 +4547,23 @@ MonoBehaviour:
       - {x: 2.3500004, y: 10.00975, z: -3.850317}
       - {x: 2.3500004, y: 10.00975, z: -7.0003166}
       edges: 
-      flags: 1
-      centroid: {x: 0, y: 0, z: 0}
+      offMeshLinks:
+      - startPolyIndex: 14
+        endPolyIndex: 4
+        startPos: {x: -2.7999992, y: 10.00975, z: -5.425317}
+        endPos: {x: -3.7999988, y: 3.0116558e-17, z: -5.425317}
+        bidirectional: 0
+        cost: 40.039
+      - startPolyIndex: 14
+        endPolyIndex: 36
+        startPos: {x: -0.22499943, y: 10.00975, z: -3.850317}
+        endPos: {x: -0.22499944, y: 1.582244e-17, z: -2.8503172}
+        bidirectional: 0
+        cost: 40.039005
+      flags: 0
+      centroid: {x: -0.22499943, y: 10.00975, z: -5.425317}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 16.222496
     - polyIndex: 15
       regionId: 5
       vertices:
@@ -4360,9 +4571,11 @@ MonoBehaviour:
       - {x: 6.3999996, y: 0.009750137, z: -3.0503159}
       - {x: 6.200001, y: 0.009750137, z: -3.1503162}
       edges: 2b00000010000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 5.266667, y: 0.009750137, z: -3.0836494}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 0.16000055
     - polyIndex: 16
       regionId: 5
       vertices:
@@ -4371,9 +4584,11 @@ MonoBehaviour:
       - {x: 6.050001, y: 0.009750137, z: -3.4003162}
       - {x: 3.2000008, y: 0.009750137, z: -3.5003166}
       edges: 0f00000012000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 4.662501, y: 0.009750137, z: -3.2753162}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 1.0237511
     - polyIndex: 17
       regionId: 5
       vertices:
@@ -4382,9 +4597,11 @@ MonoBehaviour:
       - {x: -19.55, y: 0.009750137, z: -4.900316}
       - {x: -19.55, y: 0.009750137, z: -3.850317}
       edges: 150000000400000020000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -9, y: 0.009750137, z: -4.3753166}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 22.154984
     - polyIndex: 18
       regionId: 5
       vertices:
@@ -4393,9 +4610,11 @@ MonoBehaviour:
       - {x: 6.050001, y: 0.009750137, z: -3.4003162}
       - {x: 6.050001, y: 0.009750137, z: -4.550317}
       edges: 1000000014000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 4.587501, y: 0.009750137, z: -3.8003166}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 2.073751
     - polyIndex: 19
       regionId: 5
       vertices:
@@ -4403,9 +4622,11 @@ MonoBehaviour:
       - {x: 1.7000008, y: 0.009750137, z: -3.850317}
       - {x: 6.3999996, y: 0.009750137, z: -4.900316}
       edges: 230000001600000015000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 1.9833336, y: 0.009750137, z: -4.200317}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 2.0212488
     - polyIndex: 20
       regionId: 5
       vertices:
@@ -4414,9 +4635,11 @@ MonoBehaviour:
       - {x: 6.050001, y: 0.009750137, z: -4.550317}
       - {x: 6.200001, y: 0.009750137, z: -4.800317}
       edges: 1200000016000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 4.537501, y: 0.009750137, z: -4.237817}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 0.5775011
     - polyIndex: 21
       regionId: 5
       vertices:
@@ -4424,9 +4647,11 @@ MonoBehaviour:
       - {x: -2.1499996, y: 0.009750137, z: -3.850317}
       - {x: 6.3999996, y: 0.009750137, z: -4.900316}
       edges: 1300000011000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 0.31666693, y: 0.009750137, z: -4.200317}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 0.60374933
     - polyIndex: 22
       regionId: 5
       vertices:
@@ -4435,9 +4660,11 @@ MonoBehaviour:
       - {x: 6.3999996, y: 0.009750137, z: -4.900316}
       - {x: 1.7000008, y: 0.009750137, z: -3.850317}
       edges: 1400000013000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 4.2875004, y: 0.009750137, z: -4.350317}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.67624897
     - polyIndex: 23
       regionId: 6
       vertices:
@@ -4445,9 +4672,11 @@ MonoBehaviour:
       - {x: 13.600002, y: 0.009750137, z: -4.900316}
       - {x: 13.850002, y: 0.009750137, z: -4.7503166}
       edges: 0000000018000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 15.666668, y: 0.009750137, z: -4.8503165}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 0.44624865
     - polyIndex: 24
       regionId: 6
       vertices:
@@ -4455,9 +4684,11 @@ MonoBehaviour:
       - {x: 13.850002, y: 0.009750137, z: -4.7503166}
       - {x: 13.950001, y: 0.009750137, z: -4.550317}
       edges: 170000001b000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 15.783334, y: 0.009750137, z: -4.7336497}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 0.57749903
     - polyIndex: 25
       regionId: 6
       vertices:
@@ -4465,9 +4696,11 @@ MonoBehaviour:
       - {x: 13.600002, y: 0.009750137, z: -3.0503159}
       - {x: 19.55, y: 0.009750137, z: -3.0503159}
       edges: 260000001a000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 15.666668, y: 0.009750137, z: -3.1003158}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 0.44624865
     - polyIndex: 26
       regionId: 6
       vertices:
@@ -4475,9 +4708,11 @@ MonoBehaviour:
       - {x: 13.850002, y: 0.009750137, z: -3.2003155}
       - {x: 19.55, y: 0.009750137, z: -3.0503159}
       edges: 190000001b000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 15.783334, y: 0.009750137, z: -3.2169826}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 0.5775017
     - polyIndex: 27
       regionId: 6
       vertices:
@@ -4486,9 +4721,11 @@ MonoBehaviour:
       - {x: 13.950001, y: 0.009750137, z: -4.550317}
       - {x: 13.950001, y: 0.009750137, z: -3.4003162}
       edges: 180000001a000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 16.75, y: 0.009750137, z: -3.9753163}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 8.400001
     - polyIndex: 28
       regionId: 7
       vertices:
@@ -4497,9 +4734,11 @@ MonoBehaviour:
       - {x: 13.100002, y: 0.009750137, z: -3.9003162}
       - {x: 13.100002, y: 0.009750137, z: -4.050317}
       edges: 
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 0, y: 0, z: 0}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.93000394
     - polyIndex: 29
       regionId: 8
       vertices:
@@ -4508,9 +4747,11 @@ MonoBehaviour:
       - {x: 13.100002, y: 6.00975, z: -3.9003162}
       - {x: 13.100002, y: 6.00975, z: -4.050317}
       edges: 
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 0, y: 0, z: 0}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.93000394
     - polyIndex: 30
       regionId: 9
       vertices:
@@ -4518,9 +4759,11 @@ MonoBehaviour:
       - {x: -3.2999992, y: 0.009750137, z: 2.4996834}
       - {x: -3.5, y: 0.009750137, z: 2.399683}
       edges: 3a0000001f000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -8.783333, y: 0.009750137, z: 2.4663498}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 0.8125031
     - polyIndex: 31
       regionId: 9
       vertices:
@@ -4528,9 +4771,11 @@ MonoBehaviour:
       - {x: -3.5, y: 0.009750137, z: 2.399683}
       - {x: -3.6499996, y: 0.009750137, z: 2.149683}
       edges: 1e00000022000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -8.9, y: 0.009750137, z: 2.349683}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 2.0137498
     - polyIndex: 32
       regionId: 9
       vertices:
@@ -4538,9 +4783,11 @@ MonoBehaviour:
       - {x: -3.2999992, y: 0.009750137, z: -3.850317}
       - {x: -19.55, y: 0.009750137, z: -3.850317}
       edges: 1100000021000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -8.783333, y: 0.009750137, z: -3.8169835}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.8125031
     - polyIndex: 33
       regionId: 9
       vertices:
@@ -4548,9 +4795,11 @@ MonoBehaviour:
       - {x: -3.5, y: 0.009750137, z: -3.7503166}
       - {x: -19.55, y: 0.009750137, z: -3.850317}
       edges: 2000000022000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -8.9, y: 0.009750137, z: -3.7003167}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 2.0137498
     - polyIndex: 34
       regionId: 9
       vertices:
@@ -4559,9 +4808,11 @@ MonoBehaviour:
       - {x: -3.6499996, y: 0.009750137, z: -3.5003166}
       - {x: -19.55, y: 0.009750137, z: -3.850317}
       edges: 1f00000021000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -11.599999, y: 0.009750137, z: -0.6753168}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 95.399994
     - polyIndex: 35
       regionId: 10
       vertices:
@@ -4570,9 +4821,11 @@ MonoBehaviour:
       - {x: -1.8999996, y: 0.009750137, z: -3.7003155}
       - {x: 1.5, y: 0.009750137, z: -3.7503166}
       edges: 1300000025000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -0.21249962, y: 0.009750137, z: -3.7878165}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 0.45375347
     - polyIndex: 36
       regionId: 10
       vertices:
@@ -4581,9 +4834,11 @@ MonoBehaviour:
       - {x: 1.3500004, y: 0.009750137, z: 0.649683}
       - {x: 1.3500004, y: 0.009750137, z: -3.5003166}
       edges: 25000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -0.22499943, y: 0.009750137, z: -1.4253168}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 13.072497
     - polyIndex: 37
       regionId: 10
       vertices:
@@ -4592,9 +4847,11 @@ MonoBehaviour:
       - {x: -1.8999996, y: 0.009750137, z: -3.7003155}
       - {x: -1.7999992, y: 0.009750137, z: -3.5003166}
       edges: 2300000024000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -0.21249962, y: 0.009750137, z: -3.6128163}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.736248
     - polyIndex: 38
       regionId: 11
       vertices:
@@ -4603,9 +4860,11 @@ MonoBehaviour:
       - {x: 19.55, y: 0.009750137, z: -3.0503159}
       - {x: 13.600002, y: 0.009750137, z: -3.0503159}
       edges: 1900000028000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 17.275002, y: 0.009750137, z: -1.975316}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 9.782493
     - polyIndex: 39
       regionId: 11
       vertices:
@@ -4613,9 +4872,11 @@ MonoBehaviour:
       - {x: 16.05, y: 0.009750137, z: 2.4996834}
       - {x: 3.1000004, y: 0.009750137, z: 2.3496838}
       edges: 390000002a000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 7.3333335, y: 0.009750137, z: 2.4496834}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 0.9899974
     - polyIndex: 40
       regionId: 11
       vertices:
@@ -4623,9 +4884,11 @@ MonoBehaviour:
       - {x: 16.400002, y: 0.009750137, z: -0.90031624}
       - {x: 13.600002, y: 0.009750137, z: -3.0503159}
       edges: 2600000029000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 15.383335, y: 0.009750137, z: -1.5669829}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.47874936
     - polyIndex: 41
       regionId: 11
       vertices:
@@ -4633,9 +4896,11 @@ MonoBehaviour:
       - {x: 16.150002, y: 0.009750137, z: -0.7503166}
       - {x: 13.600002, y: 0.009750137, z: -3.0503159}
       edges: 280000002a000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 15.266667, y: 0.009750137, z: -1.4503161}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.3700035
     - polyIndex: 42
       regionId: 11
       vertices:
@@ -4646,9 +4911,11 @@ MonoBehaviour:
       - {x: 3.2000008, y: 0.009750137, z: 2.149683}
       - {x: 3.1000004, y: 0.009750137, z: 2.3496838}
       edges: 290000002b00000027000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 9.733334, y: 0.009750136, z: 0.058017094}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 58.988747
     - polyIndex: 43
       regionId: 11
       vertices:
@@ -4656,9 +4923,11 @@ MonoBehaviour:
       - {x: 3.2000008, y: 0.009750137, z: -3.0503159}
       - {x: 3.2000008, y: 0.009750137, z: 2.149683}
       edges: 0f0000002a000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 4.266667, y: 0.009750137, z: -1.3169829}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 8.319995
     - polyIndex: 44
       regionId: 12
       vertices:
@@ -4667,9 +4936,11 @@ MonoBehaviour:
       - {x: -2.6499996, y: 0.009750137, z: 1.649683}
       - {x: -2.6499996, y: 0.009750137, z: -3.0003166}
       edges: 
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 0, y: 0, z: 0}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.69749814
     - polyIndex: 45
       regionId: 13
       vertices:
@@ -4678,9 +4949,11 @@ MonoBehaviour:
       - {x: 2.2000008, y: 16.00975, z: 1.0996838}
       - {x: 2.3500004, y: 16.00975, z: 1.649683}
       edges: 2f000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 2.2750006, y: 16.00975, z: -0.8128166}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 0.65624833
     - polyIndex: 46
       regionId: 13
       vertices:
@@ -4689,9 +4962,11 @@ MonoBehaviour:
       - {x: 1.8000011, y: 16.00975, z: 1.4996834}
       - {x: -2.25, y: 16.00975, z: 1.4996834}
       edges: 3000000032000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -0.22499943, y: 16.00975, z: 1.5746832}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 0.68999827
     - polyIndex: 47
       regionId: 13
       vertices:
@@ -4699,9 +4974,11 @@ MonoBehaviour:
       - {x: 2.2000008, y: 16.00975, z: 1.0996838}
       - {x: 2, y: 16.00975, z: 1.399683}
       edges: 2d00000030000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 2.1833336, y: 16.00975, z: 1.3830166}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.077500015
     - polyIndex: 48
       regionId: 13
       vertices:
@@ -4709,9 +4986,11 @@ MonoBehaviour:
       - {x: 2, y: 16.00975, z: 1.399683}
       - {x: 1.8000011, y: 16.00975, z: 1.4996834}
       edges: 2f0000002e000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 2.0500004, y: 16.00975, z: 1.5163498}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.042499945
     - polyIndex: 49
       regionId: 13
       vertices:
@@ -4720,9 +4999,11 @@ MonoBehaviour:
       - {x: -2.7999992, y: 16.00975, z: -3.0003166}
       - {x: -2.7999992, y: 16.00975, z: 1.649683}
       edges: 33000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -2.7249994, y: 16.00975, z: -0.8128166}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.65624833
     - polyIndex: 50
       regionId: 13
       vertices:
@@ -4730,9 +5011,11 @@ MonoBehaviour:
       - {x: -2.5499992, y: 16.00975, z: 1.2996845}
       - {x: -2.7999992, y: 16.00975, z: 1.649683}
       edges: 330000002e000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -2.5333328, y: 16.00975, z: 1.483017}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.077499494
     - polyIndex: 51
       regionId: 13
       vertices:
@@ -4740,9 +5023,11 @@ MonoBehaviour:
       - {x: -2.6499996, y: 16.00975, z: 1.0996838}
       - {x: -2.7999992, y: 16.00975, z: 1.649683}
       edges: 3100000032000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -2.666666, y: 16.00975, z: 1.3496838}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.042500086
     - polyIndex: 52
       regionId: 14
       vertices:
@@ -4751,9 +5036,11 @@ MonoBehaviour:
       - {x: 2.3500004, y: 0.009750137, z: 1.649683}
       - {x: 2.3500004, y: 0.009750137, z: -3.0003166}
       edges: 
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 0, y: 0, z: 0}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.69749814
     - polyIndex: 53
       regionId: 15
       vertices:
@@ -4762,9 +5049,11 @@ MonoBehaviour:
       - {x: 19.55, y: 0.009750137, z: 7.599684}
       - {x: 19.55, y: 0.009750137, z: -0.050315857}
       edges: 
-      flags: 1
-      centroid: {x: 0, y: 0, z: 0}
+      offMeshLinks: []
+      flags: 0
+      centroid: {x: 18.225, y: 0.009750137, z: 3.774684}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 20.272482
     - polyIndex: 54
       regionId: 16
       vertices:
@@ -4773,9 +5062,17 @@ MonoBehaviour:
       - {x: 19.55, y: 6.00975, z: 4.149683}
       - {x: 19.55, y: 6.00975, z: -0.050315857}
       edges: 
-      flags: 1
-      centroid: {x: 0, y: 0, z: 0}
+      offMeshLinks:
+      - startPolyIndex: 54
+        endPolyIndex: 42
+        startPos: {x: 16.95, y: 6.00975, z: 2.0496836}
+        endPos: {x: 15.950001, y: -1.1378029e-17, z: 2.0496833}
+        bidirectional: 0
+        cost: 30
+      flags: 0
+      centroid: {x: 18.25, y: 6.00975, z: 2.0496836}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 10.919991
     - polyIndex: 55
       regionId: 17
       vertices:
@@ -4784,9 +5081,11 @@ MonoBehaviour:
       - {x: 1.3500004, y: 0.009750137, z: 1.649683}
       - {x: 1.3500004, y: 0.009750137, z: 1.4996834}
       edges: 
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 0, y: 0, z: 0}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.47249874
     - polyIndex: 56
       regionId: 18
       vertices:
@@ -4794,9 +5093,11 @@ MonoBehaviour:
       - {x: 16.05, y: 0.009750137, z: 7.599684}
       - {x: 16.05, y: 0.009750137, z: 2.4996834}
       edges: 4000000039000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 14.883332, y: 0.009750137, z: 5.8996835}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 8.925001
     - polyIndex: 57
       regionId: 18
       vertices:
@@ -4805,9 +5106,11 @@ MonoBehaviour:
       - {x: 16.05, y: 0.009750137, z: 2.4996834}
       - {x: 2.8500004, y: 0.009750137, z: 2.4996834}
       edges: 38000000270000003b000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 10.725, y: 0.009750137, z: 5.0496836}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 36.464996
     - polyIndex: 58
       regionId: 18
       vertices:
@@ -4816,9 +5119,11 @@ MonoBehaviour:
       - {x: -3.2999992, y: 0.009750137, z: 2.4996834}
       - {x: -19.55, y: 0.009750137, z: 2.4996834}
       edges: 3f0000003b0000001e000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -7.737499, y: 0.009750137, z: 5.0496836}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 120.4875
     - polyIndex: 59
       regionId: 18
       vertices:
@@ -4826,9 +5131,11 @@ MonoBehaviour:
       - {x: 2.8500004, y: 0.009750137, z: 2.4996834}
       - {x: -3.2999992, y: 0.009750137, z: 2.4996834}
       edges: 390000003a000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 3.6666672, y: 0.009750137, z: 4.1996837}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 15.6825
     - polyIndex: 60
       regionId: 19
       vertices:
@@ -4836,9 +5143,11 @@ MonoBehaviour:
       - {x: 11.1, y: 0.009750137, z: 8.599684}
       - {x: 11.1, y: 0.009750137, z: 7.949684}
       edges: 540000003d000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 8.416667, y: 0.009750137, z: 8.383018}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 2.6162481
     - polyIndex: 61
       regionId: 19
       vertices:
@@ -4846,9 +5155,11 @@ MonoBehaviour:
       - {x: 11.1, y: 0.009750137, z: 7.949684}
       - {x: 11.25, y: 0.009750137, z: 7.699684}
       edges: 3c0000003e000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 8.466667, y: 0.009750137, z: 8.083017}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.95750004
     - polyIndex: 62
       regionId: 19
       vertices:
@@ -4857,9 +5168,11 @@ MonoBehaviour:
       - {x: 11.450001, y: 0.009750137, z: 7.599684}
       - {x: 1.8999996, y: 0.009750137, z: 8.599684}
       edges: 3d0000003f000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 6.9125004, y: 0.009750137, z: 8.124683}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.895002
     - polyIndex: 63
       regionId: 19
       vertices:
@@ -4868,9 +5181,11 @@ MonoBehaviour:
       - {x: -19.55, y: 0.009750137, z: 7.599684}
       - {x: -19.55, y: 0.009750137, z: 8.599684}
       edges: 3e0000003a0000004f000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -6.4374995, y: 0.009750137, z: 8.099684}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 26.224998
     - polyIndex: 64
       regionId: 20
       vertices:
@@ -4878,9 +5193,11 @@ MonoBehaviour:
       - {x: 12.549999, y: 0.009750137, z: 7.599684}
       - {x: 12.799999, y: 0.009750137, z: 7.7496834}
       edges: 3800000041000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 13.799999, y: 0.009750137, z: 7.6496835}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 0.26249933
     - polyIndex: 65
       regionId: 20
       vertices:
@@ -4889,9 +5206,11 @@ MonoBehaviour:
       - {x: 12.900002, y: 0.009750137, z: 7.949684}
       - {x: 16.05, y: 0.009750137, z: 8.099684}
       edges: 4000000043000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 14.45, y: 0.009750137, z: 7.849684}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 1.1200008
     - polyIndex: 66
       regionId: 20
       vertices:
@@ -4899,9 +5218,11 @@ MonoBehaviour:
       - {x: 19.55, y: 0.009750137, z: 8.449684}
       - {x: 16.400002, y: 0.009750137, z: 8.449684}
       edges: 45000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 18.5, y: 0.009750137, z: 10.133018}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 7.953743
     - polyIndex: 67
       regionId: 20
       vertices:
@@ -4909,9 +5230,11 @@ MonoBehaviour:
       - {x: 16.05, y: 0.009750137, z: 8.099684}
       - {x: 12.900002, y: 0.009750137, z: 7.949684}
       edges: 4100000044000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 15.05, y: 0.009750137, z: 8.133018}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.38249964
     - polyIndex: 68
       regionId: 20
       vertices:
@@ -4920,9 +5243,11 @@ MonoBehaviour:
       - {x: 12.900002, y: 0.009750137, z: 7.949684}
       - {x: 12.900002, y: 0.009750137, z: 13.249683}
       edges: 4300000045000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 14.600001, y: 0.009750137, z: 9.499683}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 9.4
     - polyIndex: 69
       regionId: 20
       vertices:
@@ -4932,9 +5257,11 @@ MonoBehaviour:
       - {x: 12.900002, y: 0.009750137, z: 18.599686}
       - {x: 19.55, y: 0.009750137, z: 18.599686}
       edges: 4200000044000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 16.26, y: 0.009750137, z: 14.479685}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 51.143745
     - polyIndex: 70
       regionId: 21
       vertices:
@@ -4942,9 +5269,11 @@ MonoBehaviour:
       - {x: 2.4500008, y: 14.009749, z: 13.599686}
       - {x: 5, y: 14.009749, z: 13.599686}
       edges: 6500000047000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 3.3000004, y: 14.009749, z: 11.8830185}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 6.56625
     - polyIndex: 71
       regionId: 21
       vertices:
@@ -4953,9 +5282,23 @@ MonoBehaviour:
       - {x: 5, y: 14.009749, z: 13.599686}
       - {x: 11.050001, y: 14.009749, z: 13.599686}
       edges: 4600000048000000
-      flags: 1
+      offMeshLinks:
+      - startPolyIndex: 71
+        endPolyIndex: 58
+        startPos: {x: 6.7250004, y: 14.009749, z: 8.449684}
+        endPos: {x: 6.4802504, y: -4.1522885e-17, z: 7.480098}
+        bidirectional: 0
+        cost: 56.038998
+      - startPolyIndex: 71
+        endPolyIndex: 86
+        startPos: {x: 8.025001, y: 14.009749, z: 13.599686}
+        endPos: {x: 8.269751, y: -8.087571e-17, z: 14.569272}
+        bidirectional: 0
+        cost: 56.038998
+      flags: 0
       centroid: {x: 7.3750005, y: 14.009749, z: 11.024685}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 37.595013
     - polyIndex: 72
       regionId: 21
       vertices:
@@ -4964,9 +5307,17 @@ MonoBehaviour:
       - {x: 19.55, y: 14.009749, z: 8.449684}
       - {x: 11, y: 14.009749, z: 8.449684}
       edges: 6800000047000000
-      flags: 1
+      offMeshLinks:
+      - startPolyIndex: 72
+        endPolyIndex: 56
+        startPos: {x: 15.275, y: 14.009749, z: 8.449684}
+        endPos: {x: 15.270145, y: -4.135412e-17, z: 7.449696}
+        bidirectional: 0
+        cost: 56.039
+      flags: 0
       centroid: {x: 15.2875, y: 14.009749, z: 11.024685}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 43.903755
     - polyIndex: 73
       regionId: 22
       vertices:
@@ -4975,9 +5326,11 @@ MonoBehaviour:
       - {x: 11.950001, y: 0.009750137, z: 8.449684}
       - {x: 11.950001, y: 0.009750137, z: 13.499683}
       edges: 4a000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 12, y: 0.009750137, z: 10.974684}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.50499225
     - polyIndex: 74
       regionId: 22
       vertices:
@@ -4986,9 +5339,11 @@ MonoBehaviour:
       - {x: 12.049999, y: 0.009750137, z: 18.599686}
       - {x: 12.049999, y: 0.009750137, z: 13.499683}
       edges: 49000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 12, y: 0.009750137, z: 16.049685}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.5099924
     - polyIndex: 75
       regionId: 23
       vertices:
@@ -4997,9 +5352,11 @@ MonoBehaviour:
       - {x: 11.950001, y: 3.0097501, z: 8.449684}
       - {x: 11.950001, y: 3.0097501, z: 13.499683}
       edges: 4c000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 12.025002, y: 3.0097501, z: 10.974684}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.75750756
     - polyIndex: 76
       regionId: 23
       vertices:
@@ -5008,9 +5365,11 @@ MonoBehaviour:
       - {x: 12.100002, y: 3.0097501, z: 18.599686}
       - {x: 12.100002, y: 3.0097501, z: 13.499683}
       edges: 4b000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 12.025002, y: 3.0097501, z: 16.049685}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.76500815
     - polyIndex: 77
       regionId: 24
       vertices:
@@ -5018,9 +5377,11 @@ MonoBehaviour:
       - {x: 1.5500011, y: 0.009750137, z: 11.599684}
       - {x: 1.5500011, y: 0.009750137, z: 8.949684}
       edges: 4e000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -0.63333255, y: 0.009750137, z: 10.716351}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 8.67875
     - polyIndex: 78
       regionId: 24
       vertices:
@@ -5028,9 +5389,11 @@ MonoBehaviour:
       - {x: 1.5500011, y: 0.009750137, z: 8.949684}
       - {x: 1.7000008, y: 0.009750137, z: 8.699684}
       edges: 4d0000004f000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -0.5833327, y: 0.009750137, z: 9.749684}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.62000066
     - polyIndex: 79
       regionId: 24
       vertices:
@@ -5040,9 +5403,11 @@ MonoBehaviour:
       - {x: -19.55, y: 0.009750137, z: 8.599684}
       - {x: -19.55, y: 0.009750137, z: 12.449684}
       edges: 4e0000003f00000053000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -8.1, y: 0.009750137, z: 9.989683}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 60.228752
     - polyIndex: 80
       regionId: 24
       vertices:
@@ -5050,9 +5415,11 @@ MonoBehaviour:
       - {x: -5, y: 0.36975014, z: 12.449684}
       - {x: -5.25, y: 0.20975013, z: 12.299683}
       edges: 5f00000051000000
+      offMeshLinks: []
       flags: 1
       centroid: {x: -9.933333, y: 0.1964168, z: 12.399684}
       normal: {x: -0.017271921, y: 0.6980734, z: -0.7158179}
+      surfaceArea: 1.5632468
     - polyIndex: 81
       regionId: 24
       vertices:
@@ -5060,9 +5427,11 @@ MonoBehaviour:
       - {x: -5.25, y: 0.20975013, z: 12.299683}
       - {x: -5.3499994, y: 0.009750137, z: 11.949684}
       edges: 5000000052000000
+      offMeshLinks: []
       flags: 1
       centroid: {x: -10.049999, y: 0.076416805, z: 12.233017}
       normal: {x: -0.01733548, y: 0.87023735, z: -0.4923276}
+      surfaceArea: 2.884258
     - polyIndex: 82
       regionId: 24
       vertices:
@@ -5070,9 +5439,11 @@ MonoBehaviour:
       - {x: -5.3499994, y: 0.009750137, z: 11.949684}
       - {x: -5.2, y: 0.009750137, z: 11.699684}
       edges: 5100000053000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -10.033333, y: 0.009750137, z: 12.033017}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 1.7375001
     - polyIndex: 83
       regionId: 24
       vertices:
@@ -5080,9 +5451,11 @@ MonoBehaviour:
       - {x: -5.2, y: 0.009750137, z: 11.699684}
       - {x: -5, y: 0.009750137, z: 11.599684}
       edges: 520000004f000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -9.916667, y: 0.009750137, z: 11.916351}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.6425028
     - polyIndex: 84
       regionId: 25
       vertices:
@@ -5090,9 +5463,11 @@ MonoBehaviour:
       - {x: 3.0500011, y: 0.009750137, z: 8.599684}
       - {x: 3.3000011, y: 0.009750137, z: 8.749683}
       edges: 3c00000055000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 5.8166676, y: 0.009750137, z: 8.649684}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 0.6037484
     - polyIndex: 85
       regionId: 25
       vertices:
@@ -5101,9 +5476,11 @@ MonoBehaviour:
       - {x: 3.3999996, y: 0.009750137, z: 8.949684}
       - {x: 11.1, y: 0.009750137, z: 13.599686}
       edges: 5400000056000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 7.2250004, y: 0.009750137, z: 9.974684}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 20.037512
     - polyIndex: 86
       regionId: 25
       vertices:
@@ -5112,9 +5489,11 @@ MonoBehaviour:
       - {x: 11.1, y: 0.009750137, z: 13.599686}
       - {x: 3.3999996, y: 0.009750137, z: 8.949684}
       edges: 55000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 7.25, y: 0.009750137, z: 14.937185}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 56.40251
     - polyIndex: 87
       regionId: 26
       vertices:
@@ -5123,9 +5502,11 @@ MonoBehaviour:
       - {x: 2.5500011, y: 0.009750137, z: 9.449684}
       - {x: 2.3999996, y: 0.009750137, z: 9.449684}
       edges: 
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 0, y: 0, z: 0}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 1.143759
     - polyIndex: 88
       regionId: 27
       vertices:
@@ -5134,9 +5515,11 @@ MonoBehaviour:
       - {x: 2.5500011, y: 5.00975, z: 18.599686}
       - {x: 2.5500011, y: 5.00975, z: 15.999683}
       edges: 5a000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 2.4750004, y: 5.00975, z: 17.299685}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.3900043
     - polyIndex: 89
       regionId: 27
       vertices:
@@ -5145,9 +5528,29 @@ MonoBehaviour:
       - {x: 2, y: 5.00975, z: 12.449684}
       - {x: -5, y: 0.36975014, z: 12.449684}
       edges: 5d0000005f000000
+      offMeshLinks:
+      - startPolyIndex: 89
+        endPolyIndex: 109
+        startPos: {x: -1.5, y: 2.68975, z: 15.599686}
+        endPos: {x: -1.5, y: -9.214677e-17, z: 16.599686}
+        bidirectional: 0
+        cost: 30
+      - startPolyIndex: 89
+        endPolyIndex: 93
+        startPos: {x: 2, y: 5.00975, z: 14.024685}
+        endPos: {x: 2.8335128, y: 5.0000505, z: 14.024685}
+        bidirectional: 0
+        cost: 30
+      - startPolyIndex: 89
+        endPolyIndex: 77
+        startPos: {x: -1.5, y: 2.68975, z: 12.449684}
+        endPos: {x: -1.5, y: -6.355852e-17, z: 11.449684}
+        bidirectional: 0
+        cost: 30
       flags: 1
       centroid: {x: -1.5, y: 2.68975, z: 14.024685}
       normal: {x: -0.5525, y: 0.83351296, z: 0}
+      surfaceArea: 26.454311
     - polyIndex: 90
       regionId: 27
       vertices:
@@ -5156,9 +5559,11 @@ MonoBehaviour:
       - {x: 2.5500011, y: 5.00975, z: 15.999683}
       - {x: 2.75, y: 5.00975, z: 15.699684}
       edges: 580000005c000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 2.4750004, y: 5.00975, z: 15.849684}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.10499985
     - polyIndex: 91
       regionId: 27
       vertices:
@@ -5167,9 +5572,17 @@ MonoBehaviour:
       - {x: 5.6000004, y: 5.00975, z: 12.449684}
       - {x: 2.9500008, y: 5.00975, z: 12.449684}
       edges: 5d000000
-      flags: 1
+      offMeshLinks:
+      - startPolyIndex: 91
+        endPolyIndex: 86
+        startPos: {x: 4.2750006, y: 5.00975, z: 15.599686}
+        endPos: {x: 4.275, y: -9.214677e-17, z: 16.599686}
+        bidirectional: 0
+        cost: 30
+      flags: 0
       centroid: {x: 4.2750006, y: 5.00975, z: 14.024685}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 8.347503
     - polyIndex: 92
       regionId: 27
       vertices:
@@ -5177,9 +5590,11 @@ MonoBehaviour:
       - {x: 2.2000008, y: 5.00975, z: 15.699684}
       - {x: 2.75, y: 5.00975, z: 15.699684}
       edges: 5a0000005d000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 2.3166668, y: 5.00975, z: 15.666351}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.027499542
     - polyIndex: 93
       regionId: 27
       vertices:
@@ -5190,9 +5605,11 @@ MonoBehaviour:
       - {x: 2.9500008, y: 5.00975, z: 12.449684}
       - {x: 2.2000008, y: 5.00975, z: 12.349686}
       edges: 590000005c0000005b00000061000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 2.4750004, y: 5.00975, z: 14.024685}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 3.0875027
     - polyIndex: 94
       regionId: 27
       vertices:
@@ -5201,9 +5618,11 @@ MonoBehaviour:
       - {x: 2.3999996, y: 5.00975, z: 9.449684}
       - {x: 2.3999996, y: 5.00975, z: 12.049683}
       edges: 60000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 2.4750004, y: 5.00975, z: 10.749683}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.39000374
     - polyIndex: 95
       regionId: 27
       vertices:
@@ -5212,9 +5631,11 @@ MonoBehaviour:
       - {x: -19.55, y: 0.009750137, z: 15.599686}
       - {x: -5, y: 0.36975014, z: 15.599686}
       edges: 500000007000000059000000
+      offMeshLinks: []
       flags: 1
       centroid: {x: -12.275, y: 0.18975013, z: 14.024685}
       normal: {x: -0.0247347, y: 0.99969405, z: 0}
+      surfaceArea: 45.846546
     - polyIndex: 96
       regionId: 27
       vertices:
@@ -5223,9 +5644,11 @@ MonoBehaviour:
       - {x: 2.3999996, y: 5.00975, z: 12.049683}
       - {x: 2.2000008, y: 5.00975, z: 12.349686}
       edges: 5e00000061000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 2.4750004, y: 5.00975, z: 12.199684}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.10500118
     - polyIndex: 97
       regionId: 27
       vertices:
@@ -5233,9 +5656,11 @@ MonoBehaviour:
       - {x: 2.75, y: 5.00975, z: 12.349686}
       - {x: 2.2000008, y: 5.00975, z: 12.349686}
       edges: 600000005d000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 2.633334, y: 5.00975, z: 12.3830185}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.027499542
     - polyIndex: 98
       regionId: 28
       vertices:
@@ -5244,9 +5669,11 @@ MonoBehaviour:
       - {x: 1.5500011, y: 0.009750137, z: 12.449684}
       - {x: -2.0499992, y: 0.009750137, z: 12.449684}
       edges: 
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -0.23749924, y: 0.009750137, z: 14.024685}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 11.418756
     - polyIndex: 99
       regionId: 29
       vertices:
@@ -5254,9 +5681,11 @@ MonoBehaviour:
       - {x: 5, y: 14.009749, z: 17.449684}
       - {x: 4.700001, y: 14.009749, z: 17.249683}
       edges: 7200000064000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 4.0500007, y: 14.009749, z: 17.383017}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 0.2550009
     - polyIndex: 100
       regionId: 29
       vertices:
@@ -5264,9 +5693,11 @@ MonoBehaviour:
       - {x: 4.700001, y: 14.009749, z: 17.249683}
       - {x: 4.6000004, y: 14.009749, z: 17.049683}
       edges: 6300000067000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 3.9166672, y: 14.009749, z: 17.249683}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.23500094
     - polyIndex: 101
       regionId: 29
       vertices:
@@ -5274,9 +5705,11 @@ MonoBehaviour:
       - {x: 5, y: 14.009749, z: 13.599686}
       - {x: 2.4500008, y: 14.009749, z: 13.599686}
       edges: 4600000066000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 4.0500007, y: 14.009749, z: 13.666351}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.25499603
     - polyIndex: 102
       regionId: 29
       vertices:
@@ -5284,9 +5717,11 @@ MonoBehaviour:
       - {x: 4.700001, y: 14.009749, z: 13.799683}
       - {x: 2.4500008, y: 14.009749, z: 13.599686}
       edges: 6500000067000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 3.9166672, y: 14.009749, z: 13.799684}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.23500074
     - polyIndex: 103
       regionId: 29
       vertices:
@@ -5295,9 +5730,17 @@ MonoBehaviour:
       - {x: 4.6000004, y: 14.009749, z: 13.999683}
       - {x: 2.4500008, y: 14.009749, z: 13.599686}
       edges: 6400000066000000
-      flags: 1
+      offMeshLinks:
+      - startPolyIndex: 103
+        endPolyIndex: 91
+        startPos: {x: 4.6000004, y: 14.009749, z: 15.524683}
+        endPos: {x: 5.6000004, y: 5, z: 15.524682}
+        bidirectional: 0
+        cost: 36.038998
+      flags: 0
       centroid: {x: 3.5250006, y: 14.009749, z: 15.524684}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 7.417496
     - polyIndex: 104
       regionId: 30
       vertices:
@@ -5305,9 +5748,11 @@ MonoBehaviour:
       - {x: 11.050001, y: 14.009749, z: 13.599686}
       - {x: 11.25, y: 14.009749, z: 13.699684}
       edges: 4800000069000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 13.95, y: 14.009749, z: 13.6330185}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 0.42499343
     - polyIndex: 105
       regionId: 30
       vertices:
@@ -5315,9 +5760,11 @@ MonoBehaviour:
       - {x: 11.25, y: 14.009749, z: 13.699684}
       - {x: 11.450001, y: 14.009749, z: 13.999683}
       edges: 680000006c000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 14.083333, y: 14.009749, z: 13.766351}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 1.2549967
     - polyIndex: 106
       regionId: 30
       vertices:
@@ -5325,9 +5772,11 @@ MonoBehaviour:
       - {x: 11.050001, y: 14.009749, z: 17.449684}
       - {x: 19.55, y: 14.009749, z: 17.449684}
       edges: 740000006b000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 13.95, y: 14.009749, z: 17.416351}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 0.42499343
     - polyIndex: 107
       regionId: 30
       vertices:
@@ -5335,9 +5784,11 @@ MonoBehaviour:
       - {x: 11.25, y: 14.009749, z: 17.349686}
       - {x: 19.55, y: 14.009749, z: 17.449684}
       edges: 6a0000006c000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 14.083333, y: 14.009749, z: 17.283018}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 1.2550124
     - polyIndex: 108
       regionId: 30
       vertices:
@@ -5346,9 +5797,17 @@ MonoBehaviour:
       - {x: 11.450001, y: 14.009749, z: 13.999683}
       - {x: 11.450001, y: 14.009749, z: 17.049683}
       edges: 690000006b000000
-      flags: 1
+      offMeshLinks:
+      - startPolyIndex: 108
+        endPolyIndex: 86
+        startPos: {x: 11.450001, y: 14.009749, z: 15.524683}
+        endPos: {x: 10.450001, y: -8.61793e-17, z: 15.524683}
+        bidirectional: 0
+        cost: 56.038998
+      flags: 0
       centroid: {x: 15.5, y: 14.009749, z: 15.524684}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 27.944984
     - polyIndex: 109
       regionId: 31
       vertices:
@@ -5357,9 +5816,11 @@ MonoBehaviour:
       - {x: 1.6000004, y: 0.009750137, z: 16.449684}
       - {x: -5, y: 0.009750137, z: 16.449684}
       edges: 6f000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -1.3749995, y: 0.009750137, z: 17.999683}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 18.44499
     - polyIndex: 110
       regionId: 31
       vertices:
@@ -5368,9 +5829,11 @@ MonoBehaviour:
       - {x: -9, y: 0.009750137, z: 19.549683}
       - {x: -5.3499994, y: 0.13975014, z: 15.949684}
       edges: 7000000071000000
+      offMeshLinks: []
       flags: 1
       centroid: {x: -8.4625, y: 0.09975013, z: 17.687183}
       normal: {x: -0, y: 0.9982203, z: 0.05963396}
+      surfaceArea: 10.522919
     - polyIndex: 111
       regionId: 31
       vertices:
@@ -5379,9 +5842,11 @@ MonoBehaviour:
       - {x: -5.25, y: 0.009750137, z: 16.299683}
       - {x: -9, y: 0.009750137, z: 19.549683}
       edges: 6d00000071000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -5.7374997, y: 0.009750137, z: 17.962183}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 8.902501
     - polyIndex: 112
       regionId: 31
       vertices:
@@ -5391,9 +5856,11 @@ MonoBehaviour:
       - {x: -5.2, y: 0.23975013, z: 15.699684}
       - {x: -5, y: 0.36975014, z: 15.599686}
       edges: 6e0000005f000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: -12.719999, y: 0.12775013, z: 17.199684}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 39.62263
     - polyIndex: 113
       regionId: 31
       vertices:
@@ -5401,9 +5868,11 @@ MonoBehaviour:
       - {x: -5.25, y: 0.009750137, z: 16.299683}
       - {x: -5.3499994, y: 0.13975014, z: 15.949684}
       edges: 6f0000006e000000
+      offMeshLinks: []
       flags: 1
       centroid: {x: -6.533333, y: 0.05308347, z: 17.26635}
       normal: {x: 0.24005899, y: 0.93040186, z: 0.27699113}
+      surfaceArea: 0.879992
     - polyIndex: 114
       regionId: 32
       vertices:
@@ -5411,9 +5880,11 @@ MonoBehaviour:
       - {x: 2.4500008, y: 14.009749, z: 17.449684}
       - {x: 2.4500008, y: 14.009749, z: 19.549683}
       edges: 6300000073000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 3.3000004, y: 14.009749, z: 18.149683}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 2.6774971
     - polyIndex: 115
       regionId: 32
       vertices:
@@ -5422,9 +5893,11 @@ MonoBehaviour:
       - {x: 11, y: 14.009749, z: 19.549683}
       - {x: 11.050001, y: 14.009749, z: 17.449684}
       edges: 7200000074000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 7.3750005, y: 14.009749, z: 18.499683}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 15.3299885
     - polyIndex: 116
       regionId: 32
       vertices:
@@ -5433,9 +5906,11 @@ MonoBehaviour:
       - {x: 19.55, y: 14.009749, z: 19.549683}
       - {x: 19.55, y: 14.009749, z: 17.449684}
       edges: 730000006a000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 15.287499, y: 14.009749, z: 18.499683}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 17.902485
     - polyIndex: 117
       regionId: 33
       vertices:
@@ -5444,9 +5919,11 @@ MonoBehaviour:
       - {x: 11, y: 0.009750137, z: 19.549683}
       - {x: 11, y: 0.009750137, z: 19.449684}
       edges: 76000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 6.7250004, y: 0.009750137, z: 19.499683}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0.8549869
     - polyIndex: 118
       regionId: 33
       vertices:
@@ -5455,9 +5932,27 @@ MonoBehaviour:
       - {x: 11, y: 0.009750137, z: 19.549683}
       - {x: 19.55, y: 0.009750137, z: 19.549683}
       edges: 75000000
-      flags: 1
+      offMeshLinks: []
+      flags: 0
       centroid: {x: 15.275, y: 0.009750137, z: 19.499683}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 0.8549869
+    polyMesh:
+      verts: 09000000010000002e01000010020000010000002e010000a0020000010000002e01000017030000010000002e01000017030000010000009b000000170300000100000009000000530200000100000009000000900100000100000009000000cc000000010000000900000009000000010000000900000009000000010000009b0000007f02000059020000390200007f020000590200009e0200007f0200005902000004030000170300005902000004030000170300005902000046020000170300004d04000087010000170300004d040000c8000000170300004d04000009000000e30200004d04000009000000e30200004d04000093000000e30200004d0400001e010000e3020000eb030000a8010000e20200005902000031020000de0200005902000037020000da0200005902000039020000d8020000090700004f000000d802000009070000e6000000d8020000090700007e01000017030000090700007e0100001703000009070000e600000017030000090700004f00000058010000e90300000401000058010000e903000043010000bf010000e903000043010000bf010000e9030000040100000900000001000000430100004e0100000100000043010000650100000100000043010000b20100000100000043010000c90100000100000043010000cd0100000100000045010000d0010000010000004a010000d001000001000000530100001002000001000000530100000c020000010000005101000009020000010000004c0100000902000001000000350100000c0200000100000030010000a00200000100000053010000170300000100000053010000a50200000100000031010000a70200000100000035010000a7020000010000004c010000a502000001000000500100001a020000010000003f0100001a020000010000004201000096020000010000004201000096020000010000003f0100001a020000590200003f0100001a020000590200004201000096020000590200004201000096020000590200003f0100000900000001000000c20100004e01000001000000c20100004a01000001000000c00100004701000001000000bb01000047010000010000004a0100004a01000001000000450100006a01000001000000460100006c010000010000004a0100006c010000010000009d010000ab010000010000009d010000ab010000010000004a010000ae0100000100000045010000c901000001000000c2010000d102000001000000c2010000d10200000100000085010000d30200000100000081010000d8020000010000007e01000017030000010000007e010000d001000001000000bb010000ce01000001000000bf0100005801000001000000540100005801000001000000b10100005b01000001000000b10100005b01000001000000540100005801000041060000540100005801000041060000b1010000bf01000041060000b1010000bf0100004106000054010000bc0100004106000054010000bc01000041060000a6010000b801000041060000ac010000b401000041060000ae0100006301000041060000ae0100005d01000041060000aa0100005b01000041060000a60100005b0100004106000054010000bc0100000100000054010000bc01000001000000b1010000bf01000001000000b1010000bf0100000100000054010000e2020000010000008f010000e2020000010000002802000017030000010000002802000017030000010000008f010000e3020000590200008f010000e302000059020000e30100001703000059020000e301000017030000590200008f0100006c01000001000000ae0100006c01000001000000b1010000ab01000001000000b1010000ab01000001000000ae0100000900000001000000280200007502000001000000280200008b0200000100000028020000d1020000010000002802000009000000010000003c020000b6010000010000003c020000cd010000010000003c0200006e020000010000003c0200006e020000010000002f02000071020000010000002a02000090020000010000002b02000092020000010000002f02000092020000010000009902000092020000010000000403000017030000010000000403000017030000010000009e020000170300000100000039020000d80200000100000039020000d40200000100000037020000d10200000100000032020000c101000079050000a0020000f401000079050000a00200006d02000079050000a00200001703000079050000a00200001703000079050000390200006c0200007905000039020000c101000079050000390200007f02000001000000390200007f020000010000009e0200007f020000010000000403000081020000010000000403000081020000010000009e0200008102000001000000390200007f0200002d010000390200007f0200002d0100009e0200007f0200002d01000004030000820200002d01000004030000820200002d0100009e020000820200002d010000390200000900000001000000890200002c010000250000008902000027010000150000008602000025010000010000007f02000028010000010000007a0200002c0100000100000078020000af0100000100000078020000af0100000100000043020000b2010000010000003e020000d2010000010000003f020000d40100000100000043020000d401000001000000040300006e02000001000000040300006e02000001000000a0020000c0010000010000004d020000c10100000100000004030000c30100000100000004030000c3010000010000004d0200000900000001000000c80200002c01000025000000c8020000b8010000f5010000c8020000bc010000f5010000ca020000c0010000f5010000d0020000c0010000f501000004030000c3010000f501000004030000c3010000f5010000d0020000c7010000f5010000ca020000cb010000f5010000c802000000020000f5010000c802000000020000f501000089020000cb010000f501000089020000c7010000f501000087020000c3010000f501000081020000c3010000f50100004d020000c0010000f50100004d020000c0010000f501000081020000bc010000f501000087020000b8010000f5010000890200006701000001000000890200006701000001000000c8020000b001000001000000c8020000af0100000100000089020000c101000079050000ed020000f401000079050000ed020000ee01000079050000e9020000ec01000079050000e5020000ec01000079050000a8020000ee01000079050000a40200006d02000079050000ed0200001703000079050000ed0200007102000079050000a20200007502000079050000a80200007502000079050000e50200007102000079050000eb020000090000000100000017030000720000000100000017030000dc0000000100000017030000460100000100000017030000b00100000100000017030000b001000001000000d90200002c01000001000000d90200002701000001000000d6020000250100000e000000cf0200002801000018000000ca020000c101000079050000170300006c0200007905000017030000170300007905000017030000c10100000100000015030000c101000001000000170300006c02000001000000170300001703000001000000170300001703000001000000150300006c0200000100000015030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      polys: 020000000300000004000000ffff0000ffff0000ffff000017000000ffff000003000000ffff0000ffff0000ffff000008000000090000000a000000ffff0000ffff0000ffff0000ffff0000ffff000004000000ffff0000ffff0000ffff0000040000000500000006000000ffff0000ffff0000ffff0000ffff0000ffff000003000000ffff0000ffff0000ffff00000100000002000000040000000600000007000000ffff0000ffff00000000000002000000ffff000004000000ffff0000080000000a000000000000000100000007000000ffff000001000000ffff00001100000003000000ffff0000ffff0000190000000b0000000c000000ffff0000ffff0000ffff0000ffff0000ffff000006000000ffff0000ffff0000ffff000018000000190000000c0000000d0000000e0000000f000000ffff000005000000ffff0000ffff0000ffff00000800000012000000130000001400000011000000ffff0000ffff0000ffff0000ffff000009000000ffff0000ffff0000ffff00000f0000001700000018000000ffff0000ffff0000ffff00000b000000ffff000006000000ffff0000ffff0000ffff0000110000001400000015000000ffff0000ffff0000ffff000007000000ffff00000a000000ffff0000ffff0000ffff000010000000110000001500000016000000ffff0000ffff0000ffff000009000000ffff00000b000000ffff0000ffff00000f000000100000001600000017000000ffff0000ffff0000ffff00000a000000ffff000008000000ffff0000ffff00001e0000001f0000001a0000001b000000ffff0000ffff0000ffff0000ffff0000ffff00000d000000ffff0000ffff00001b0000001c0000001d0000001e000000ffff0000ffff0000ffff0000ffff0000ffff00000c000000ffff0000ffff000020000000210000002200000023000000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00002b0000002c0000002d000000ffff0000ffff0000ffff00002b000000ffff000010000000ffff0000ffff0000ffff00002b0000002d0000002e0000002a000000ffff0000ffff00000f000000ffff000012000000ffff0000ffff0000ffff000025000000010000000000000024000000ffff0000ffff00001500000004000000ffff000020000000ffff0000ffff0000290000002a0000002e0000002f000000ffff0000ffff0000ffff000010000000ffff000014000000ffff0000ffff0000260000002700000001000000ffff0000ffff0000ffff0000230000001600000015000000ffff0000ffff0000ffff000028000000290000002f00000030000000ffff0000ffff0000ffff000012000000ffff000016000000ffff0000ffff0000250000002600000001000000ffff0000ffff0000ffff0000ffff00001300000011000000ffff0000ffff0000ffff000028000000300000000100000027000000ffff0000ffff000014000000ffff000013000000ffff0000ffff0000ffff0000030000000200000033000000ffff0000ffff0000ffff000000000000ffff000018000000ffff0000ffff0000ffff0000030000003300000034000000ffff0000ffff0000ffff000017000000ffff00001b000000ffff0000ffff0000ffff0000360000003100000032000000ffff0000ffff0000ffff0000ffff0000260000001a000000ffff0000ffff0000ffff0000350000003600000032000000ffff0000ffff0000ffff0000ffff0000190000001b000000ffff0000ffff0000ffff000032000000030000003400000035000000ffff0000ffff0000ffff000018000000ffff00001a000000ffff0000ffff00003700000038000000390000003a000000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00003b0000003c0000003d0000003e000000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00003f0000004000000041000000ffff0000ffff0000ffff00003a000000ffff00001f000000ffff0000ffff0000ffff00003f0000004100000042000000ffff0000ffff0000ffff00001e000000ffff000022000000ffff0000ffff0000ffff0000440000002500000024000000ffff0000ffff0000ffff0000ffff00001100000021000000ffff0000ffff0000ffff0000430000004400000024000000ffff0000ffff0000ffff0000ffff00002000000022000000ffff0000ffff0000ffff00003f000000420000004300000024000000ffff0000ffff00001f000000ffff000021000000ffff0000ffff0000ffff00002700000026000000450000004a000000ffff0000ffff000013000000ffff000025000000ffff0000ffff0000ffff000046000000470000004800000049000000ffff0000ffff0000ffff0000ffff0000ffff000025000000ffff0000ffff0000490000004a0000004500000046000000ffff0000ffff0000ffff000023000000ffff000024000000ffff0000ffff00004f000000500000003200000031000000ffff0000ffff0000ffff0000ffff00001900000028000000ffff0000ffff00004b0000004c00000052000000ffff0000ffff0000ffff0000390000002a000000ffff0000ffff0000ffff0000ffff00004e0000004f00000031000000ffff0000ffff0000ffff0000ffff00002600000029000000ffff0000ffff0000ffff00004d0000004e00000031000000ffff0000ffff0000ffff0000ffff0000280000002a000000ffff0000ffff0000ffff00004c0000004d000000310000002c0000005100000052000000ffff000029000000ffff00002b000000ffff0000270000002c0000002b00000051000000ffff0000ffff0000ffff00000f000000ffff00002a000000ffff0000ffff0000ffff000053000000540000005500000056000000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00005a0000005b0000005c00000059000000ffff0000ffff0000ffff0000ffff00002f000000ffff0000ffff0000ffff000058000000590000005e0000005f000000ffff0000ffff0000ffff000030000000ffff000032000000ffff0000ffff0000590000005c0000005d000000ffff0000ffff0000ffff00002d000000ffff000030000000ffff0000ffff0000ffff0000590000005d0000005e000000ffff0000ffff0000ffff00002f000000ffff00002e000000ffff0000ffff0000ffff000061000000620000005700000058000000ffff0000ffff0000ffff0000ffff0000ffff000033000000ffff0000ffff00005f0000006000000058000000ffff0000ffff0000ffff0000ffff0000330000002e000000ffff0000ffff0000ffff0000600000006100000058000000ffff0000ffff0000ffff0000ffff00003100000032000000ffff0000ffff0000ffff000063000000640000006500000066000000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00006700000068000000690000006a000000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00006b0000006c0000006d0000006e000000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00006f000000700000007100000072000000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff000075000000760000004c000000ffff0000ffff0000ffff000040000000ffff000039000000ffff0000ffff0000ffff000074000000750000004c0000004b000000ffff0000ffff0000ffff000038000000270000003b000000ffff0000ffff00007300000074000000400000003f000000ffff0000ffff00003f0000003b0000001e000000ffff0000ffff0000ffff0000740000004b00000040000000ffff0000ffff0000ffff000039000000ffff00003a000000ffff0000ffff0000ffff0000790000007a0000007b000000ffff0000ffff0000ffff000054000000ffff00003d000000ffff0000ffff0000ffff0000790000007b0000007c000000ffff0000ffff0000ffff00003c000000ffff00003e000000ffff0000ffff0000ffff0000790000007c0000007400000078000000ffff0000ffff00003d000000ffff00003f000000ffff0000ffff0000ffff000078000000740000007300000077000000ffff0000ffff00003e0000003a000000ffff00004f000000ffff0000ffff000076000000750000007d000000ffff0000ffff0000ffff000038000000ffff000041000000ffff0000ffff0000ffff0000760000007d0000007e00000086000000ffff0000ffff000040000000ffff000043000000ffff0000ffff0000ffff0000820000008300000084000000ffff0000ffff0000ffff0000ffff0000ffff000045000000ffff0000ffff0000ffff000085000000860000007e000000ffff0000ffff0000ffff0000ffff00004100000044000000ffff0000ffff0000ffff000084000000850000007e0000007f000000ffff0000ffff0000ffff000043000000ffff000045000000ffff0000ffff000082000000840000007f0000008000000081000000ffff00004200000044000000ffff0000ffff0000ffff0000ffff00008d0000008700000088000000ffff0000ffff0000ffff0000ffff00006500000047000000ffff0000ffff0000ffff00008c0000008d0000008800000089000000ffff0000ffff0000ffff000046000000ffff000048000000ffff0000ffff0000890000008a0000008b0000008c000000ffff0000ffff000068000000ffff0000ffff000047000000ffff0000ffff000092000000930000008e0000008f000000ffff0000ffff0000ffff0000ffff0000ffff00004a000000ffff0000ffff00008f000000900000009100000092000000ffff0000ffff0000ffff0000ffff0000ffff000049000000ffff0000ffff000098000000990000009400000095000000ffff0000ffff0000ffff0000ffff0000ffff00004c000000ffff0000ffff000095000000960000009700000098000000ffff0000ffff0000ffff0000ffff0000ffff00004b000000ffff0000ffff00009f000000a0000000a1000000ffff0000ffff0000ffff0000ffff0000ffff00004e000000ffff0000ffff0000ffff00009f000000a1000000a2000000ffff0000ffff0000ffff00004d000000ffff00004f000000ffff0000ffff0000ffff00009f000000a200000078000000770000009a000000ffff00004e000000ffff00003f000000ffff000053000000ffff00009a0000009b0000009c000000ffff0000ffff0000ffff00005f000000ffff000051000000ffff0000ffff0000ffff00009a0000009c0000009d000000ffff0000ffff0000ffff000050000000ffff000052000000ffff0000ffff0000ffff00009a0000009d0000009e000000ffff0000ffff0000ffff000051000000ffff000053000000ffff0000ffff0000ffff00009a0000009e0000009f000000ffff0000ffff0000ffff000052000000ffff00004f000000ffff0000ffff0000ffff00007a00000079000000a3000000ffff0000ffff0000ffff00003c000000ffff000055000000ffff0000ffff0000ffff00007a000000a3000000a4000000a7000000ffff0000ffff000054000000ffff000056000000ffff0000ffff0000ffff0000a5000000a6000000a7000000a4000000ffff0000ffff0000ffff0000ffff000055000000ffff0000ffff0000ffff0000a9000000aa000000ab000000a8000000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000b0000000b1000000b2000000b3000000ffff0000ffff0000ffff0000ffff0000ffff00005a000000ffff0000ffff0000ad000000ae000000bf0000009b000000ffff0000ffff0000ffff00005d000000ffff00005f000000ffff0000ffff0000af000000b0000000b3000000b4000000ffff0000ffff0000ffff000058000000ffff00005c000000ffff0000ffff0000b5000000b6000000b7000000b8000000ffff0000ffff0000ffff0000ffff0000ffff00005d000000ffff0000ffff0000ae000000af000000b4000000ffff0000ffff0000ffff0000ffff00005a0000005d000000ffff0000ffff0000ffff0000bf000000ae000000b4000000b5000000b8000000be000000590000005c000000ffff00005b00000061000000ffff0000ba000000bb000000bc000000bd000000ffff0000ffff0000ffff0000ffff0000ffff000060000000ffff0000ffff00009b0000009a000000ac000000ad000000ffff0000ffff000050000000ffff00007000000059000000ffff0000ffff0000b9000000ba000000bd000000be000000ffff0000ffff0000ffff00005e000000ffff000061000000ffff0000ffff0000b8000000b9000000be000000ffff0000ffff0000ffff0000ffff0000600000005d000000ffff0000ffff0000ffff0000c1000000c2000000c3000000c0000000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000c4000000c5000000c6000000ffff0000ffff0000ffff000072000000ffff000064000000ffff0000ffff0000ffff0000c4000000c6000000c7000000ffff0000ffff0000ffff000063000000ffff000067000000ffff0000ffff0000ffff0000c90000008800000087000000ffff0000ffff0000ffff0000ffff00004600000066000000ffff0000ffff0000ffff0000c8000000c900000087000000ffff0000ffff0000ffff0000ffff00006500000067000000ffff0000ffff0000ffff0000c4000000c7000000c800000087000000ffff0000ffff000064000000ffff000066000000ffff0000ffff0000ffff00008a00000089000000cc000000ffff0000ffff0000ffff000048000000ffff000069000000ffff0000ffff0000ffff00008a000000cc000000cd000000ffff0000ffff0000ffff000068000000ffff00006c000000ffff0000ffff0000ffff0000cf000000ca000000cb000000ffff0000ffff0000ffff0000ffff0000740000006b000000ffff0000ffff0000ffff0000ce000000cf000000cb000000ffff0000ffff0000ffff0000ffff00006a0000006c000000ffff0000ffff0000ffff0000cb0000008a000000cd000000ce000000ffff0000ffff0000ffff000069000000ffff00006b000000ffff0000ffff0000d3000000d4000000d5000000d6000000ffff0000ffff0000ffff0000ffff0000ffff00006f000000ffff0000ffff0000d9000000d1000000d2000000d8000000ffff0000ffff000070000000ffff000071000000ffff0000ffff0000ffff0000d3000000d6000000d7000000d2000000ffff0000ffff00006d000000ffff000071000000ffff0000ffff0000ffff0000ac000000d0000000d1000000d9000000ad000000ffff0000ffff0000ffff00006e000000ffff00005f000000ffff0000d2000000d7000000d8000000ffff0000ffff0000ffff00006f000000ffff00006e000000ffff0000ffff0000ffff0000c5000000c4000000da000000ffff0000ffff0000ffff000063000000ffff000073000000ffff0000ffff0000ffff0000c5000000da000000db000000ca000000ffff0000ffff000072000000ffff000074000000ffff0000ffff0000ffff0000ca000000db000000dc000000cb000000ffff0000ffff000073000000ffff0000ffff00006a000000ffff0000ffff0000dd000000de000000df000000e2000000ffff0000ffff0000ffff0000ffff000076000000ffff0000ffff0000ffff0000e1000000e2000000df000000e0000000ffff0000ffff0000ffff000075000000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000
+      regs: 01000000010000000100000001000000010000000200000002000000020000000200000002000000020000000200000003000000030000000400000005000000050000000500000005000000050000000500000005000000050000000600000006000000060000000600000006000000070000000800000009000000090000000900000009000000090000000a0000000a0000000a0000000b0000000b0000000b0000000b0000000b0000000b0000000c0000000d0000000d0000000d0000000d0000000d0000000d0000000d0000000e0000000f0000001000000011000000120000001200000012000000120000001300000013000000130000001300000014000000140000001400000014000000140000001400000015000000150000001500000016000000160000001700000017000000180000001800000018000000180000001800000018000000180000001900000019000000190000001a0000001b0000001b0000001b0000001b0000001b0000001b0000001b0000001b0000001b0000001b0000001c0000001d0000001d0000001d0000001d0000001d0000001e0000001e0000001e0000001e0000001e0000001f0000001f0000001f0000001f0000001f0000002000000020000000200000002100000021000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      areas: 0500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      nverts: 227
+      npolys: 119
+      nvp: 6
+      maxpolys: 197
+      flags: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      bmin: {x: -20, y: -0.00024986267, z: -20.000317}
+      bmax: {x: 20.00006, y: 22, z: 20}
+      cs: 0.05
+      ch: 0.01
+      borderSize: 0
+      maxEdgeError: 1
 --- !u!1 &1517820841
 GameObject:
   m_ObjectHideFlags: 0
@@ -5470,7 +5965,7 @@ GameObject:
   - component: {fileID: 1517820845}
   - component: {fileID: 1517820844}
   - component: {fileID: 1517820843}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5589,7 +6084,7 @@ GameObject:
   - component: {fileID: 1604430456}
   - component: {fileID: 1604430455}
   - component: {fileID: 1604430454}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5724,7 +6219,7 @@ GameObject:
   - component: {fileID: 1721888175}
   - component: {fileID: 1721888174}
   - component: {fileID: 1721888173}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5901,7 +6396,7 @@ Transform:
   m_GameObject: {fileID: 1732739526}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.99, y: 0.5, z: -0.72}
+  m_LocalPosition: {x: 13, y: 6.5, z: 17.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5932,9 +6427,11 @@ MonoBehaviour:
       - {x: -3.6499996, y: 0.009750137, z: -3.5}
       - {x: -19.55, y: 0.009750137, z: -3.8500004}
       edges: 0e0000000f000000
+      offMeshLinks: []
       flags: 0
       centroid: {x: -11.599999, y: 0.009750137, z: -0.6750002}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0
     - polyIndex: 15
       regionId: 7
       vertices:
@@ -5942,9 +6439,11 @@ MonoBehaviour:
       - {x: -3.2999992, y: 0.009750137, z: -3.8500004}
       - {x: -19.55, y: 0.009750137, z: -3.8500004}
       edges: 0800000010000000
+      offMeshLinks: []
       flags: 0
       centroid: {x: -8.833333, y: 0.009750137, z: -3.7333336}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0
     - polyIndex: 8
       regionId: 3
       vertices:
@@ -5953,9 +6452,11 @@ MonoBehaviour:
       - {x: -19.55, y: 0.009750137, z: -4.95}
       - {x: -19.55, y: 0.009750137, z: -3.8500004}
       edges: 06000000020000000f000000
+      offMeshLinks: []
       flags: 0
       centroid: {x: -9, y: 0.009750137, z: -4.4}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0
     - polyIndex: 6
       regionId: 3
       vertices:
@@ -5963,9 +6464,11 @@ MonoBehaviour:
       - {x: -2.1499996, y: 0.009750137, z: -3.8500004}
       - {x: 6.3999996, y: 0.009750137, z: -4.95}
       edges: 0900000008000000
+      offMeshLinks: []
       flags: 0
       centroid: {x: 0.31666693, y: 0.009750137, z: -4.2166667}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 0
     - polyIndex: 9
       regionId: 3
       vertices:
@@ -5973,9 +6476,11 @@ MonoBehaviour:
       - {x: 1.7000008, y: 0.009750137, z: -3.8500004}
       - {x: 6.3999996, y: 0.009750137, z: -4.95}
       edges: 110000000700000006000000
+      offMeshLinks: []
       flags: 0
       centroid: {x: 1.9833336, y: 0.009750137, z: -4.2166667}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 0
     - polyIndex: 7
       regionId: 3
       vertices:
@@ -5984,9 +6489,11 @@ MonoBehaviour:
       - {x: 6.3999996, y: 0.009750137, z: -4.95}
       - {x: 1.7000008, y: 0.009750137, z: -3.8500004}
       edges: 0500000009000000
+      offMeshLinks: []
       flags: 0
       centroid: {x: 4.3000007, y: 0.009750137, z: -4.2875}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0
     - polyIndex: 5
       regionId: 3
       vertices:
@@ -5995,9 +6502,11 @@ MonoBehaviour:
       - {x: 6.050001, y: 0.009750137, z: -3.3999996}
       - {x: 6.050001, y: 0.009750137, z: -4.5999994}
       edges: 0400000007000000
+      offMeshLinks: []
       flags: 0
       centroid: {x: 4.587501, y: 0.009750137, z: -3.6999996}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 0
     - polyIndex: 4
       regionId: 3
       vertices:
@@ -6005,9 +6514,11 @@ MonoBehaviour:
       - {x: 6.3999996, y: 0.009750137, z: -3.0499992}
       - {x: 6.050001, y: 0.009750137, z: -3.3999996}
       edges: 1300000005000000
+      offMeshLinks: []
       flags: 0
       centroid: {x: 5.216667, y: 0.009750137, z: -3.166666}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 0
     - polyIndex: 19
       regionId: 9
       vertices:
@@ -6015,9 +6526,11 @@ MonoBehaviour:
       - {x: 3.2000008, y: 0.009750137, z: -3.0499992}
       - {x: 3.2000008, y: 0.009750137, z: 2.1499996}
       edges: 0400000014000000
+      offMeshLinks: []
       flags: 0
       centroid: {x: 4.266667, y: 0.009750137, z: -1.3166662}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 0
     - polyIndex: 20
       regionId: 9
       vertices:
@@ -6025,9 +6538,11 @@ MonoBehaviour:
       - {x: 6.3999996, y: 0.009750137, z: -3.0499992}
       - {x: 3.2000008, y: 0.009750137, z: 2.1499996}
       edges: 1300000015000000
+      offMeshLinks: []
       flags: 0
       centroid: {x: 5.966667, y: 0.009750137, z: -1.3166662}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0
     - polyIndex: 21
       regionId: 9
       vertices:
@@ -6036,9 +6551,11 @@ MonoBehaviour:
       - {x: 8.300001, y: 0.009750137, z: -3.0499992}
       - {x: 3.2000008, y: 0.009750137, z: 2.1499996}
       edges: 0c0000001400000016000000
+      offMeshLinks: []
       flags: 0
       centroid: {x: 12.650001, y: 0.009750137, z: -0.3624997}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0
     - polyIndex: 12
       regionId: 4
       vertices:
@@ -6046,9 +6563,11 @@ MonoBehaviour:
       - {x: 19.55, y: 0.009750137, z: -3.0499992}
       - {x: 13.600002, y: 0.009750137, z: -3.1000004}
       edges: 150000000d000000
+      offMeshLinks: []
       flags: 0
       centroid: {x: 13.8166685, y: 0.009750137, z: -3.0666664}
       normal: {x: -0, y: 1, z: 0}
+      surfaceArea: 0
     - polyIndex: 13
       regionId: 4
       vertices:
@@ -6056,9 +6575,11 @@ MonoBehaviour:
       - {x: 13.950001, y: 0.009750137, z: -3.4499989}
       - {x: 13.600002, y: 0.009750137, z: -3.1000004}
       edges: 0b0000000c000000
+      offMeshLinks: []
       flags: 0
       centroid: {x: 15.700001, y: 0.009750137, z: -3.1999996}
       normal: {x: 0, y: 1, z: 0}
+      surfaceArea: 0
     - polyIndex: 11
       regionId: 4
       vertices:
@@ -6067,9 +6588,11 @@ MonoBehaviour:
       - {x: 13.950001, y: 0.009750137, z: -3.4499989}
       - {x: 19.55, y: 0.009750137, z: -3.0499992}
       edges: 0a0000000d000000
+      offMeshLinks: []
       flags: 0
       centroid: {x: 16.75, y: 0.009750137, z: -4.0124993}
       normal: {x: 0, y: 1, z: -0}
+      surfaceArea: 0
     rawPath:
     - {x: -6.99, y: 0.5, z: -0.72}
     - {x: -4.299777, y: 0.009750137, z: -3.8289206}
@@ -6211,7 +6734,7 @@ GameObject:
   - component: {fileID: 1775550595}
   - component: {fileID: 1775550594}
   - component: {fileID: 1775550593}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6319,7 +6842,7 @@ GameObject:
   - component: {fileID: 1805286425}
   - component: {fileID: 1805286424}
   - component: {fileID: 1805286423}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6475,7 +6998,7 @@ GameObject:
   - component: {fileID: 1983508977}
   - component: {fileID: 1983508976}
   - component: {fileID: 1983508975}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7000,7 +7523,7 @@ GameObject:
   - component: {fileID: 2072088575}
   - component: {fileID: 2072088574}
   - component: {fileID: 2072088573}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7108,7 +7631,7 @@ GameObject:
   - component: {fileID: 2098370686}
   - component: {fileID: 2098370685}
   - component: {fileID: 2098370684}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7216,7 +7739,7 @@ GameObject:
   - component: {fileID: 2131616581}
   - component: {fileID: 2131616580}
   - component: {fileID: 2131616579}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7323,7 +7846,7 @@ GameObject:
   - component: {fileID: 2147114901}
   - component: {fileID: 2147114903}
   - component: {fileID: 2147114902}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Area Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7339,7 +7862,7 @@ Transform:
   m_GameObject: {fileID: 2147114900}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.5, y: 7.5, z: -5.46}
+  m_LocalPosition: {x: 5.5, y: 7.5, z: -1.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7373,10 +7896,10 @@ MonoBehaviour:
   m_AffectDiffuse: 1
   m_AffectSpecular: 1
   m_NonLightmappedOnly: 0
-  m_ShapeWidth: 0.5
+  m_ShapeWidth: 0.93
   m_ShapeHeight: 0.5
   m_AspectRatio: 1
-  m_ShapeRadius: 1
+  m_ShapeRadius: 33.4
   m_SoftnessScale: 1
   m_UseCustomSpotLightShadowCone: 0
   m_CustomSpotLightShadowCone: 30
@@ -7499,7 +8022,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 0.5820617, b: 0, a: 1}
   m_Intensity: 3183.0989
-  m_Range: 3.232295
+  m_Range: 8.560507
   m_SpotAngle: 64.599464
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -7537,19 +8060,19 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 2
-  m_AreaSize: {x: 0.5, y: 0.5}
+  m_AreaSize: {x: 0.93, y: 0.5}
   m_BounceIntensity: 2
   m_ColorTemperature: 6500
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 7.517e-42, y: 2.524355e-29, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 9.025507}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
-  m_ShadowRadius: 1
+  m_ShadowRadius: 33.4
   m_ShadowAngle: 0
-  m_LightUnit: 0
+  m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
 --- !u!1 &90101091420998655 stripped
