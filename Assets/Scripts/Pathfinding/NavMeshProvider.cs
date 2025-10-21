@@ -91,23 +91,23 @@ public class NavMeshProvider : MonoBehaviour
 
 		foreach (var polygon in nodePath)
 		{
-		Vector3 closestPointOnEdge = polygon.vertices
-			.SelectMany((v, i) =>
-			{
-				// Get the edge from this vertex to the next (wrap around)
-				Vector3 a = v;
-				Vector3 b = polygon.vertices[(i + 1) % polygon.vertices.Length];
+			Vector3 closestPointOnEdge = polygon.vertices
+				.SelectMany((v, i) =>
+				{
+					// Get the edge from this vertex to the next (wrap around)
+					Vector3 a = v;
+					Vector3 b = polygon.vertices[(i + 1) % polygon.vertices.Length];
 
-				// Project player position onto the edge segment
-				Vector3 ab = b - a;
-				float t = Vector3.Dot(goal - a, ab) / ab.sqrMagnitude;
-				t = Mathf.Clamp01(t); // clamp to segment
-				Vector3 pointOnEdge = a + ab * t;
+					// Project player position onto the edge segment
+					Vector3 ab = b - a;
+					float t = Vector3.Dot(goal - a, ab) / ab.sqrMagnitude;
+					t = Mathf.Clamp01(t); // clamp to segment
+					Vector3 pointOnEdge = a + ab * t;
 
-				return new[] { pointOnEdge };
-			})
-			.OrderBy(p => Vector3.Distance(p, goal))
-			.First();
+					return new[] { pointOnEdge };
+				})
+				.OrderBy(p => Vector3.Distance(p, goal))
+				.First();
 
 			// Offset slightly toward the centroid
 			Vector3 directionToCenter = (polygon.Centroid - closestPointOnEdge).normalized;
@@ -156,35 +156,63 @@ public class NavMeshProvider : MonoBehaviour
 		return null;
 	}
 
+	[Button("Regen Graph")]
+	void RegenGraph()
+	{
+		navMesh.GenerateGraph();
+	}
+
 	void DrawNavMesh()
 	{
 		if (visualizationConfig.ShowVisualization == false) return;
+
+		// Enable depth test (draw only when visible)
+		Handles.zTest = UnityEngine.Rendering.CompareFunction.LessEqual;
 
 		foreach (var node in navMesh.nodes)
 		{
 			if (visualizationConfig.ShowNavMesh)
 			{
-
-				Color regionColor = visualizationConfig.NavMeshColor;
-				Gizmos.color = regionColor;
+				Handles.color = visualizationConfig.NavMeshColor;
 
 				var vertices = node.vertices;
 				int vertexCount = vertices.Length;
+
+				// Draw polygon outline
 				for (int i = 0; i < vertexCount; i++)
 				{
-					Gizmos.DrawLine(vertices[i], vertices[(i + 1) % vertexCount]);
+					Vector3 v0 = vertices[i];
+					Vector3 v1 = vertices[(i + 1) % vertexCount];
+					Handles.DrawAAPolyLine(2f, v0, v1);
 				}
 			}
 
+			// --- NAVGRAPH CONNECTIONS ---
 			if (visualizationConfig.ShowNavGraph)
 			{
-				Gizmos.color = visualizationConfig.NavGraphColor;
-				foreach (var edge in node.edges)
+				Handles.color = visualizationConfig.NavGraphColor;
+
+				foreach (var edgeIndex in node.edges)
 				{
-					Gizmos.DrawLine(navMesh.nodes[edge].Centroid, node.Centroid);
+					if (edgeIndex >= 0 && edgeIndex < navMesh.nodes.Count)
+					{
+						Vector3 a = node.Centroid;
+						Vector3 b = navMesh.nodes[edgeIndex].Centroid;
+						Handles.DrawAAPolyLine(2f, a, b);
+
+						foreach (var link in node.offMeshLinks)
+						{
+							Gizmos.color = link.bidirectional ? Color.magenta : Color.red;
+
+							Gizmos.DrawLine(link.startPos, link.endPos);
+						}
+					}
 				}
 			}
 		}
+
+		// Reset zTest
+		Handles.zTest = UnityEngine.Rendering.CompareFunction.Always;
 	}
 
 

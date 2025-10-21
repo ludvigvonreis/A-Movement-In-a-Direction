@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -15,6 +16,8 @@ public class NavMeshNode
 	private Vector3 centroid;
 	[SerializeField]
 	private Vector3 normal;
+	[SerializeField]
+	private float surfaceArea;
 
 	public Vector3 Centroid
 	{
@@ -40,6 +43,28 @@ public class NavMeshNode
 			normal = Vector3.Cross(vertices[1] - vertices[0], vertices[2] - vertices[1]).normalized;
 
 			return normal;
+		}
+	}
+
+	public float SurfaceArea
+	{
+		get
+		{
+			if (surfaceArea > 0f) return surfaceArea;
+
+			float area = 0f;
+			if (vertices.Length < 3) return 0f;
+
+			Vector3 v0 = vertices[0];
+			for (int i = 1; i < vertices.Length - 1; i++)
+			{
+				Vector3 v1 = vertices[i];
+				Vector3 v2 = vertices[i + 1];
+				area += Vector3.Cross(v1 - v0, v2 - v0).magnitude * 0.5f;
+			}
+
+			surfaceArea = area;
+			return surfaceArea;
 		}
 	}
 
@@ -79,12 +104,12 @@ public class NavMeshNode
 [System.Serializable]
 public struct OffMeshLink
 {
-	int startPolyIndex;   // polygon the link starts from
-	int endPolyIndex;     // polygon the link goes to
-	Vector3 startPos;     // optional exact start point
-	Vector3 endPos;       // optional exact end point
-	bool bidirectional;   // true = two-way, false = one-way
-	float cost;           // optional cost override for A*
+	public int startPolyIndex;   // polygon the link starts from
+	public int endPolyIndex;     // polygon the link goes to
+	public Vector3 startPos;     // optional exact start point
+	public Vector3 endPos;       // optional exact end point
+	public bool bidirectional;   // true = two-way, false = one-way
+	public float cost;           // optional cost override for A*
 }
 
 [System.Serializable]
@@ -93,11 +118,17 @@ public class NavMesh
 	const int RC_MESH_NULL_IDX = 65535;
 	const int FLAG_RAMP = 1 << 0;
 
-	//[HideInInspector]
+	[SerializeField]
+	private float jumpLinkMinSurfaceArea = 5f;
+	[SerializeField]
+	private float jumpLinkMinDistance = 0.5f;
+	[SerializeField]
+	private float jumpLinkMaxDistance = 15f;
+
 	public List<NavMeshNode> nodes = new();
-
+	
+	[SerializeField]
 	private RcPolyMeshData polyMesh;
-
 	private RecastConfig recastConfig;
 
 	public NavMesh(RcPolyMeshData _polyMesh, RecastConfig _recastConfig)
@@ -108,11 +139,13 @@ public class NavMesh
 		GenerateGraph();
 	}
 
-	void GenerateGraph()
+	public void GenerateGraph()
 	{
 		var mesh = polyMesh;
 		int nvp = mesh.nvp;
 		var minBounds = mesh.bmin;
+
+		nodes = new();
 
 		// First pass: create nodes
 		for (int i = 0; i < mesh.npolys; i++)
@@ -164,6 +197,44 @@ public class NavMesh
 				if (neighborIndex != RC_MESH_NULL_IDX)
 				{
 					node.edges.Add(neighborIndex);
+				}
+			}
+		}
+
+		// Third pass: find off-mesh links
+		for (int i = 0; i < mesh.npolys; i++)
+		{
+			NavMeshNode node = nodes[i];
+			if (node.SurfaceArea < jumpLinkMinSurfaceArea) continue;
+
+			for (int j = 0; j < node.vertices.Length - 1; j++)
+			{
+				var midPoint = (node.vertices[j] + node.vertices[j + 1]) / 2;
+				var direction = (midPoint - node.Centroid).normalized;
+
+				if (Physics.Raycast(midPoint + direction * 1f, Vector3.down, out RaycastHit hit, jumpLinkMaxDistance, 1 << 3))
+				{
+					if (hit.distance < jumpLinkMinDistance) continue;
+
+					if (PositionToNode(hit.point) is NavMeshNode other && node != other)
+					{
+						//Debug.DrawRay(midPoint + direction, Vector3.down * jumpLinkMaxDistance, Color.green, 1);
+						bool linkExists = node.offMeshLinks.Any(l => l.endPolyIndex == other.polyIndex);
+						if (!linkExists)
+						{
+							OffMeshLink link = new()
+							{
+								startPolyIndex = i,
+								endPolyIndex = other.polyIndex,
+								startPos = midPoint,
+								endPos = hit.point,
+								bidirectional = false,
+								cost = Mathf.Max(hit.distance * 4, 30)
+							};
+
+							node.offMeshLinks.Add(link);
+						}
+					}
 				}
 			}
 		}
@@ -279,16 +350,16 @@ public class NavMesh
 			Vector3 bestB = b.Centroid;
 
 			foreach (var va in a.vertices)
-			foreach (var vb in b.vertices)
-			{
-				float d = Vector3.SqrMagnitude(va - vb);
-				if (d < minDist)
+				foreach (var vb in b.vertices)
 				{
-					minDist = d;
-					bestA = va;
-					bestB = vb;
+					float d = Vector3.SqrMagnitude(va - vb);
+					if (d < minDist)
+					{
+						minDist = d;
+						bestA = va;
+						bestB = vb;
+					}
 				}
-			}
 
 			portalMid = (bestA + bestB) * 0.5f;
 		}
