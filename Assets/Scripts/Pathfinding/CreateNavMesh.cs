@@ -84,15 +84,17 @@ public class CreateNavMesh : MonoBehaviour
 	[Button("Generate Mesh")]
 	private void GenerateRecastMesh()
 	{
+		if (levelGeometry.Count < 1) FetchGeometry();
+
 		(vertexPositions, meshFaces) = FeedMeshToSimpleInputGeom(levelGeometry);
-		//Debug.Log($"Vertices: {vertexPositions?.Count}, Faces: {meshFaces?.Count}");
 
 		var geomProvider = new SimpleInputGeomProvider(vertexPositions, meshFaces);
 
 		var bmin = geomProvider.GetMeshBoundsMin();
 		var bmax = geomProvider.GetMeshBoundsMax();
 
-		var rcAreaMod = new RcAreaModification(0x1);
+		var rcAreaMod = new RcAreaModification(0x5);
+
 		var cfg = new RcConfig(
 			RcPartition.MONOTONE,
 			config.cellSize,
@@ -121,6 +123,7 @@ public class CreateNavMesh : MonoBehaviour
 		var result = rcBuilder.Build(geomProvider, bcfg, true);
 
 		var finalPolyMesh = new RcPolyMeshData(result.Mesh);
+
 
 		if (NavMeshProvider.Instance)
 			NavMeshProvider.Instance.CreateFromRecastData(finalPolyMesh, config);

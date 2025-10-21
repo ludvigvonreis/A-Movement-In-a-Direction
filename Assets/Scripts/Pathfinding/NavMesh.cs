@@ -8,6 +8,8 @@ public class NavMeshNode
 	public int regionId;
 	public Vector3[] vertices;
 	public List<int> edges = new();
+	public List<OffMeshLink> offMeshLinks = new List<OffMeshLink>();
+	public int flags;
 
 	[SerializeField]
 	private Vector3 centroid;
@@ -72,13 +74,24 @@ public class NavMeshNode
 		edge = default;
 		return false;
 	}
+}
 
+[System.Serializable]
+public struct OffMeshLink
+{
+	int startPolyIndex;   // polygon the link starts from
+	int endPolyIndex;     // polygon the link goes to
+	Vector3 startPos;     // optional exact start point
+	Vector3 endPos;       // optional exact end point
+	bool bidirectional;   // true = two-way, false = one-way
+	float cost;           // optional cost override for A*
 }
 
 [System.Serializable]
 public class NavMesh
 {
 	const int RC_MESH_NULL_IDX = 65535;
+	const int FLAG_RAMP = 1 << 0;
 
 	//[HideInInspector]
 	public List<NavMeshNode> nodes = new();
@@ -107,7 +120,8 @@ public class NavMesh
 			NavMeshNode node = new()
 			{
 				polyIndex = i,
-				regionId = mesh.regs[i]
+				regionId = mesh.regs[i],
+				flags = 0
 			};
 
 			// Collect polygon vertices
@@ -125,8 +139,17 @@ public class NavMesh
 
 				verts.Add(vert);
 			}
-
 			node.vertices = verts.ToArray();
+
+			// Generate flags for polgons.
+
+			// Mark polygon as ramp.
+			if (Vector3.Dot(node.Normal, Vector3.up) < 1)
+			{
+				node.flags |= FLAG_RAMP;
+			}
+
+
 			nodes.Add(node);
 		}
 
