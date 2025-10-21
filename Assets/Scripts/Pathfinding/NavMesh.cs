@@ -40,6 +40,39 @@ public class NavMeshNode
 			return normal;
 		}
 	}
+
+	public bool TryGetSharedEdge(NavMeshNode other, out (Vector3 a, Vector3 b) edge, float tolerance = 0.001f)
+	{
+		for (int i = 0; i < vertices.Length; i++)
+		{
+			Vector3 a1 = vertices[i];
+			Vector3 a2 = vertices[(i + 1) % vertices.Length];
+
+			for (int j = 0; j < other.vertices.Length; j++)
+			{
+				Vector3 b1 = other.vertices[j];
+				Vector3 b2 = other.vertices[(j + 1) % other.vertices.Length];
+
+				// check if the edge matches in either direction
+				bool sameDir =
+					Vector3.Distance(a1, b2) < tolerance &&
+					Vector3.Distance(a2, b1) < tolerance;
+				bool oppositeDir =
+					Vector3.Distance(a1, b1) < tolerance &&
+					Vector3.Distance(a2, b2) < tolerance;
+
+				if (sameDir || oppositeDir)
+				{
+					edge = (a1, a2);
+					return true;
+				}
+			}
+		}
+
+		edge = default;
+		return false;
+	}
+
 }
 
 [System.Serializable]
@@ -115,30 +148,46 @@ public class NavMesh
 
 	public NavMeshNode PositionToNode(Vector3 position)
 	{
+		NavMeshNode closest = null;
+		float closestDist = float.PositiveInfinity;
+
 		foreach (var node in nodes)
 		{
+			Plane plane = new(node.Normal, node.vertices[0]);
+
+			// Project the position onto this node's plane
+			float distanceToPlane = plane.GetDistanceToPoint(position);
+			Vector3 projected = position - node.Normal * distanceToPlane;
+
+			// Check if projected point lies inside polygon
 			bool inside = true;
 			for (int i = 0; i < node.vertices.Length; i++)
 			{
 				Vector3 a = node.vertices[i];
 				Vector3 b = node.vertices[(i + 1) % node.vertices.Length];
-
 				Vector3 edge = b - a;
-				Vector3 toPoint = position - a;
+				Vector3 toPoint = projected - a;
 				Vector3 cross = Vector3.Cross(edge, toPoint);
 
 				if (Vector3.Dot(cross, node.Normal) < -1e-3f)
 				{
 					inside = false;
-					break; // early exit
+					break;
 				}
 			}
 
-			if (inside)
-				return node;
+			// Compute distance from position to the plane
+			float absDist = Mathf.Abs(distanceToPlane);
+
+			// If inside polygon or closest plane, update
+			if (inside && absDist < closestDist)
+			{
+				closest = node;
+				closestDist = absDist;
+			}
 		}
 
-		return null;
+		return closest;
 	}
 
 	public NavMeshNode GetNodeFromIndex(int nodeIndex)
@@ -148,62 +197,91 @@ public class NavMesh
 
 	public List<NavMeshNode> AStar(Vector3 origin, Vector3 goal)
 	{
-		NavMeshNode originNode = PositionToNode(origin);
-		NavMeshNode goalNode = PositionToNode(goal);
-
-		//Debug.Log(originNode + " :: " + goalNode);
-
+		var originNode = PositionToNode(origin);
+		var goalNode = PositionToNode(goal);
 		if (originNode == null || goalNode == null) return null;
 
-		List<NavMeshNode> openSet = new() { originNode };
-		HashSet<NavMeshNode> closed = new();
-
-		var gScores = new Dictionary<int, float>();
-		var fScores = new Dictionary<int, float>();
+		var open = new PriorityQueue<NavMeshNode>();
+		var closed = new HashSet<NavMeshNode>();
+		var g = new Dictionary<NavMeshNode, float>();
+		var f = new Dictionary<NavMeshNode, float>();
 		var cameFrom = new Dictionary<NavMeshNode, NavMeshNode>();
 
-		gScores[originNode.polyIndex] = 0f;
-		fScores[originNode.polyIndex] = Vector3.Distance(origin, goal);
+		g[originNode] = 0f;
+		f[originNode] = Vector3.Distance(originNode.Centroid, goal);
+		open.Enqueue(originNode, f[originNode]);
 
-		while (openSet.Count > 0)
+		while (open.TryDequeue(out var current))
 		{
-			NavMeshNode current = openSet[0];
-			foreach (var node in openSet)
-			{
-				if (fScores.TryGetValue(node.polyIndex, out float f) && f < fScores[current.polyIndex])
-					current = node;
-			}
-
-			if (current.polyIndex == goalNode.polyIndex)
+			if (current == goalNode)
 				return RetracePath(cameFrom, originNode, goalNode);
 
-			openSet.Remove(current);
 			closed.Add(current);
 
-			foreach (var edgeIndex in current.edges)
+			foreach (int edgeIndex in current.edges)
 			{
 				var neighbor = GetNodeFromIndex(edgeIndex);
-				if (closed.Contains(neighbor))
-					continue;
+				if (closed.Contains(neighbor)) continue;
 
-				float currentG = gScores.TryGetValue(current.polyIndex, out float g) ? g : float.PositiveInfinity;
-				float tentativeG = currentG + Vector3.Distance(current.Centroid, neighbor.Centroid);
+				float tentativeG = g[current] + CalculateCost(current, neighbor, goal);
 
-				if (!gScores.ContainsKey(neighbor.polyIndex) || tentativeG < gScores[neighbor.polyIndex])
+				if (!g.TryGetValue(neighbor, out float oldG) || tentativeG < oldG)
 				{
 					cameFrom[neighbor] = current;
-					gScores[neighbor.polyIndex] = tentativeG;
-					fScores[neighbor.polyIndex] = tentativeG + Vector3.Distance(neighbor.Centroid, goal);
-
-					if (!openSet.Contains(neighbor))
-						openSet.Add(neighbor);
+					g[neighbor] = tentativeG;
+					float h = Vector3.Distance(neighbor.Centroid, goal);
+					f[neighbor] = tentativeG + h;
+					open.Enqueue(neighbor, f[neighbor]);
 				}
 			}
 		}
 
 		return null;
 	}
-	
+
+	float CalculateCost(NavMeshNode a, NavMeshNode b, Vector3 goal)
+	{
+		Vector3 portalMid;
+
+		// Try to use the shared edge if it exists
+		if (a.TryGetSharedEdge(b, out var edge))
+		{
+			portalMid = (edge.a + edge.b) * 0.5f;
+		}
+		else
+		{
+			// Fallback: use closest vertices between polygons
+			float minDist = float.MaxValue;
+			Vector3 bestA = a.Centroid;
+			Vector3 bestB = b.Centroid;
+
+			foreach (var va in a.vertices)
+			foreach (var vb in b.vertices)
+			{
+				float d = Vector3.SqrMagnitude(va - vb);
+				if (d < minDist)
+				{
+					minDist = d;
+					bestA = va;
+					bestB = vb;
+				}
+			}
+
+			portalMid = (bestA + bestB) * 0.5f;
+		}
+
+		float dist = Vector3.Distance(a.Centroid, portalMid);
+
+		Vector3 dirToNext = Vector3.Normalize(portalMid - a.Centroid);
+		Vector3 dirToGoal = Vector3.Normalize(goal - a.Centroid);
+		float alignment = Mathf.Clamp01(Vector3.Dot(dirToNext, dirToGoal));
+
+		// Penalize turns away from goal direction
+		float turnPenalty = 1f - alignment;
+
+		return dist * (1f + 0.5f * turnPenalty);
+	}
+
 	static List<NavMeshNode> RetracePath(Dictionary<NavMeshNode, NavMeshNode> cameFrom, NavMeshNode start, NavMeshNode end)
 	{
 		List<NavMeshNode> path = new();
