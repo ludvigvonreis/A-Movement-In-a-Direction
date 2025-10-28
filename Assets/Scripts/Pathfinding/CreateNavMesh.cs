@@ -7,7 +7,7 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 
 [System.Serializable]
-public struct RecastConfig
+public struct NavMeshConfig
 {
 	public float cellSize;
 	public float cellHeight;
@@ -72,8 +72,6 @@ public class RcPolyMeshData
 public class CreateNavMesh : MonoBehaviour
 {
 	[SerializeField]
-	private RecastConfig config = new();
-	[SerializeField]
 	private GameObject geometryParent;
 
 	private List<GameObject> levelGeometry;
@@ -81,8 +79,8 @@ public class CreateNavMesh : MonoBehaviour
 	private List<float> vertexPositions;
 	private List<int> meshFaces;
 
-	[Button("Generate Mesh")]
-	private void GenerateRecastMesh()
+	//[Button("Generate Mesh")]
+	public RcPolyMeshData GenerateRecastMesh(NavMeshConfig config)
 	{
 		if (levelGeometry.Count < 1) FetchGeometry();
 
@@ -125,10 +123,7 @@ public class CreateNavMesh : MonoBehaviour
 		var finalPolyMesh = new RcPolyMeshData(result.Mesh);
 
 
-		if (NavMeshProvider.Instance)
-			NavMeshProvider.Instance.CreateFromRecastData(finalPolyMesh, config);
-		else
-			Debug.LogError("ERROR: Nav Mesh Provider not found. Navmesh not saved.");
+		return finalPolyMesh;
 	}
 
 	[Button("Fetch Geometry")]
