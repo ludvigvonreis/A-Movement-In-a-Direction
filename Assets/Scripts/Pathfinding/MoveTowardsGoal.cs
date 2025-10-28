@@ -2,6 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 [ExecuteAlways]
+[RequireComponent(typeof(Rigidbody))]
 public class MoveTowardsGoal : MonoBehaviour
 {
 	private NavMeshProvider navMeshProvider;
@@ -11,6 +12,7 @@ public class MoveTowardsGoal : MonoBehaviour
 	[SerializeField]
 	private NavigationPath NavPath;
 	private bool hasPath = false;
+	Rigidbody rb;
 
 	[SerializeField]
 	int currentPathIndex = 0;
@@ -70,36 +72,44 @@ public class MoveTowardsGoal : MonoBehaviour
 		hasPath = false;
 	}
 
+	void Awake()
+	{
+		rb = GetComponent<Rigidbody>();
+		rb.interpolation = RigidbodyInterpolation.Interpolate;
+		rb.constraints = RigidbodyConstraints.FreezeRotation;
+		rb.useGravity = false;
+	}
+
 	void Update()
 	{
 		if (!Application.isPlaying) return;
 
-		// Recalculate path if goal moved
 		if (Vector3.Distance(goal.position, lastGoal) > 1f)
 		{
 			FetchPath();
 			lastGoal = goal.position;
 		}
+	}
 
+	void FixedUpdate()
+	{
 		var path = NavPath;
-		if (currentPathIndex >= path.simplePath.Length) return;
+		if (path.simplePath == null || currentPathIndex >= path.simplePath.Length) return;
 
 		Vector3 target = path.simplePath[currentPathIndex];
 
-		// Seek behavior
-		Vector3 desired = (target - transform.position);
+		Vector3 desired = target - rb.position;
 		float distance = desired.magnitude;
 		desired.Normalize();
 		desired *= maxSpeed;
 
 		Vector3 steering = desired - velocity;
-		velocity = Vector3.ClampMagnitude(velocity + steering * Time.deltaTime * acceleration, maxSpeed);
+		velocity = Vector3.ClampMagnitude(velocity + steering * Time.fixedDeltaTime * acceleration, maxSpeed);
 
-		transform.position += velocity * Time.deltaTime;
+		rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
+		//rb.linearVelocity = velocity;
 
-		// Advance to next waypoint if close enough
-		float arriveRadius = 0.5f; // tolerance radius for "close enough"
-		if (distance < arriveRadius)
+		if (distance < 0.5f)
 			currentPathIndex++;
 	}
 
@@ -112,9 +122,7 @@ public class MoveTowardsGoal : MonoBehaviour
 
 		if (navMeshProvider.NavMesh.PositionToNode(goal.position) is NavMeshNode goalNode && goalNode != null)
 		{
-			Gizmos.color = Color.red;
-			Gizmos.DrawSphere(goalNode.Centroid, 0.2f);
-			Handles.Label(goalNode.Centroid + new Vector3(2, 0, 0), $"Node index: {goalNode.polyIndex}");
+			navMeshProvider.DrawNodeInfo(goalNode, "Node");
 		}
 	}
 }

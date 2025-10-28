@@ -89,8 +89,6 @@ public class NavMeshProvider : MonoBehaviour
 
 	NavigationPath SmoothPath(List<NavMeshNode> nodePath, Vector3 start, Vector3 goal)
 	{
-		Debug.Log(nodePath.Count);
-
 		List<Vector3> path = new();
 
 		Vector3 previousPoint = start;
@@ -143,7 +141,7 @@ public class NavMeshProvider : MonoBehaviour
 		return new()
 		{
 			nodePath = nodePath.ToArray(),
-			//finalPath = densePath.ToArray(),
+			finalPath = simplePathPositions.ToArray(),
 			currentPosition = start,
 			goalPosition = goal,
 
