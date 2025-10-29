@@ -1,16 +1,31 @@
 using System.Collections.Generic;
 using System.Linq;
+using NaughtyAttributes;
 using UnityEngine;
+
+[System.Serializable]
+public struct EdgeEntry
+{
+	public int neighborIndex;
+	public Vector3 a;
+	public Vector3 b;
+}
 
 [System.Serializable]
 public class NavMeshNode
 {
+	// Index from recast. also this nodes index in the mesh.
 	public int polyIndex;
-	public int regionId;
+
 	public Vector3[] vertices;
 	public List<int> edges = new();
-	public List<OffMeshLink> offMeshLinks = new List<OffMeshLink>();
+	public List<OffMeshLink> offMeshLinks = new();
+	public List<EdgeEntry> sharedEdges = new();
+
+	// Data from recast.
 	public int flags;
+	public int regionId;
+
 
 	[SerializeField]
 	private Vector3 centroid;
@@ -68,31 +83,14 @@ public class NavMeshNode
 		}
 	}
 
-	public bool TryGetSharedEdge(NavMeshNode other, out (Vector3 a, Vector3 b) edge, float tolerance = 0.001f)
+	public bool TryGetSharedEdge(NavMeshNode other, out (Vector3 a, Vector3 b) edge)
 	{
-		for (int i = 0; i < vertices.Length; i++)
+		foreach (var entry in sharedEdges)
 		{
-			Vector3 a1 = vertices[i];
-			Vector3 a2 = vertices[(i + 1) % vertices.Length];
-
-			for (int j = 0; j < other.vertices.Length; j++)
+			if (entry.neighborIndex == other.polyIndex)
 			{
-				Vector3 b1 = other.vertices[j];
-				Vector3 b2 = other.vertices[(j + 1) % other.vertices.Length];
-
-				// check if the edge matches in either direction
-				bool sameDir =
-					Vector3.Distance(a1, b2) < tolerance &&
-					Vector3.Distance(a2, b1) < tolerance;
-				bool oppositeDir =
-					Vector3.Distance(a1, b1) < tolerance &&
-					Vector3.Distance(a2, b2) < tolerance;
-
-				if (sameDir || oppositeDir)
-				{
-					edge = (a1, a2);
-					return true;
-				}
+				edge = (entry.a, entry.b);
+				return true;
 			}
 		}
 
@@ -192,15 +190,65 @@ public class NavMesh
 		{
 			NavMeshNode node = nodes[i];
 
-			for (int j = 0; j < nvp; j++)
+			// Determine actual vertex count of this polygon
+			int vertexCount = 0;
+			for (; vertexCount < nvp; vertexCount++)
+				if (mesh.polys[i * nvp * 2 + vertexCount] == RC_MESH_NULL_IDX)
+					break;
+
+			for (int j = 0; j < vertexCount; j++)
 			{
 				int neighborIndex = mesh.polys[i * nvp * 2 + nvp + j];
-				if (neighborIndex != RC_MESH_NULL_IDX)
+				if (neighborIndex == RC_MESH_NULL_IDX)
+					continue;
+
+				int v0 = mesh.polys[i * nvp * 2 + j];
+				int v1 = mesh.polys[i * nvp * 2 + ((j + 1) % vertexCount)];
+
+				// Determine actual vertex count of neighbor
+				int neighborVertexCount = 0;
+				for (; neighborVertexCount < nvp; neighborVertexCount++)
+					if (mesh.polys[neighborIndex * nvp * 2 + neighborVertexCount] == RC_MESH_NULL_IDX)
+						break;
+
+				bool shared = false;
+				for (int k = 0; k < neighborVertexCount; k++)
 				{
-					node.edges.Add(neighborIndex);
+					int nv0 = mesh.polys[neighborIndex * nvp * 2 + k];
+					int nv1 = mesh.polys[neighborIndex * nvp * 2 + ((k + 1) % neighborVertexCount)];
+
+					if ((nv0 == v1 && nv1 == v0) || (nv0 == v0 && nv1 == v1))
+					{
+						shared = true;
+						break;
+					}
 				}
+
+				if (shared)
+				{
+					Vector3 vpos0 = new Vector3(
+						mesh.verts[v0 * 3] * recastConfig.cellSize,
+						mesh.verts[v0 * 3 + 1] * recastConfig.cellHeight,
+						mesh.verts[v0 * 3 + 2] * recastConfig.cellSize
+					) + minBounds;
+
+					Vector3 vpos1 = new Vector3(
+						mesh.verts[v1 * 3] * recastConfig.cellSize,
+						mesh.verts[v1 * 3 + 1] * recastConfig.cellHeight,
+						mesh.verts[v1 * 3 + 2] * recastConfig.cellSize
+					) + minBounds;
+
+					node.sharedEdges.Add(new() { neighborIndex = neighborIndex, a = vpos0, b = vpos1 });
+				}
+
+				node.edges.Add(neighborIndex);
 			}
 		}
+		// foreach (var node in nodes)
+		// {
+		// 	Debug.Log($"Shared edges for poly {node.polyIndex}: {node.sharedEdges.Keys.Count}");
+		// }
+
 
 		// Third pass: find off-mesh links
 		for (int i = 0; i < mesh.npolys; i++)
@@ -290,71 +338,112 @@ public class NavMesh
 		return nodes[nodeIndex];
 	}
 
-	public bool Raycast(Vector3 start, Vector3 end, out Vector3 hitPosition)
+	public bool Raycast(Vector3 start, Vector3 end, out Vector3 hitPosition, float verticalThreshold = 0.5f)
 	{
 		hitPosition = end;
-		var current = FindContainingNode(start);
-		if (current == null)
-			return true; // start outside mesh
-
 		Vector3 dir = end - start;
-		float remainingDist = dir.magnitude;
-		dir.Normalize();
+		float maxDist = dir.magnitude;
+		if (maxDist < 1e-6f) return false;
+		dir /= maxDist;
 
-		Vector3 pos = start;
+		bool blocked = false;
+		float closestT = maxDist;
 
-		// Safety loop to prevent infinite recursion
-		for (int steps = 0; steps < 64; steps++)
+		if (Mathf.Abs(start.y - end.y) > 1f) return true;
+
+		foreach (var node in nodes)
 		{
-			if (current == null)
-				return true;
-
-			// Check if end point lies inside current polygon
-			if (PointInPolygon(end, current.vertices))
-				return false;
-
-			// Find which edge is crossed first
-			if (TryFindCrossedEdge(pos, end, current, out (Vector3 a, Vector3 b) crossedEdge, out float t))
+			for (int j = 0; j < node.vertices.Length - 1; j++)
 			{
-				Vector3 intersection = pos + dir * (remainingDist * t);
+				var v0 = node.vertices[j];
+				var v1 = node.vertices[j + 1];
 
-				// Find neighboring polygon across that edge
-				NavMeshNode neighbor = null;
-				foreach (var n in nodes)
+				// Edge line in XZ plane
+				Vector2 p0 = new Vector2(v0.x, v0.z);
+				Vector2 p1 = new Vector2(v1.x, v1.z);
+				Vector2 rayStartXZ = new Vector2(start.x, start.z);
+				Vector2 rayEndXZ = new Vector2(end.x, end.z);
+
+				if (LineSegmentIntersection(rayStartXZ, rayEndXZ, p0, p1, out var intersectionXZ))
 				{
-					if (n == current) continue;
-					if (current.TryGetSharedEdge(n, out var shared, 0.001f) &&
-						NearlyEqualEdge(shared, crossedEdge))
+					// Compute Y at intersection along ray
+					float t = ((intersectionXZ.x - rayStartXZ.x) / (rayEndXZ.x - rayStartXZ.x + 1e-6f));
+					float yAtIntersection = Mathf.Lerp(start.y, end.y, t);
+
+					// Check if intersection is within vertical bounds of edge + threshold
+					float minY = Mathf.Min(v0.y, v1.y) - verticalThreshold;
+					float maxY = Mathf.Max(v0.y, v1.y) + verticalThreshold;
+
+					if (yAtIntersection < minY || yAtIntersection > maxY)
+						continue; // edge is too high/low, ignore
+
+					// Check if edge is a shared/passable edge
+					bool isShared = node.sharedEdges.Any(e =>
+						(e.a == v0 && e.b == v1) ||
+						(e.a == v1 && e.b == v0)
+					);
+
+					if (!isShared)
 					{
-						neighbor = n;
-						break;
+						// Blocked by non-shared edge
+						blocked = true;
+
+						// Optional: store hit position along ray
+						hitPosition = new Vector3(intersectionXZ.x, yAtIntersection, intersectionXZ.y);
+						closestT = Vector3.Distance(start, hitPosition);
 					}
 				}
-
-				if (neighbor == null)
-				{
-					// Edge has no neighbor → ray exits mesh
-					hitPosition = intersection;
-					return true;
-				}
-
-				// Continue from intersection into neighbor
-				current = neighbor;
-				pos = intersection;
-				remainingDist = Vector3.Distance(pos, end);
-				dir = (end - pos).normalized;
-			}
-			else
-			{
-				// Didn't cross any edge, must be inside polygon
-				return false;
 			}
 		}
 
-		// Safety exit
-		hitPosition = pos;
-		return true;
+		return blocked;
 	}
+
+	public bool RayIntersectsTriangle(Vector3 rayOrigin, Vector3 rayDir, Vector3 v0, Vector3 v1, Vector3 v2, out float t)
+	{
+		t = 0f;
+		Vector3 edge1 = v1 - v0;
+		Vector3 edge2 = v2 - v0;
+		Vector3 h = Vector3.Cross(rayDir, edge2);
+		float a = Vector3.Dot(edge1, h);
+		if (Mathf.Abs(a) < 1e-6f) return false; // parallel
+
+		float f = 1f / a;
+		Vector3 s = rayOrigin - v0;
+		float u = f * Vector3.Dot(s, h);
+		if (u < 0f || u > 1f) return false;
+
+		Vector3 q = Vector3.Cross(s, edge1);
+		float v = f * Vector3.Dot(rayDir, q);
+		if (v < 0f || u + v > 1f) return false;
+
+		t = f * Vector3.Dot(edge2, q);
+		return t > 0f;
+	}
+
+	static bool LineSegmentIntersection(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, out Vector2 intersection)
+	{
+		intersection = new Vector2();
+
+		Vector2 s1 = p2 - p1;
+		Vector2 s2 = p4 - p3;
+
+		float s, t;
+		float denominator = -s2.x * s1.y + s1.x * s2.y;
+		if (denominator == 0) return true; // Parallel
+
+		s = (-s1.y * (p1.x - p3.x) + s1.x * (p1.y - p3.y)) / denominator;
+		t = (s2.x * (p1.y - p3.y) - s2.y * (p1.x - p3.x)) / denominator;
+
+		if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
+		{
+			intersection = p1 + (t * s1);
+			return true;
+		}
+
+		return false; // No intersection within the segments
+	}
+
 	private NavMeshNode FindContainingNode(Vector3 point)
 	{
 		foreach (var n in nodes)
@@ -508,12 +597,6 @@ public class NavMesh
 		return path;
 	}
 
-	private static bool NearlyEqualEdge((Vector3 a, Vector3 b) e1, (Vector3 a, Vector3 b) e2, float tol = 0.01f)
-	{
-		return (Vector3.Distance(e1.a, e2.a) < tol && Vector3.Distance(e1.b, e2.b) < tol) ||
-			   (Vector3.Distance(e1.a, e2.b) < tol && Vector3.Distance(e1.b, e2.a) < tol);
-	}
-	
 	private static bool PointInPolygon(Vector3 point, Vector3[] verts)
 	{
 		Vector2 p = new(point.x, point.z);
@@ -530,59 +613,5 @@ public class NavMesh
 		}
 
 		return inside;
-	}
-
-	private static bool TryFindCrossedEdge(Vector3 start, Vector3 end, NavMeshNode node,
-		out (Vector3 a, Vector3 b) crossed, out float t)
-	{
-		crossed = default;
-		t = 1f;
-		bool found = false;
-
-		for (int i = 0; i < node.vertices.Length; i++)
-		{
-			Vector3 a = node.vertices[i];
-			Vector3 b = node.vertices[(i + 1) % node.vertices.Length];
-
-			if (LineSegmentsIntersectXZ(start, end, a, b, out float u))
-			{
-				crossed = (a, b);
-				t = u;
-				found = true;
-				break;
-			}
-		}
-		return found;
-	}
-
-	private static bool LineSegmentsIntersectXZ(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, out float t)
-	{
-		Vector2 a = new(p1.x, p1.z);
-		Vector2 b = new(p2.x, p2.z);
-		Vector2 c = new(p3.x, p3.z);
-		Vector2 d = new(p4.x, p4.z);
-
-		Vector2 r = b - a;
-		Vector2 s = d - c;
-		float denom = r.x * s.y - r.y * s.x;
-
-		if (Mathf.Abs(denom) < 1e-5f)
-		{
-			t = 0f;
-			return false; // parallel
-		}
-
-		Vector2 cma = c - a;
-		float u = (cma.x * r.y - cma.y * r.x) / denom;
-		float tVal = (cma.x * s.y - cma.y * s.x) / denom;
-
-		if (tVal >= 0f && tVal <= 1f && u >= 0f && u <= 1f)
-		{
-			t = tVal;
-			return true;
-		}
-
-		t = 0f;
-		return false;
 	}
 }

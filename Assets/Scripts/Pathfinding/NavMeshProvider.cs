@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UI;
 using static PathProcessing;
 
 [System.Serializable]
@@ -54,6 +57,7 @@ public struct NavigationPath
 	public Vector3[] finalPath;
 }
 
+[ExecuteAlways]
 public class NavMeshProvider : MonoBehaviour
 {
 	[SerializeField]
@@ -62,6 +66,12 @@ public class NavMeshProvider : MonoBehaviour
 	public VisualizationConfig visualizationConfig = new();
 	[SerializeField]
 	private PathProcessingConfig pathProcessingConfig = new();
+
+	[SerializeField]
+	public List<NavMeshNode> NodePath;
+
+	public Transform A;
+	public Transform B;
 
 	[SerializeField]
 	private NavMesh navMesh;
@@ -89,64 +99,58 @@ public class NavMeshProvider : MonoBehaviour
 
 	NavigationPath SmoothPath(List<NavMeshNode> nodePath, Vector3 start, Vector3 goal)
 	{
-		List<Vector3> path = new();
+		// What flags to keep, ie ramps.
+		int mask = ~(1 << 0);
+		var flags = nodePath.Select(x => x.flags).ToList();
 
-		Vector3 previousPoint = start;
+		// FIXME: For debug purposes
+		NodePath = nodePath;
 
-		foreach (var polygon in nodePath)
+		List<Vector3> path = new()
 		{
-			Vector3 closestPointOnEdge = polygon.vertices
-				.SelectMany((v, i) =>
+			start
+		};
+
+
+		for (int i = 0; i < nodePath.Count; i++)
+		{
+			var node = nodePath[i];
+
+			for (int j = 0; j < nodePath.Count; j++)
+			{
+				if (node.TryGetSharedEdge(nodePath[j], out var edge))
 				{
-					// Get the edge from this vertex to the next (wrap around)
-					Vector3 a = v;
-					Vector3 b = polygon.vertices[(i + 1) % polygon.vertices.Length];
-
-					// Project player position onto the edge segment
-					Vector3 ab = b - a;
-					float t = Vector3.Dot(goal - a, ab) / ab.sqrMagnitude;
-					t = Mathf.Clamp01(t); // clamp to segment
-					Vector3 pointOnEdge = a + ab * t;
-
-					return new[] { pointOnEdge };
-				})
-				.OrderBy(p => Vector3.Distance(p, goal))
-				.First();
-
-			// Offset slightly toward the centroid
-			Vector3 directionToCenter = (polygon.Centroid - closestPointOnEdge).normalized;
-			Vector3 safePoint = closestPointOnEdge + directionToCenter * pathProcessingConfig.VertexEdgeOffset;
-
-			path.Add(safePoint);
-			previousPoint = safePoint;
+					Vector3 AB = edge.a + edge.b;
+					path.Add(AB / 2f);
+				}
+			}
 		}
 
-		// Finally, add the goal
-		path[0] = start;
+		path.Add(goal);
+		path = Shortcutting(path, mask, navMesh);
+		path = DensifyPath(path);
+		for (int i = 0; i < path.Count; i++)
+		{
+			Vector3 p = path[i];
+			// Cast down from 2 units above
+			if (Physics.Raycast(p + Vector3.up * 2f, Vector3.down, out RaycastHit hit, 100f, 1 << 3))
+			{
+				path[i] = hit.point; // snap point to ground
+			}
+		}
+		path = StringPulling(path, pathProcessingConfig.RDPTolerance, flags, mask);
 
-		// Only add final goal position if goal is close to the same y level as last node.
-		if (Vector3.Distance(path[^1], goal) < 2f)
-			path[^1] = goal;
-		else if (Mathf.Abs(path[^1].y - goal.y) < 2f)
-			path.Add(goal);
 
-		var densePath = DensifyPath(path);
-
-		// Simplify path with Ramer–Douglas–Peucker.
-		var simplePathPositions = RDP(densePath, pathProcessingConfig.RDPTolerance);
-
-		// Simplyfy path with custom shorcut algorithm.
-		//simplePathPositions = Simplify(simplePathPositions, navMesh);
 
 		return new()
 		{
-			nodePath = nodePath.ToArray(),
-			finalPath = simplePathPositions.ToArray(),
 			currentPosition = start,
 			goalPosition = goal,
 
+			finalPath = path.ToArray(),
+			nodePath = nodePath.ToArray(),
 			rawPath = path.ToArray(),
-			simplePath = simplePathPositions.ToArray()
+			simplePath = new Vector3[] { Vector3.zero, Vector3.zero } // densePath.ToArray(),
 		};
 	}
 
@@ -170,6 +174,28 @@ public class NavMeshProvider : MonoBehaviour
 	void OnDrawGizmos()
 	{
 		DrawNavMesh();
+		// var APos = A.position;
+		// var BPos = B.position;
+
+		// APos.y = BPos.y;
+
+		// if (navMesh.Raycast(APos, BPos, out var hit))
+		// {
+		// 	Gizmos.color = Color.red;
+		// 	// Gizmos.DrawSphere(hit, 0.05f);
+		// }
+		// else
+		// {
+		// 	Gizmos.color = Color.blue;
+		// }
+
+
+		// Gizmos.DrawLine(APos, BPos);
+
+		// //new Vector3(5, 4.5f, -18),
+
+		// var pathsss = GetPath(A.position, B.position);
+		// if (pathsss.HasValue) DrawPath(pathsss.Value.finalPath, Color.yellow);
 	}
 
 	public void DrawVisualization(NavigationPath navPath)
@@ -203,10 +229,12 @@ public class NavMeshProvider : MonoBehaviour
 		if (pathPoints == null || pathPoints.Length < 2)
 			return;
 
-		Gizmos.color = color;
 		for (int i = 0; i < pathPoints.Length - 1; i++)
 		{
+			Gizmos.color = color;
 			Gizmos.DrawLine(pathPoints[i], pathPoints[i + 1]);
+			Gizmos.color = Color.black;
+			Gizmos.DrawSphere(pathPoints[i], 0.05f);
 		}
 	}
 
@@ -217,6 +245,7 @@ public class NavMeshProvider : MonoBehaviour
 
 		Gizmos.color = Color.red;
 		Gizmos.DrawSphere(node.Centroid, 0.2f);
+
 		Handles.Label(node.Centroid + new Vector3(2, 0, 0), $"{labelPrefix} index: {node.polyIndex}");
 	}
 

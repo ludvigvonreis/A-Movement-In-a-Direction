@@ -72,7 +72,7 @@ public class EnemyCharacter : MonoBehaviour, ICharacterController
 					Vector3 p = path.finalPath[i];
 
 					// raycast straight down to find the real ground
-					Debug.DrawRay(p + Vector3.up * 2f, Vector3.down * 100f, Color.red, 0.5f);
+					//Debug.DrawRay(p + Vector3.up * 2f, Vector3.down * 100f, Color.red, 0.5f);
 					if (Physics.Raycast(p + Vector3.up * 2f, Vector3.down, out RaycastHit hit, 100f, 1 << 3))
 					{
 						path.finalPath[i] = hit.point;
