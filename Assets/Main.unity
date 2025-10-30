@@ -1817,12 +1817,10 @@ MonoBehaviour:
   gravity: -90
   speed: 10
   NavPath:
-    currentPosition: {x: 0, y: 0, z: 0}
     goalPosition: {x: 0, y: 0, z: 0}
-    nodePath: []
-    rawPath: []
-    simplePath: []
-    finalPath: []
+    startPosition: {x: 0, y: 0, z: 0}
+    nodePath: 
+    path: []
   currentPathIndex: 0
   _requestedMovement: {x: 0, y: 0, z: 0}
 --- !u!114 &613740939
@@ -4737,429 +4735,15 @@ MonoBehaviour:
     NavMeshColor: {r: 1, g: 1, b: 1, a: 0.72156864}
     ShowNavGraph: 0
     NavGraphColor: {r: 0, g: 0, b: 0, a: 1}
-    ShowRawPath: 1
-    RawPathColor: {r: 1, g: 0.07738829, b: 0, a: 1}
-    ShowSimplePath: 0
-    SimplePathColor: {r: 1, g: 0.6286876, b: 0, a: 1}
-    ShowSmoothPath: 1
-    SmoothPathColor: {r: 1, g: 0.88657963, b: 0.051886797, a: 1}
+    ShowPath: 1
+    PathColor: {r: 1, g: 0.47913203, b: 0, a: 1}
     ShowDirectPath: 0
     DirectPathColor: {r: 0.041301847, g: 1, b: 0, a: 1}
-    ShowEnemyPolygon: 0
-    ShowGoalPolygon: 0
   pathProcessingConfig:
     VertexEdgeOffset: 1
     RDPTolerance: 0.5
     ShortcutLookAhead: 0
     CRPointsPerSegment: 20
-  NodePath:
-  - polyIndex: 29
-    vertices:
-    - {x: -19.5, y: 0.049750138, z: 2.4996834}
-    - {x: -3.3999996, y: 0.049750138, z: 2.4996834}
-    - {x: -3.3999996, y: 0.049750138, z: -3.9003162}
-    - {x: -19.5, y: 0.049750138, z: -3.9003162}
-    edges: 2b00000018000000
-    offMeshLinks: []
-    sharedEdges:
-    - neighborIndex: 43
-      a: {x: -19.5, y: 0.049750138, z: 2.4996834}
-      b: {x: -3.3999996, y: 0.049750138, z: 2.4996834}
-    - neighborIndex: 24
-      a: {x: -3.3999996, y: 0.049750138, z: -3.9003162}
-      b: {x: -19.5, y: 0.049750138, z: -3.9003162}
-    flags: 0
-    regionId: 10
-    centroid: {x: -11.45, y: 0.049750138, z: -0.7003164}
-    normal: {x: -0, y: 1, z: 0}
-    surfaceArea: 103.03999
-  - polyIndex: 24
-    vertices:
-    - {x: -3.3999996, y: 0.049750138, z: -3.9003162}
-    - {x: 6.300001, y: 0.049750138, z: -4.900316}
-    - {x: -19.5, y: 0.049750138, z: -4.900316}
-    - {x: -19.5, y: 0.049750138, z: -3.9003162}
-    edges: 1b000000120000001d000000
-    offMeshLinks: []
-    sharedEdges:
-    - neighborIndex: 27
-      a: {x: -3.3999996, y: 0.049750138, z: -3.9003162}
-      b: {x: 6.300001, y: 0.049750138, z: -4.900316}
-    - neighborIndex: 18
-      a: {x: 6.300001, y: 0.049750138, z: -4.900316}
-      b: {x: -19.5, y: 0.049750138, z: -4.900316}
-    - neighborIndex: 29
-      a: {x: -19.5, y: 0.049750138, z: -3.9003162}
-      b: {x: -3.3999996, y: 0.049750138, z: -3.9003162}
-    flags: 0
-    regionId: 8
-    centroid: {x: -9.025, y: 0.049750138, z: -4.400316}
-    normal: {x: 0, y: 1, z: 0}
-    surfaceArea: 20.95
-  - polyIndex: 18
-    vertices:
-    - {x: 6.300001, y: 0.049750138, z: -4.900316}
-    - {x: 2.7000008, y: 0.049750138, z: -16.000317}
-    - {x: -2.6999989, y: 0.049750138, z: -16.000317}
-    - {x: -19.5, y: 0.049750138, z: -10.500317}
-    - {x: -19.5, y: 0.049750138, z: -4.900316}
-    edges: 130000001100000018000000
-    offMeshLinks: []
-    sharedEdges:
-    - neighborIndex: 19
-      a: {x: 6.300001, y: 0.049750138, z: -4.900316}
-      b: {x: 2.7000008, y: 0.049750138, z: -16.000317}
-    - neighborIndex: 17
-      a: {x: -2.6999989, y: 0.049750138, z: -16.000317}
-      b: {x: -19.5, y: 0.049750138, z: -10.500317}
-    - neighborIndex: 24
-      a: {x: -19.5, y: 0.049750138, z: -4.900316}
-      b: {x: 6.300001, y: 0.049750138, z: -4.900316}
-    flags: 0
-    regionId: 5
-    centroid: {x: -6.5399995, y: 0.049750138, z: -10.460317}
-    normal: {x: 0, y: 1, z: 0}
-    surfaceArea: 220.20001
-  - polyIndex: 17
-    vertices:
-    - {x: -2.6999989, y: 0.049750138, z: -16.000317}
-    - {x: -19.5, y: 0.049750138, z: -16.000317}
-    - {x: -19.5, y: 0.049750138, z: -10.500317}
-    edges: 0700000012000000
-    offMeshLinks: []
-    sharedEdges:
-    - neighborIndex: 7
-      a: {x: -2.6999989, y: 0.049750138, z: -16.000317}
-      b: {x: -19.5, y: 0.049750138, z: -16.000317}
-    - neighborIndex: 18
-      a: {x: -19.5, y: 0.049750138, z: -10.500317}
-      b: {x: -2.6999989, y: 0.049750138, z: -16.000317}
-    flags: 0
-    regionId: 5
-    centroid: {x: -13.899999, y: 0.049750138, z: -14.166984}
-    normal: {x: 0, y: 1, z: -0}
-    surfaceArea: 46.200005
-  - polyIndex: 7
-    vertices:
-    - {x: -19.5, y: 0.049750138, z: -16.000317}
-    - {x: -2.6999989, y: 0.049750138, z: -16.000317}
-    - {x: -2.6999989, y: 0.19975014, z: -16.900316}
-    - {x: -19.5, y: 0.049750138, z: -16.900316}
-    edges: 1100000002000000
-    offMeshLinks: []
-    sharedEdges:
-    - neighborIndex: 17
-      a: {x: -19.5, y: 0.049750138, z: -16.000317}
-      b: {x: -2.6999989, y: 0.049750138, z: -16.000317}
-    - neighborIndex: 2
-      a: {x: -2.6999989, y: 0.19975014, z: -16.900316}
-      b: {x: -19.5, y: 0.049750138, z: -16.900316}
-    flags: 1
-    regionId: 3
-    centroid: {x: -11.099999, y: 0.08725014, z: -16.450315}
-    normal: {x: -0, y: 0.98639387, z: 0.16439906}
-    surfaceArea: 15.224577
-  - polyIndex: 2
-    vertices:
-    - {x: -19.5, y: 0.049750138, z: -16.900316}
-    - {x: -2.6999989, y: 0.19975014, z: -16.900316}
-    - {x: -9.8, y: 0.049750138, z: -19.500317}
-    - {x: -19.5, y: 0.049750138, z: -19.500317}
-    edges: 0700000004000000
-    offMeshLinks: []
-    sharedEdges:
-    - neighborIndex: 7
-      a: {x: -19.5, y: 0.049750138, z: -16.900316}
-      b: {x: -2.6999989, y: 0.19975014, z: -16.900316}
-    - neighborIndex: 4
-      a: {x: -2.6999989, y: 0.19975014, z: -16.900316}
-      b: {x: -9.8, y: 0.049750138, z: -19.500317}
-    flags: 1
-    regionId: 1
-    centroid: {x: -12.875, y: 0.08725014, z: -18.200317}
-    normal: {x: -0.008923267, y: 0.99940586, z: -0.033290643}
-    surfaceArea: 34.46299
-  - polyIndex: 4
-    vertices:
-    - {x: -2.6999989, y: 0.19975014, z: -16.900316}
-    - {x: 0, y: 1.3997501, z: -19.500317}
-    - {x: -9.8, y: 0.049750138, z: -19.500317}
-    edges: 0300000002000000
-    offMeshLinks:
-    - startPolyIndex: 4
-      endPolyIndex: 3
-      startPos: {x: -1.3499994, y: 0.79975015, z: -18.200317}
-      endPos: {x: -0.36540896, y: 1.001912e-16, z: -18.048841}
-      bidirectional: 0
-      cost: 30
-    sharedEdges:
-    - neighborIndex: 3
-      a: {x: -2.6999989, y: 0.19975014, z: -16.900316}
-      b: {x: 0, y: 1.3997501, z: -19.500317}
-    - neighborIndex: 2
-      a: {x: -9.8, y: 0.049750138, z: -19.500317}
-      b: {x: -2.6999989, y: 0.19975014, z: -16.900316}
-    flags: 1
-    regionId: 1
-    centroid: {x: -4.1666665, y: 0.54975015, z: -18.63365}
-    normal: {x: -0.13014257, y: 0.9447386, z: 0.30088514}
-    surfaceArea: 13.485213
-  - polyIndex: 3
-    vertices:
-    - {x: 7, y: 5.49975, z: -16.900316}
-    - {x: 9.700001, y: 7.09975, z: -19.500317}
-    - {x: 0, y: 1.3997501, z: -19.500317}
-    - {x: -2.6999989, y: 0.19975014, z: -16.900316}
-    edges: 0100000004000000
-    offMeshLinks: []
-    sharedEdges:
-    - neighborIndex: 1
-      a: {x: 7, y: 5.49975, z: -16.900316}
-      b: {x: 9.700001, y: 7.09975, z: -19.500317}
-    - neighborIndex: 4
-      a: {x: 0, y: 1.3997501, z: -19.500317}
-      b: {x: -2.6999989, y: 0.19975014, z: -16.900316}
-    flags: 1
-    regionId: 1
-    centroid: {x: 3.5000005, y: 3.54975, z: -18.200317}
-    normal: {x: -0.5066266, y: 0.8621541, z: 0.004443972}
-    surfaceArea: 29.057598
-  - polyIndex: 1
-    vertices:
-    - {x: 16.7, y: 11.04975, z: -16.900316}
-    - {x: 19.5, y: 11.04975, z: -19.500317}
-    - {x: 9.700001, y: 7.09975, z: -19.500317}
-    - {x: 7, y: 5.49975, z: -16.900316}
-    edges: 0000000003000000
-    offMeshLinks: []
-    sharedEdges:
-    - neighborIndex: 0
-      a: {x: 16.7, y: 11.04975, z: -16.900316}
-      b: {x: 19.5, y: 11.04975, z: -19.500317}
-    - neighborIndex: 3
-      a: {x: 9.700001, y: 7.09975, z: -19.500317}
-      b: {x: 7, y: 5.49975, z: -16.900316}
-    flags: 1
-    regionId: 1
-    centroid: {x: 13.225, y: 8.67475, z: -18.200317}
-    normal: {x: -0.34678802, y: 0.8603853, z: -0.37346384}
-    surfaceArea: 29.337976
-  - polyIndex: 0
-    vertices:
-    - {x: 16.7, y: 11.04975, z: -16.900316}
-    - {x: 19.5, y: 11.04975, z: -16.900316}
-    - {x: 19.5, y: 11.04975, z: -19.500317}
-    edges: 0800000001000000
-    offMeshLinks: []
-    sharedEdges:
-    - neighborIndex: 8
-      a: {x: 16.7, y: 11.04975, z: -16.900316}
-      b: {x: 19.5, y: 11.04975, z: -16.900316}
-    - neighborIndex: 1
-      a: {x: 19.5, y: 11.04975, z: -19.500317}
-      b: {x: 16.7, y: 11.04975, z: -16.900316}
-    flags: 0
-    regionId: 1
-    centroid: {x: 18.566668, y: 11.04975, z: -17.766983}
-    normal: {x: -0, y: 1, z: 0}
-    surfaceArea: 3.6399996
-  - polyIndex: 8
-    vertices:
-    - {x: 19.5, y: 11.04975, z: -16.900316}
-    - {x: 16.7, y: 11.04975, z: -16.900316}
-    - {x: 17, y: 11.04975, z: -11.000317}
-    - {x: 19.5, y: 11.04975, z: -8.100316}
-    edges: 000000000a000000
-    offMeshLinks:
-    - startPolyIndex: 8
-      endPolyIndex: 16
-      startPos: {x: 16.85, y: 11.04975, z: -13.950316}
-      endPos: {x: 15.972738, y: 8.0104415e-17, z: -14.430328}
-      bidirectional: 0
-      cost: 44.199
-    sharedEdges:
-    - neighborIndex: 0
-      a: {x: 19.5, y: 11.04975, z: -16.900316}
-      b: {x: 16.7, y: 11.04975, z: -16.900316}
-    - neighborIndex: 10
-      a: {x: 17, y: 11.04975, z: -11.000317}
-      b: {x: 19.5, y: 11.04975, z: -8.100316}
-    flags: 0
-    regionId: 4
-    centroid: {x: 18.175, y: 11.04975, z: -13.225316}
-    normal: {x: 0, y: 1, z: -0}
-    surfaceArea: 19.259998
-  - polyIndex: 10
-    vertices:
-    - {x: 19.5, y: 11.04975, z: -8.100316}
-    - {x: 17, y: 11.04975, z: -11.000317}
-    - {x: 17, y: 11.04975, z: -4.7003164}
-    edges: 080000000b000000
-    offMeshLinks:
-    - startPolyIndex: 10
-      endPolyIndex: 16
-      startPos: {x: 17, y: 11.04975, z: -7.8503165}
-      endPos: {x: 16.004963, y: 4.3025657e-17, z: -7.7508135}
-      bidirectional: 0
-      cost: 44.199
-    sharedEdges:
-    - neighborIndex: 8
-      a: {x: 19.5, y: 11.04975, z: -8.100316}
-      b: {x: 17, y: 11.04975, z: -11.000317}
-    - neighborIndex: 11
-      a: {x: 17, y: 11.04975, z: -4.7003164}
-      b: {x: 19.5, y: 11.04975, z: -8.100316}
-    flags: 0
-    regionId: 4
-    centroid: {x: 17.833334, y: 11.04975, z: -7.9336495}
-    normal: {x: 0, y: 1, z: -0}
-    surfaceArea: 7.875
-  - polyIndex: 11
-    vertices:
-    - {x: 19.5, y: 10.29975, z: 0.7996845}
-    - {x: 19.5, y: 11.04975, z: -8.100316}
-    - {x: 17, y: 11.04975, z: -4.7003164}
-    - {x: 17, y: 9.899751, z: 1.4996834}
-    edges: 0a0000000e000000
-    offMeshLinks:
-    - startPolyIndex: 11
-      endPolyIndex: 36
-      startPos: {x: 17, y: 10.4747505, z: -1.6003165}
-      endPos: {x: 16.228207, y: 5.370409e-18, z: -0.96744686}
-      bidirectional: 0
-      cost: 41.65203
-    sharedEdges:
-    - neighborIndex: 10
-      a: {x: 19.5, y: 11.04975, z: -8.100316}
-      b: {x: 17, y: 11.04975, z: -4.7003164}
-    - neighborIndex: 14
-      a: {x: 17, y: 9.899751, z: 1.4996834}
-      b: {x: 19.5, y: 10.29975, z: 0.7996845}
-    flags: 1
-    regionId: 4
-    centroid: {x: 18.25, y: 10.57475, z: -2.6253161}
-    normal: {x: 0.11346443, y: 0.990033, z: 0.08342974}
-    surfaceArea: 19.163557
-  - polyIndex: 14
-    vertices:
-    - {x: 19.5, y: 10.29975, z: 0.7996845}
-    - {x: 17, y: 9.899751, z: 1.4996834}
-    - {x: 17, y: 6.1997504, z: 7.7996845}
-    - {x: 19.5, y: 6.0497503, z: 9.699684}
-    edges: 0b00000009000000
-    offMeshLinks:
-    - startPolyIndex: 14
-      endPolyIndex: 50
-      startPos: {x: 18.25, y: 6.12475, z: 8.749684}
-      endPos: {x: 18.25, y: -5.3489442e-17, z: 9.635801}
-      bidirectional: 0
-      cost: 30
-    sharedEdges:
-    - neighborIndex: 11
-      a: {x: 19.5, y: 10.29975, z: 0.7996845}
-      b: {x: 17, y: 9.899751, z: 1.4996834}
-    - neighborIndex: 9
-      a: {x: 17, y: 6.1997504, z: 7.7996845}
-      b: {x: 19.5, y: 6.0497503, z: 9.699684}
-    flags: 1
-    regionId: 4
-    centroid: {x: 18.25, y: 8.11225, z: 4.949684}
-    normal: {x: 0.0038322387, y: 0.8622796, z: 0.5064181}
-    surfaceArea: 21.913425
-  - polyIndex: 9
-    vertices:
-    - {x: 19.5, y: 6.0497503, z: 9.699684}
-    - {x: 17, y: 6.1997504, z: 7.7996845}
-    - {x: 16.5, y: 6.0497503, z: 8.499683}
-    edges: 0e0000000c000000
-    offMeshLinks: []
-    sharedEdges:
-    - neighborIndex: 14
-      a: {x: 19.5, y: 6.0497503, z: 9.699684}
-      b: {x: 17, y: 6.1997504, z: 7.7996845}
-    - neighborIndex: 12
-      a: {x: 16.5, y: 6.0497503, z: 8.499683}
-      b: {x: 19.5, y: 6.0497503, z: 9.699684}
-    flags: 1
-    regionId: 4
-    centroid: {x: 17.666666, y: 6.0997505, z: 8.66635}
-    normal: {x: -0.06561802, y: 0.984268, z: 0.16404496}
-    surfaceArea: 1.3715761
-  - polyIndex: 12
-    vertices:
-    - {x: 19.5, y: 6.0497503, z: 9.699684}
-    - {x: 16.5, y: 6.0497503, z: 8.499683}
-    - {x: 12, y: 6.0497503, z: 13.499683}
-    - {x: 12, y: 6.0497503, z: 18.599686}
-    - {x: 19.5, y: 6.0497503, z: 18.599686}
-    edges: 090000000d000000
-    offMeshLinks: []
-    sharedEdges:
-    - neighborIndex: 9
-      a: {x: 19.5, y: 6.0497503, z: 9.699684}
-      b: {x: 16.5, y: 6.0497503, z: 8.499683}
-    - neighborIndex: 13
-      a: {x: 16.5, y: 6.0497503, z: 8.499683}
-      b: {x: 12, y: 6.0497503, z: 13.499683}
-    flags: 0
-    regionId: 4
-    centroid: {x: 15.9, y: 6.0497503, z: 13.779684}
-    normal: {x: 0, y: 1, z: 0}
-    surfaceArea: 62.700016
-  - polyIndex: 13
-    vertices:
-    - {x: 16.5, y: 6.0497503, z: 8.499683}
-    - {x: 12, y: 6.0497503, z: 8.499683}
-    - {x: 12, y: 6.0497503, z: 13.499683}
-    edges: 0c000000
-    offMeshLinks:
-    - startPolyIndex: 13
-      endPolyIndex: 41
-      startPos: {x: 14.25, y: 6.0497503, z: 8.499683}
-      endPos: {x: 14.660364, y: -4.212054e-17, z: 7.587762}
-      bidirectional: 0
-      cost: 30
-    - startPolyIndex: 13
-      endPolyIndex: 53
-      startPos: {x: 12, y: 6.0497503, z: 10.999683}
-      endPos: {x: 11.125843, y: -6.375637e-17, z: 11.485325}
-      bidirectional: 0
-      cost: 30
-    sharedEdges:
-    - neighborIndex: 12
-      a: {x: 12, y: 6.0497503, z: 13.499683}
-      b: {x: 16.5, y: 6.0497503, z: 8.499683}
-    flags: 0
-    regionId: 4
-    centroid: {x: 13.5, y: 6.04975, z: 10.16635}
-    normal: {x: 0, y: 1, z: -0}
-    surfaceArea: 11.25
-  - polyIndex: 53
-    vertices:
-    - {x: 11.1, y: 14.04975, z: 13.599686}
-    - {x: 19.5, y: 14.04975, z: 13.599686}
-    - {x: 19.5, y: 14.04975, z: 8.499683}
-    - {x: 11, y: 14.04975, z: 8.499683}
-    edges: 4800000034000000
-    offMeshLinks:
-    - startPolyIndex: 53
-      endPolyIndex: 41
-      startPos: {x: 15.25, y: 14.04975, z: 8.499683}
-      endPos: {x: 15.240196, y: -4.1631874e-17, z: 7.4997315}
-      bidirectional: 0
-      cost: 56.199005
-    sharedEdges:
-    - neighborIndex: 72
-      a: {x: 11.1, y: 14.04975, z: 13.599686}
-      b: {x: 19.5, y: 14.04975, z: 13.599686}
-    - neighborIndex: 52
-      a: {x: 11, y: 14.04975, z: 8.499683}
-      b: {x: 11.1, y: 14.04975, z: 13.599686}
-    flags: 0
-    regionId: 19
-    centroid: {x: 15.275, y: 14.04975, z: 11.049685}
-    normal: {x: -0, y: 1, z: 0}
-    surfaceArea: 43.095016
   A: {fileID: 1495560019}
   B: {fileID: 338615224}
   navMesh:
@@ -5172,9 +4756,8 @@ MonoBehaviour:
       - {x: 16.7, y: 11.04975, z: -16.900316}
       - {x: 19.5, y: 11.04975, z: -16.900316}
       - {x: 19.5, y: 11.04975, z: -19.500317}
-      edges: 0800000001000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 8
         a: {x: 16.7, y: 11.04975, z: -16.900316}
         b: {x: 19.5, y: 11.04975, z: -16.900316}
@@ -5192,9 +4775,8 @@ MonoBehaviour:
       - {x: 19.5, y: 11.04975, z: -19.500317}
       - {x: 9.700001, y: 7.09975, z: -19.500317}
       - {x: 7, y: 5.49975, z: -16.900316}
-      edges: 0000000003000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 0
         a: {x: 16.7, y: 11.04975, z: -16.900316}
         b: {x: 19.5, y: 11.04975, z: -19.500317}
@@ -5212,9 +4794,8 @@ MonoBehaviour:
       - {x: -2.6999989, y: 0.19975014, z: -16.900316}
       - {x: -9.8, y: 0.049750138, z: -19.500317}
       - {x: -19.5, y: 0.049750138, z: -19.500317}
-      edges: 0700000004000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 7
         a: {x: -19.5, y: 0.049750138, z: -16.900316}
         b: {x: -2.6999989, y: 0.19975014, z: -16.900316}
@@ -5232,9 +4813,8 @@ MonoBehaviour:
       - {x: 9.700001, y: 7.09975, z: -19.500317}
       - {x: 0, y: 1.3997501, z: -19.500317}
       - {x: -2.6999989, y: 0.19975014, z: -16.900316}
-      edges: 0100000004000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 1
         a: {x: 7, y: 5.49975, z: -16.900316}
         b: {x: 9.700001, y: 7.09975, z: -19.500317}
@@ -5251,7 +4831,6 @@ MonoBehaviour:
       - {x: -2.6999989, y: 0.19975014, z: -16.900316}
       - {x: 0, y: 1.3997501, z: -19.500317}
       - {x: -9.8, y: 0.049750138, z: -19.500317}
-      edges: 0300000002000000
       offMeshLinks:
       - startPolyIndex: 4
         endPolyIndex: 3
@@ -5259,7 +4838,7 @@ MonoBehaviour:
         endPos: {x: -0.36540896, y: 1.001912e-16, z: -18.048841}
         bidirectional: 0
         cost: 30
-      sharedEdges:
+      neighbours:
       - neighborIndex: 3
         a: {x: -2.6999989, y: 0.19975014, z: -16.900316}
         b: {x: 0, y: 1.3997501, z: -19.500317}
@@ -5276,9 +4855,8 @@ MonoBehaviour:
       - {x: 19.5, y: 0.049750138, z: -16.000317}
       - {x: 19.5, y: 0.049750138, z: -19.500317}
       - {x: 14, y: 0.049750138, z: -19.500317}
-      edges: 06000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 6
         a: {x: 14, y: 0.049750138, z: -19.500317}
         b: {x: 19.5, y: 0.049750138, z: -16.000317}
@@ -5293,9 +4871,8 @@ MonoBehaviour:
       - {x: 19.5, y: 0.049750138, z: -16.000317}
       - {x: 14, y: 0.049750138, z: -19.500317}
       - {x: 8.5, y: 0.049750138, z: -19.500317}
-      edges: 1000000005000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 16
         a: {x: 8.200001, y: 0.049750138, z: -16.000317}
         b: {x: 19.5, y: 0.049750138, z: -16.000317}
@@ -5313,9 +4890,8 @@ MonoBehaviour:
       - {x: -2.6999989, y: 0.049750138, z: -16.000317}
       - {x: -2.6999989, y: 0.19975014, z: -16.900316}
       - {x: -19.5, y: 0.049750138, z: -16.900316}
-      edges: 1100000002000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 17
         a: {x: -19.5, y: 0.049750138, z: -16.000317}
         b: {x: -2.6999989, y: 0.049750138, z: -16.000317}
@@ -5333,7 +4909,6 @@ MonoBehaviour:
       - {x: 16.7, y: 11.04975, z: -16.900316}
       - {x: 17, y: 11.04975, z: -11.000317}
       - {x: 19.5, y: 11.04975, z: -8.100316}
-      edges: 000000000a000000
       offMeshLinks:
       - startPolyIndex: 8
         endPolyIndex: 16
@@ -5341,7 +4916,7 @@ MonoBehaviour:
         endPos: {x: 15.972738, y: 8.0104415e-17, z: -14.430328}
         bidirectional: 0
         cost: 44.199
-      sharedEdges:
+      neighbours:
       - neighborIndex: 0
         a: {x: 19.5, y: 11.04975, z: -16.900316}
         b: {x: 16.7, y: 11.04975, z: -16.900316}
@@ -5358,9 +4933,8 @@ MonoBehaviour:
       - {x: 19.5, y: 6.0497503, z: 9.699684}
       - {x: 17, y: 6.1997504, z: 7.7996845}
       - {x: 16.5, y: 6.0497503, z: 8.499683}
-      edges: 0e0000000c000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 14
         a: {x: 19.5, y: 6.0497503, z: 9.699684}
         b: {x: 17, y: 6.1997504, z: 7.7996845}
@@ -5377,7 +4951,6 @@ MonoBehaviour:
       - {x: 19.5, y: 11.04975, z: -8.100316}
       - {x: 17, y: 11.04975, z: -11.000317}
       - {x: 17, y: 11.04975, z: -4.7003164}
-      edges: 080000000b000000
       offMeshLinks:
       - startPolyIndex: 10
         endPolyIndex: 16
@@ -5385,7 +4958,7 @@ MonoBehaviour:
         endPos: {x: 16.004963, y: 4.3025657e-17, z: -7.7508135}
         bidirectional: 0
         cost: 44.199
-      sharedEdges:
+      neighbours:
       - neighborIndex: 8
         a: {x: 19.5, y: 11.04975, z: -8.100316}
         b: {x: 17, y: 11.04975, z: -11.000317}
@@ -5403,7 +4976,6 @@ MonoBehaviour:
       - {x: 19.5, y: 11.04975, z: -8.100316}
       - {x: 17, y: 11.04975, z: -4.7003164}
       - {x: 17, y: 9.899751, z: 1.4996834}
-      edges: 0a0000000e000000
       offMeshLinks:
       - startPolyIndex: 11
         endPolyIndex: 36
@@ -5411,7 +4983,7 @@ MonoBehaviour:
         endPos: {x: 16.228207, y: 5.370409e-18, z: -0.96744686}
         bidirectional: 0
         cost: 41.65203
-      sharedEdges:
+      neighbours:
       - neighborIndex: 10
         a: {x: 19.5, y: 11.04975, z: -8.100316}
         b: {x: 17, y: 11.04975, z: -4.7003164}
@@ -5430,9 +5002,8 @@ MonoBehaviour:
       - {x: 12, y: 6.0497503, z: 13.499683}
       - {x: 12, y: 6.0497503, z: 18.599686}
       - {x: 19.5, y: 6.0497503, z: 18.599686}
-      edges: 090000000d000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 9
         a: {x: 19.5, y: 6.0497503, z: 9.699684}
         b: {x: 16.5, y: 6.0497503, z: 8.499683}
@@ -5449,7 +5020,6 @@ MonoBehaviour:
       - {x: 16.5, y: 6.0497503, z: 8.499683}
       - {x: 12, y: 6.0497503, z: 8.499683}
       - {x: 12, y: 6.0497503, z: 13.499683}
-      edges: 0c000000
       offMeshLinks:
       - startPolyIndex: 13
         endPolyIndex: 41
@@ -5463,7 +5033,7 @@ MonoBehaviour:
         endPos: {x: 11.125843, y: -6.375637e-17, z: 11.485325}
         bidirectional: 0
         cost: 30
-      sharedEdges:
+      neighbours:
       - neighborIndex: 12
         a: {x: 12, y: 6.0497503, z: 13.499683}
         b: {x: 16.5, y: 6.0497503, z: 8.499683}
@@ -5478,7 +5048,6 @@ MonoBehaviour:
       - {x: 17, y: 9.899751, z: 1.4996834}
       - {x: 17, y: 6.1997504, z: 7.7996845}
       - {x: 19.5, y: 6.0497503, z: 9.699684}
-      edges: 0b00000009000000
       offMeshLinks:
       - startPolyIndex: 14
         endPolyIndex: 50
@@ -5486,7 +5055,7 @@ MonoBehaviour:
         endPos: {x: 18.25, y: -5.3489442e-17, z: 9.635801}
         bidirectional: 0
         cost: 30
-      sharedEdges:
+      neighbours:
       - neighborIndex: 11
         a: {x: 19.5, y: 10.29975, z: 0.7996845}
         b: {x: 17, y: 9.899751, z: 1.4996834}
@@ -5503,9 +5072,8 @@ MonoBehaviour:
       - {x: 13.700001, y: 0.049750138, z: -4.900316}
       - {x: 19.5, y: 0.049750138, z: -4.900316}
       - {x: 19.5, y: 0.049750138, z: -10.500317}
-      edges: 1c00000010000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 28
         a: {x: 13.700001, y: 0.049750138, z: -4.900316}
         b: {x: 19.5, y: 0.049750138, z: -4.900316}
@@ -5524,9 +5092,8 @@ MonoBehaviour:
       - {x: 19.5, y: 0.049750138, z: -16.000317}
       - {x: 8.200001, y: 0.049750138, z: -16.000317}
       - {x: 6.300001, y: 0.049750138, z: -4.900316}
-      edges: 0f0000000600000013000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 15
         a: {x: 13.700001, y: 0.049750138, z: -4.900316}
         b: {x: 19.5, y: 0.049750138, z: -10.500317}
@@ -5546,9 +5113,8 @@ MonoBehaviour:
       - {x: -2.6999989, y: 0.049750138, z: -16.000317}
       - {x: -19.5, y: 0.049750138, z: -16.000317}
       - {x: -19.5, y: 0.049750138, z: -10.500317}
-      edges: 0700000012000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 7
         a: {x: -2.6999989, y: 0.049750138, z: -16.000317}
         b: {x: -19.5, y: 0.049750138, z: -16.000317}
@@ -5567,9 +5133,8 @@ MonoBehaviour:
       - {x: -2.6999989, y: 0.049750138, z: -16.000317}
       - {x: -19.5, y: 0.049750138, z: -10.500317}
       - {x: -19.5, y: 0.049750138, z: -4.900316}
-      edges: 130000001100000018000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 19
         a: {x: 6.300001, y: 0.049750138, z: -4.900316}
         b: {x: 2.7000008, y: 0.049750138, z: -16.000317}
@@ -5589,9 +5154,8 @@ MonoBehaviour:
       - {x: 6.300001, y: 0.049750138, z: -4.900316}
       - {x: 8.200001, y: 0.049750138, z: -16.000317}
       - {x: 2.7000008, y: 0.049750138, z: -16.000317}
-      edges: 1000000012000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 16
         a: {x: 6.300001, y: 0.049750138, z: -4.900316}
         b: {x: 8.200001, y: 0.049750138, z: -16.000317}
@@ -5609,7 +5173,6 @@ MonoBehaviour:
       - {x: 19.5, y: 18.049751, z: -16.000317}
       - {x: 16.400002, y: 18.049751, z: -16.000317}
       - {x: 16.400002, y: 18.049751, z: -8.500317}
-      edges: 15000000
       offMeshLinks:
       - startPolyIndex: 20
         endPolyIndex: 0
@@ -5617,7 +5180,7 @@ MonoBehaviour:
         endPos: {x: 17.95, y: 11.000007, z: -17.000317}
         bidirectional: 0
         cost: 30
-      sharedEdges:
+      neighbours:
       - neighborIndex: 21
         a: {x: 16.400002, y: 18.049751, z: -8.500317}
         b: {x: 19.5, y: 18.049751, z: -8.500317}
@@ -5632,7 +5195,6 @@ MonoBehaviour:
       - {x: 16.400002, y: 18.049751, z: -0.90031624}
       - {x: 19.5, y: 18.049751, z: -0.90031624}
       - {x: 19.5, y: 18.049751, z: -8.500317}
-      edges: 14000000
       offMeshLinks:
       - startPolyIndex: 21
         endPolyIndex: 11
@@ -5640,7 +5202,7 @@ MonoBehaviour:
         endPos: {x: 17.95, y: 10.6472435, z: 0.09968424}
         bidirectional: 0
         cost: 30
-      sharedEdges:
+      neighbours:
       - neighborIndex: 20
         a: {x: 19.5, y: 18.049751, z: -8.500317}
         b: {x: 16.400002, y: 18.049751, z: -8.500317}
@@ -5655,7 +5217,6 @@ MonoBehaviour:
       - {x: -2.7999992, y: 10.04975, z: -3.9003162}
       - {x: 2.3000011, y: 10.04975, z: -3.9003162}
       - {x: 2.3000011, y: 10.04975, z: -7.0003166}
-      edges: 
       offMeshLinks:
       - startPolyIndex: 22
         endPolyIndex: 18
@@ -5669,7 +5230,7 @@ MonoBehaviour:
         endPos: {x: -0.24999905, y: 1.609999e-17, z: -2.9003165}
         bidirectional: 0
         cost: 40.199005
-      sharedEdges: []
+      neighbours: []
       flags: 0
       regionId: 7
       centroid: {x: -0.24999905, y: 10.04975, z: -5.4503164}
@@ -5681,9 +5242,8 @@ MonoBehaviour:
       - {x: 3.2000008, y: 0.049750138, z: -3.0003166}
       - {x: 6.300001, y: 0.049750138, z: -3.0003166}
       - {x: 6.300001, y: 0.049750138, z: -4.900316}
-      edges: 2500000019000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 37
         a: {x: 3.2000008, y: 0.049750138, z: -3.0003166}
         b: {x: 6.300001, y: 0.049750138, z: -3.0003166}
@@ -5701,9 +5261,8 @@ MonoBehaviour:
       - {x: 6.300001, y: 0.049750138, z: -4.900316}
       - {x: -19.5, y: 0.049750138, z: -4.900316}
       - {x: -19.5, y: 0.049750138, z: -3.9003162}
-      edges: 1b000000120000001d000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 27
         a: {x: -3.3999996, y: 0.049750138, z: -3.9003162}
         b: {x: 6.300001, y: 0.049750138, z: -4.900316}
@@ -5723,9 +5282,8 @@ MonoBehaviour:
       - {x: 1.6000004, y: 0.049750138, z: -3.9003162}
       - {x: 2.8999996, y: 0.049750138, z: -3.9003162}
       - {x: 6.300001, y: 0.049750138, z: -4.900316}
-      edges: 170000001a000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 23
         a: {x: 2.8999996, y: 0.049750138, z: -3.9003162}
         b: {x: 6.300001, y: 0.049750138, z: -4.900316}
@@ -5742,9 +5300,8 @@ MonoBehaviour:
       - {x: -2.1000004, y: 0.049750138, z: -3.9003162}
       - {x: 1.6000004, y: 0.049750138, z: -3.9003162}
       - {x: 6.300001, y: 0.049750138, z: -4.900316}
-      edges: 1e000000190000001b000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 30
         a: {x: -2.1000004, y: 0.049750138, z: -3.9003162}
         b: {x: 1.6000004, y: 0.049750138, z: -3.9003162}
@@ -5764,9 +5321,8 @@ MonoBehaviour:
       - {x: -3.3999996, y: 0.049750138, z: -3.9003162}
       - {x: -2.1000004, y: 0.049750138, z: -3.9003162}
       - {x: 6.300001, y: 0.049750138, z: -4.900316}
-      edges: 1a00000018000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 26
         a: {x: -2.1000004, y: 0.049750138, z: -3.9003162}
         b: {x: 6.300001, y: 0.049750138, z: -4.900316}
@@ -5784,9 +5340,8 @@ MonoBehaviour:
       - {x: 19.5, y: 0.049750138, z: -3.0003166}
       - {x: 19.5, y: 0.049750138, z: -4.900316}
       - {x: 13.700001, y: 0.049750138, z: -4.900316}
-      edges: 240000000f000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 36
         a: {x: 13.700001, y: 0.049750138, z: -3.0003166}
         b: {x: 19.5, y: 0.049750138, z: -3.0003166}
@@ -5804,9 +5359,8 @@ MonoBehaviour:
       - {x: -3.3999996, y: 0.049750138, z: 2.4996834}
       - {x: -3.3999996, y: 0.049750138, z: -3.9003162}
       - {x: -19.5, y: 0.049750138, z: -3.9003162}
-      edges: 2b00000018000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 43
         a: {x: -19.5, y: 0.049750138, z: 2.4996834}
         b: {x: -3.3999996, y: 0.049750138, z: 2.4996834}
@@ -5824,9 +5378,8 @@ MonoBehaviour:
       - {x: -2.1000004, y: 0.049750138, z: -3.9003162}
       - {x: -1.7999992, y: 0.049750138, z: 0.59968376}
       - {x: 1.3000011, y: 0.049750138, z: 0.59968376}
-      edges: 1a000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 26
         a: {x: 1.6000004, y: 0.049750138, z: -3.9003162}
         b: {x: -2.1000004, y: 0.049750138, z: -3.9003162}
@@ -5840,9 +5393,8 @@ MonoBehaviour:
       - {x: 2.3000011, y: 16.049751, z: 1.5996838}
       - {x: 2.3000011, y: 16.049751, z: -3.0003166}
       - {x: 2.2000008, y: 16.049751, z: 1.0996838}
-      edges: 20000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 32
         a: {x: 2.2000008, y: 16.049751, z: 1.0996838}
         b: {x: 2.3000011, y: 16.049751, z: 1.5996838}
@@ -5856,9 +5408,8 @@ MonoBehaviour:
       - {x: 2.3000011, y: 16.049751, z: 1.5996838}
       - {x: 2.2000008, y: 16.049751, z: 1.0996838}
       - {x: 1.8000011, y: 16.049751, z: 1.4996834}
-      edges: 1f00000023000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 31
         a: {x: 2.3000011, y: 16.049751, z: 1.5996838}
         b: {x: 2.2000008, y: 16.049751, z: 1.0996838}
@@ -5875,9 +5426,8 @@ MonoBehaviour:
       - {x: -2.6999989, y: 16.049751, z: 1.0996838}
       - {x: -2.7999992, y: 16.049751, z: -3.0003166}
       - {x: -2.7999992, y: 16.049751, z: 1.5996838}
-      edges: 22000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 34
         a: {x: -2.7999992, y: 16.049751, z: 1.5996838}
         b: {x: -2.6999989, y: 16.049751, z: 1.0996838}
@@ -5891,9 +5441,8 @@ MonoBehaviour:
       - {x: -2.2999992, y: 16.049751, z: 1.4996834}
       - {x: -2.6999989, y: 16.049751, z: 1.0996838}
       - {x: -2.7999992, y: 16.049751, z: 1.5996838}
-      edges: 2100000023000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 33
         a: {x: -2.6999989, y: 16.049751, z: 1.0996838}
         b: {x: -2.7999992, y: 16.049751, z: 1.5996838}
@@ -5911,9 +5460,8 @@ MonoBehaviour:
       - {x: 2.3000011, y: 16.049751, z: 1.5996838}
       - {x: 1.8000011, y: 16.049751, z: 1.4996834}
       - {x: -2.2999992, y: 16.049751, z: 1.4996834}
-      edges: 2000000022000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 32
         a: {x: 2.3000011, y: 16.049751, z: 1.5996838}
         b: {x: 1.8000011, y: 16.049751, z: 1.4996834}
@@ -5931,9 +5479,8 @@ MonoBehaviour:
       - {x: 19.5, y: 0.049750138, z: -0.90031624}
       - {x: 19.5, y: 0.049750138, z: -3.0003166}
       - {x: 13.700001, y: 0.049750138, z: -3.0003166}
-      edges: 1c00000026000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 28
         a: {x: 19.5, y: 0.049750138, z: -3.0003166}
         b: {x: 13.700001, y: 0.049750138, z: -3.0003166}
@@ -5950,9 +5497,8 @@ MonoBehaviour:
       - {x: 6.300001, y: 0.049750138, z: -3.0003166}
       - {x: 3.2000008, y: 0.049750138, z: -3.0003166}
       - {x: 2.8999996, y: 0.049750138, z: 2.4996834}
-      edges: 1700000026000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 23
         a: {x: 6.300001, y: 0.049750138, z: -3.0003166}
         b: {x: 3.2000008, y: 0.049750138, z: -3.0003166}
@@ -5971,9 +5517,8 @@ MonoBehaviour:
       - {x: 13.700001, y: 0.049750138, z: -3.0003166}
       - {x: 6.300001, y: 0.049750138, z: -3.0003166}
       - {x: 2.8999996, y: 0.049750138, z: 2.4996834}
-      edges: 24000000250000002a000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 36
         a: {x: 16, y: 0.049750138, z: -0.600317}
         b: {x: 13.700001, y: 0.049750138, z: -3.0003166}
@@ -5994,9 +5539,8 @@ MonoBehaviour:
       - {x: 16.900002, y: 0.049750138, z: 7.599684}
       - {x: 19.5, y: 0.049750138, z: 7.599684}
       - {x: 19.5, y: 0.049750138, z: -0.00031661987}
-      edges: 
       offMeshLinks: []
-      sharedEdges: []
+      neighbours: []
       flags: 0
       regionId: 14
       centroid: {x: 18.2, y: 0.049750138, z: 3.7996836}
@@ -6008,7 +5552,6 @@ MonoBehaviour:
       - {x: 17, y: 6.0497503, z: 4.099684}
       - {x: 19.5, y: 6.0497503, z: 4.099684}
       - {x: 19.5, y: 6.0497503, z: -0.00031661987}
-      edges: 
       offMeshLinks:
       - startPolyIndex: 40
         endPolyIndex: 38
@@ -6016,7 +5559,7 @@ MonoBehaviour:
         endPos: {x: 16, y: -1.1378029e-17, z: 2.0496833}
         bidirectional: 0
         cost: 30
-      sharedEdges: []
+      neighbours: []
       flags: 0
       regionId: 15
       centroid: {x: 18.25, y: 6.0497503, z: 2.0496836}
@@ -6027,9 +5570,8 @@ MonoBehaviour:
       - {x: 12.600002, y: 0.049750138, z: 7.599684}
       - {x: 16, y: 0.049750138, z: 7.599684}
       - {x: 16, y: 0.049750138, z: 2.4996834}
-      edges: 300000002a000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 48
         a: {x: 12.600002, y: 0.049750138, z: 7.599684}
         b: {x: 16, y: 0.049750138, z: 7.599684}
@@ -6047,9 +5589,8 @@ MonoBehaviour:
       - {x: 12.600002, y: 0.049750138, z: 7.599684}
       - {x: 16, y: 0.049750138, z: 2.4996834}
       - {x: 2.8999996, y: 0.049750138, z: 2.4996834}
-      edges: 29000000260000002c000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 41
         a: {x: 12.600002, y: 0.049750138, z: 7.599684}
         b: {x: 16, y: 0.049750138, z: 2.4996834}
@@ -6070,9 +5611,8 @@ MonoBehaviour:
       - {x: 11.4, y: 0.049750138, z: 7.599684}
       - {x: -3.3999996, y: 0.049750138, z: 2.4996834}
       - {x: -19.5, y: 0.049750138, z: 2.4996834}
-      edges: 2f0000002c0000001d000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 47
         a: {x: -19.5, y: 0.049750138, z: 7.599684}
         b: {x: 11.4, y: 0.049750138, z: 7.599684}
@@ -6092,9 +5632,8 @@ MonoBehaviour:
       - {x: 11.4, y: 0.049750138, z: 7.599684}
       - {x: 2.8999996, y: 0.049750138, z: 2.4996834}
       - {x: -3.3999996, y: 0.049750138, z: 2.4996834}
-      edges: 2a0000002b000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 42
         a: {x: 11.4, y: 0.049750138, z: 7.599684}
         b: {x: 2.8999996, y: 0.049750138, z: 2.4996834}
@@ -6111,9 +5650,8 @@ MonoBehaviour:
       - {x: 3.1000004, y: 0.049750138, z: 8.599684}
       - {x: 11.1, y: 0.049750138, z: 8.599684}
       - {x: 11.4, y: 0.049750138, z: 7.599684}
-      edges: 3a0000002e000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 58
         a: {x: 3.1000004, y: 0.049750138, z: 8.599684}
         b: {x: 11.1, y: 0.049750138, z: 8.599684}
@@ -6130,9 +5668,8 @@ MonoBehaviour:
       - {x: 1.8000011, y: 0.049750138, z: 8.599684}
       - {x: 3.1000004, y: 0.049750138, z: 8.599684}
       - {x: 11.4, y: 0.049750138, z: 7.599684}
-      edges: 2d0000002f000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 45
         a: {x: 3.1000004, y: 0.049750138, z: 8.599684}
         b: {x: 11.4, y: 0.049750138, z: 7.599684}
@@ -6150,9 +5687,8 @@ MonoBehaviour:
       - {x: 11.4, y: 0.049750138, z: 7.599684}
       - {x: -19.5, y: 0.049750138, z: 7.599684}
       - {x: -19.5, y: 0.049750138, z: 8.599684}
-      edges: 2e0000002b00000039000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 46
         a: {x: 1.8000011, y: 0.049750138, z: 8.599684}
         b: {x: 11.4, y: 0.049750138, z: 7.599684}
@@ -6173,9 +5709,8 @@ MonoBehaviour:
       - {x: 16, y: 0.049750138, z: 7.599684}
       - {x: 12.600002, y: 0.049750138, z: 7.599684}
       - {x: 12.900002, y: 0.049750138, z: 12.899685}
-      edges: 2900000031000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 41
         a: {x: 16, y: 0.049750138, z: 7.599684}
         b: {x: 12.600002, y: 0.049750138, z: 7.599684}
@@ -6194,9 +5729,8 @@ MonoBehaviour:
       - {x: 12.900002, y: 0.049750138, z: 12.899685}
       - {x: 12.900002, y: 0.049750138, z: 18.599686}
       - {x: 19.5, y: 0.049750138, z: 18.599686}
-      edges: 3200000030000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 50
         a: {x: 19.5, y: 0.049750138, z: 13.499683}
         b: {x: 16.3, y: 0.049750138, z: 8.499683}
@@ -6213,9 +5747,8 @@ MonoBehaviour:
       - {x: 19.5, y: 0.049750138, z: 13.499683}
       - {x: 19.5, y: 0.049750138, z: 8.499683}
       - {x: 16.3, y: 0.049750138, z: 8.499683}
-      edges: 31000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 49
         a: {x: 16.3, y: 0.049750138, z: 8.499683}
         b: {x: 19.5, y: 0.049750138, z: 13.499683}
@@ -6229,9 +5762,8 @@ MonoBehaviour:
       - {x: 2.5, y: 14.04975, z: 8.499683}
       - {x: 2.5, y: 14.04975, z: 13.599686}
       - {x: 5, y: 14.04975, z: 13.599686}
-      edges: 4600000034000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 70
         a: {x: 2.5, y: 14.04975, z: 13.599686}
         b: {x: 5, y: 14.04975, z: 13.599686}
@@ -6249,7 +5781,6 @@ MonoBehaviour:
       - {x: 2.5, y: 14.04975, z: 8.499683}
       - {x: 5, y: 14.04975, z: 13.599686}
       - {x: 11.1, y: 14.04975, z: 13.599686}
-      edges: 3300000035000000
       offMeshLinks:
       - startPolyIndex: 52
         endPolyIndex: 43
@@ -6263,7 +5794,7 @@ MonoBehaviour:
         endPos: {x: 8.297004, y: -8.0872535e-17, z: 14.5687}
         bidirectional: 0
         cost: 56.199
-      sharedEdges:
+      neighbours:
       - neighborIndex: 51
         a: {x: 2.5, y: 14.04975, z: 8.499683}
         b: {x: 5, y: 14.04975, z: 13.599686}
@@ -6281,7 +5812,6 @@ MonoBehaviour:
       - {x: 19.5, y: 14.04975, z: 13.599686}
       - {x: 19.5, y: 14.04975, z: 8.499683}
       - {x: 11, y: 14.04975, z: 8.499683}
-      edges: 4800000034000000
       offMeshLinks:
       - startPolyIndex: 53
         endPolyIndex: 41
@@ -6289,7 +5819,7 @@ MonoBehaviour:
         endPos: {x: 15.240196, y: -4.1631874e-17, z: 7.4997315}
         bidirectional: 0
         cost: 56.199005
-      sharedEdges:
+      neighbours:
       - neighborIndex: 72
         a: {x: 11.1, y: 14.04975, z: 13.599686}
         b: {x: 19.5, y: 14.04975, z: 13.599686}
@@ -6307,12 +5837,11 @@ MonoBehaviour:
       - {x: 12.100002, y: 3.04975, z: 18.599686}
       - {x: 12.100002, y: 3.04975, z: 13.499683}
       - {x: 12, y: 3.04975, z: 8.499683}
-      edges: 
       offMeshLinks: []
-      sharedEdges: []
+      neighbours: []
       flags: 0
       regionId: 20
-      centroid: {x: 12.050001, y: 3.04975, z: 13.549685}
+      centroid: {x: 0, y: 0, z: 0}
       normal: {x: -0, y: 1, z: 0}
       surfaceArea: 0.5100119
     - polyIndex: 55
@@ -6320,9 +5849,8 @@ MonoBehaviour:
       - {x: -5.3999996, y: 0.049750138, z: 11.599684}
       - {x: 1.5, y: 0.049750138, z: 11.599684}
       - {x: 1.8000011, y: 0.049750138, z: 8.599684}
-      edges: 39000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 57
         a: {x: 1.8000011, y: 0.049750138, z: 8.599684}
         b: {x: -5.3999996, y: 0.049750138, z: 11.599684}
@@ -6336,9 +5864,8 @@ MonoBehaviour:
       - {x: -19.5, y: 0.049750138, z: 12.499683}
       - {x: -5.3999996, y: 0.14975014, z: 12.499683}
       - {x: -5.3999996, y: 0.049750138, z: 11.599684}
-      edges: 4300000039000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 67
         a: {x: -19.5, y: 0.049750138, z: 12.499683}
         b: {x: -5.3999996, y: 0.14975014, z: 12.499683}
@@ -6356,9 +5883,8 @@ MonoBehaviour:
       - {x: 1.8000011, y: 0.049750138, z: 8.599684}
       - {x: -19.5, y: 0.049750138, z: 8.599684}
       - {x: -19.5, y: 0.049750138, z: 12.499683}
-      edges: 370000002f00000038000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 55
         a: {x: -5.3999996, y: 0.049750138, z: 11.599684}
         b: {x: 1.8000011, y: 0.049750138, z: 8.599684}
@@ -6379,9 +5905,8 @@ MonoBehaviour:
       - {x: 3.1000004, y: 0.049750138, z: 8.599684}
       - {x: 3.3999996, y: 0.049750138, z: 13.399685}
       - {x: 11.1, y: 0.049750138, z: 13.599686}
-      edges: 2d0000003b000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 45
         a: {x: 11.1, y: 0.049750138, z: 8.599684}
         b: {x: 3.1000004, y: 0.049750138, z: 8.599684}
@@ -6399,9 +5924,8 @@ MonoBehaviour:
       - {x: 11.1, y: 0.049750138, z: 18.599686}
       - {x: 11.1, y: 0.049750138, z: 13.599686}
       - {x: 3.3999996, y: 0.049750138, z: 13.399685}
-      edges: 3a000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 58
         a: {x: 11.1, y: 0.049750138, z: 13.599686}
         b: {x: 3.3999996, y: 0.049750138, z: 13.399685}
@@ -6415,9 +5939,8 @@ MonoBehaviour:
       - {x: 2.3999996, y: 5.0497503, z: 15.999683}
       - {x: 2.5, y: 5.0497503, z: 18.599686}
       - {x: 2.5, y: 5.0497503, z: 15.999683}
-      edges: 3e000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 62
         a: {x: 2.5, y: 5.0497503, z: 15.999683}
         b: {x: 2.3999996, y: 5.0497503, z: 15.999683}
@@ -6431,9 +5954,8 @@ MonoBehaviour:
       - {x: 2.5, y: 5.0497503, z: 12.099686}
       - {x: 2.3999996, y: 5.0497503, z: 9.499683}
       - {x: 2.3999996, y: 5.0497503, z: 12.099686}
-      edges: 3f000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 63
         a: {x: 2.3999996, y: 5.0497503, z: 12.099686}
         b: {x: 2.5, y: 5.0497503, z: 12.099686}
@@ -6447,9 +5969,8 @@ MonoBehaviour:
       - {x: 2, y: 5.0497503, z: 15.599686}
       - {x: 2.3999996, y: 5.0497503, z: 15.999683}
       - {x: 2.5, y: 5.0497503, z: 15.999683}
-      edges: 3c00000040000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 60
         a: {x: 2.3999996, y: 5.0497503, z: 15.999683}
         b: {x: 2.5, y: 5.0497503, z: 15.999683}
@@ -6466,9 +5987,8 @@ MonoBehaviour:
       - {x: 2.8999996, y: 5.0497503, z: 12.499683}
       - {x: 2.5, y: 5.0497503, z: 12.099686}
       - {x: 2.3999996, y: 5.0497503, z: 12.099686}
-      edges: 3d00000040000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 61
         a: {x: 2.5, y: 5.0497503, z: 12.099686}
         b: {x: 2.3999996, y: 5.0497503, z: 12.099686}
@@ -6488,9 +6008,8 @@ MonoBehaviour:
       - {x: 2.8999996, y: 5.0497503, z: 15.599686}
       - {x: 2.8999996, y: 5.0497503, z: 12.499683}
       - {x: 2.3999996, y: 5.0497503, z: 12.099686}
-      edges: 410000003e000000420000003f000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 65
         a: {x: 2, y: 5.0497503, z: 12.499683}
         b: {x: 2, y: 5.0497503, z: 15.599686}
@@ -6514,7 +6033,6 @@ MonoBehaviour:
       - {x: 2, y: 5.0497503, z: 15.599686}
       - {x: 2, y: 5.0497503, z: 12.499683}
       - {x: -5.3999996, y: 0.14975014, z: 12.499683}
-      edges: 4000000043000000
       offMeshLinks:
       - startPolyIndex: 65
         endPolyIndex: 75
@@ -6534,7 +6052,7 @@ MonoBehaviour:
         endPos: {x: -1.6999998, y: -6.383607e-17, z: 11.499683}
         bidirectional: 0
         cost: 30
-      sharedEdges:
+      neighbours:
       - neighborIndex: 64
         a: {x: 2, y: 5.0497503, z: 15.599686}
         b: {x: 2, y: 5.0497503, z: 12.499683}
@@ -6552,7 +6070,6 @@ MonoBehaviour:
       - {x: 5.6000004, y: 5.0497503, z: 15.599686}
       - {x: 5.6000004, y: 5.0497503, z: 12.499683}
       - {x: 2.8999996, y: 5.0497503, z: 12.499683}
-      edges: 40000000
       offMeshLinks:
       - startPolyIndex: 66
         endPolyIndex: 59
@@ -6566,7 +6083,7 @@ MonoBehaviour:
         endPos: {x: 4.2499995, y: -6.383607e-17, z: 11.499683}
         bidirectional: 0
         cost: 30
-      sharedEdges:
+      neighbours:
       - neighborIndex: 64
         a: {x: 2.8999996, y: 5.0497503, z: 12.499683}
         b: {x: 2.8999996, y: 5.0497503, z: 15.599686}
@@ -6581,9 +6098,8 @@ MonoBehaviour:
       - {x: -19.5, y: 0.049750138, z: 12.499683}
       - {x: -19.5, y: 0.049750138, z: 15.599686}
       - {x: -5.3999996, y: 0.14975014, z: 15.599686}
-      edges: 380000004c00000041000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 56
         a: {x: -5.3999996, y: 0.14975014, z: 12.499683}
         b: {x: -19.5, y: 0.049750138, z: 12.499683}
@@ -6604,9 +6120,8 @@ MonoBehaviour:
       - {x: 1.6000004, y: 0.049750138, z: 15.599686}
       - {x: 1.5, y: 0.049750138, z: 12.499683}
       - {x: -2, y: 0.049750138, z: 12.499683}
-      edges: 
       offMeshLinks: []
-      sharedEdges: []
+      neighbours: []
       flags: 0
       regionId: 24
       centroid: {x: -0.2249999, y: 0.049750138, z: 14.049685}
@@ -6617,9 +6132,8 @@ MonoBehaviour:
       - {x: 2.5, y: 14.04975, z: 17.499683}
       - {x: 5, y: 14.04975, z: 17.499683}
       - {x: 4.6000004, y: 14.04975, z: 17.099686}
-      edges: 4f00000047000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 79
         a: {x: 2.5, y: 14.04975, z: 17.499683}
         b: {x: 5, y: 14.04975, z: 17.499683}
@@ -6636,9 +6150,8 @@ MonoBehaviour:
       - {x: 4.6000004, y: 14.04975, z: 13.999683}
       - {x: 5, y: 14.04975, z: 13.599686}
       - {x: 2.5, y: 14.04975, z: 13.599686}
-      edges: 3300000047000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 51
         a: {x: 5, y: 14.04975, z: 13.599686}
         b: {x: 2.5, y: 14.04975, z: 13.599686}
@@ -6656,7 +6169,6 @@ MonoBehaviour:
       - {x: 4.6000004, y: 14.04975, z: 17.099686}
       - {x: 4.6000004, y: 14.04975, z: 13.999683}
       - {x: 2.5, y: 14.04975, z: 13.599686}
-      edges: 4500000046000000
       offMeshLinks:
       - startPolyIndex: 71
         endPolyIndex: 66
@@ -6664,7 +6176,7 @@ MonoBehaviour:
         endPos: {x: 5.6000004, y: 5, z: 15.549685}
         bidirectional: 0
         cost: 36.199
-      sharedEdges:
+      neighbours:
       - neighborIndex: 69
         a: {x: 2.5, y: 14.04975, z: 17.499683}
         b: {x: 4.6000004, y: 14.04975, z: 17.099686}
@@ -6681,9 +6193,8 @@ MonoBehaviour:
       - {x: 19.5, y: 14.04975, z: 13.599686}
       - {x: 11.1, y: 14.04975, z: 13.599686}
       - {x: 11.5, y: 14.04975, z: 13.999683}
-      edges: 350000004a000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 53
         a: {x: 19.5, y: 14.04975, z: 13.599686}
         b: {x: 11.1, y: 14.04975, z: 13.599686}
@@ -6700,9 +6211,8 @@ MonoBehaviour:
       - {x: 11.5, y: 14.04975, z: 17.099686}
       - {x: 11.1, y: 14.04975, z: 17.499683}
       - {x: 19.5, y: 14.04975, z: 17.499683}
-      edges: 510000004a000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 81
         a: {x: 11.1, y: 14.04975, z: 17.499683}
         b: {x: 19.5, y: 14.04975, z: 17.499683}
@@ -6720,7 +6230,6 @@ MonoBehaviour:
       - {x: 19.5, y: 14.04975, z: 13.599686}
       - {x: 11.5, y: 14.04975, z: 13.999683}
       - {x: 11.5, y: 14.04975, z: 17.099686}
-      edges: 4800000049000000
       offMeshLinks:
       - startPolyIndex: 74
         endPolyIndex: 59
@@ -6728,7 +6237,7 @@ MonoBehaviour:
         endPos: {x: 10.5, y: -8.6318084e-17, z: 15.549685}
         bidirectional: 0
         cost: 56.199
-      sharedEdges:
+      neighbours:
       - neighborIndex: 72
         a: {x: 19.5, y: 14.04975, z: 13.599686}
         b: {x: 11.5, y: 14.04975, z: 13.999683}
@@ -6746,9 +6255,8 @@ MonoBehaviour:
       - {x: 1.6000004, y: 0.049750138, z: 19.499683}
       - {x: 1.6000004, y: 0.049750138, z: 16.499683}
       - {x: -5.3999996, y: 0.049750138, z: 16.499683}
-      edges: 4d000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 77
         a: {x: -5.3999996, y: 0.049750138, z: 16.499683}
         b: {x: -3.6999989, y: 0.049750138, z: 19.499683}
@@ -6764,9 +6272,8 @@ MonoBehaviour:
       - {x: -14.299999, y: 0.049750138, z: 19.499683}
       - {x: -9, y: 0.049750138, z: 19.499683}
       - {x: -5.3999996, y: 0.049750138, z: 16.499683}
-      edges: 430000004e0000004d000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 67
         a: {x: -5.3999996, y: 0.14975014, z: 15.599686}
         b: {x: -19.5, y: 0.049750138, z: 15.599686}
@@ -6786,9 +6293,8 @@ MonoBehaviour:
       - {x: -9, y: 0.049750138, z: 19.499683}
       - {x: -3.6999989, y: 0.049750138, z: 19.499683}
       - {x: -5.3999996, y: 0.049750138, z: 16.499683}
-      edges: 4b0000004c000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 75
         a: {x: -3.6999989, y: 0.049750138, z: 19.499683}
         b: {x: -5.3999996, y: 0.049750138, z: 16.499683}
@@ -6805,9 +6311,8 @@ MonoBehaviour:
       - {x: -19.5, y: 0.049750138, z: 15.599686}
       - {x: -19.5, y: 0.049750138, z: 19.499683}
       - {x: -14.299999, y: 0.049750138, z: 19.499683}
-      edges: 4c000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 76
         a: {x: -14.299999, y: 0.049750138, z: 19.499683}
         b: {x: -19.5, y: 0.049750138, z: 15.599686}
@@ -6821,9 +6326,8 @@ MonoBehaviour:
       - {x: 5, y: 14.04975, z: 17.499683}
       - {x: 2.5, y: 14.04975, z: 17.499683}
       - {x: 2.5, y: 14.04975, z: 19.499683}
-      edges: 4500000050000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 69
         a: {x: 5, y: 14.04975, z: 17.499683}
         b: {x: 2.5, y: 14.04975, z: 17.499683}
@@ -6841,9 +6345,8 @@ MonoBehaviour:
       - {x: 2.5, y: 14.04975, z: 19.499683}
       - {x: 11, y: 14.04975, z: 19.499683}
       - {x: 11.1, y: 14.04975, z: 17.499683}
-      edges: 4f00000051000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 79
         a: {x: 5, y: 14.04975, z: 17.499683}
         b: {x: 2.5, y: 14.04975, z: 19.499683}
@@ -6861,9 +6364,8 @@ MonoBehaviour:
       - {x: 11, y: 14.04975, z: 19.499683}
       - {x: 19.5, y: 14.04975, z: 19.499683}
       - {x: 19.5, y: 14.04975, z: 17.499683}
-      edges: 5000000049000000
       offMeshLinks: []
-      sharedEdges:
+      neighbours:
       - neighborIndex: 80
         a: {x: 11.1, y: 14.04975, z: 17.499683}
         b: {x: 11, y: 14.04975, z: 19.499683}

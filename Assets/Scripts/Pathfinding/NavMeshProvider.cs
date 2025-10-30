@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
 using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Profiling;
 using static PathProcessing;
 
 [System.Serializable]
@@ -18,17 +17,11 @@ public struct VisualizationConfig
 	public bool ShowNavGraph;
 	public Color NavGraphColor;
 
-	public bool ShowRawPath;
-	public Color RawPathColor;
-	public bool ShowSimplePath;
-	public Color SimplePathColor;
-	public bool ShowSmoothPath;
-	public Color SmoothPathColor;
+	public bool ShowPath;
+	public Color PathColor;
+
 	public bool ShowDirectPath;
 	public Color DirectPathColor;
-
-	public bool ShowEnemyPolygon;
-	public bool ShowGoalPolygon;
 }
 
 [System.Serializable]
@@ -46,15 +39,13 @@ public struct PathProcessingConfig
 [System.Serializable]
 public struct NavigationPath
 {
-	public Vector3 currentPosition;
 	public Vector3 goalPosition;
+	public Vector3 startPosition;
 
-
-	public NavMeshNode[] nodePath;
-
-	public Vector3[] rawPath;
-	public Vector3[] simplePath;
-	public Vector3[] finalPath;
+	// Path of nodes.
+	public int[] nodePath;
+	// Path of positions.
+	public Vector3[] path;
 }
 
 [ExecuteAlways]
@@ -66,9 +57,6 @@ public class NavMeshProvider : MonoBehaviour
 	public VisualizationConfig visualizationConfig = new();
 	[SerializeField]
 	private PathProcessingConfig pathProcessingConfig = new();
-
-	[SerializeField]
-	public List<NavMeshNode> NodePath;
 
 	public Transform A;
 	public Transform B;
@@ -97,20 +85,16 @@ public class NavMeshProvider : MonoBehaviour
 		navMesh = new(_polyMesh, navMeshConfig);
 	}
 
-	NavigationPath SmoothPath(List<NavMeshNode> nodePath, Vector3 start, Vector3 goal)
+	Vector3[] SmoothPath(List<NavMeshNode> nodePath, Vector3 start, Vector3 goal)
 	{
 		// What flags to keep, ie ramps.
 		int mask = ~(1 << 0);
 		var flags = nodePath.Select(x => x.flags).ToList();
 
-		// FIXME: For debug purposes
-		NodePath = nodePath;
-
 		List<Vector3> path = new()
 		{
 			start
 		};
-
 
 		for (int i = 0; i < nodePath.Count; i++)
 		{
@@ -140,18 +124,7 @@ public class NavMeshProvider : MonoBehaviour
 		}
 		path = StringPulling(path, pathProcessingConfig.RDPTolerance, flags, mask);
 
-
-
-		return new()
-		{
-			currentPosition = start,
-			goalPosition = goal,
-
-			finalPath = path.ToArray(),
-			nodePath = nodePath.ToArray(),
-			rawPath = path.ToArray(),
-			simplePath = new Vector3[] { Vector3.zero, Vector3.zero } // densePath.ToArray(),
-		};
+		return path.ToArray();
 	}
 
 	public NavigationPath? GetPath(Vector3 currentPosition, Vector3 goalPosition)
@@ -159,7 +132,16 @@ public class NavMeshProvider : MonoBehaviour
 		var nodePath = navMesh.AStar(currentPosition, goalPosition);
 		if (nodePath != null && nodePath.Count > 0)
 		{
-			return SmoothPath(nodePath, currentPosition, goalPosition);
+			var path = SmoothPath(nodePath, currentPosition, goalPosition);
+
+			return new NavigationPath
+			{
+				startPosition = currentPosition,
+				goalPosition = goalPosition,
+
+				path = path,
+				nodePath = nodePath.Select(x => x.polyIndex).ToArray(),
+			};
 		}
 
 		return null;
@@ -206,22 +188,10 @@ public class NavMeshProvider : MonoBehaviour
 			return;
 
 		if (visualizationConfig.ShowDirectPath)
-			DrawPath(new[] { navPath.simplePath[0], navPath.simplePath[^1] }, visualizationConfig.DirectPathColor);
+			DrawPath(new[] { navPath.path[0], navPath.path[^1] }, visualizationConfig.DirectPathColor);
 
-		if (visualizationConfig.ShowRawPath)
-			DrawPath(navPath.rawPath, visualizationConfig.RawPathColor);
-
-		if (navPath.simplePath.Length > 0 && visualizationConfig.ShowSimplePath)
-			DrawPath(navPath.simplePath, visualizationConfig.SimplePathColor);
-
-		if (navPath.finalPath.Length > 0 && visualizationConfig.ShowSmoothPath)
-			DrawPath(navPath.finalPath, visualizationConfig.SmoothPathColor);
-
-		if (visualizationConfig.ShowGoalPolygon && NavMesh.PositionToNode(navPath.goalPosition) is NavMeshNode goalNode)
-			DrawNodeInfo(goalNode, "Node");
-
-		if (visualizationConfig.ShowEnemyPolygon && NavMesh.PositionToNode(navPath.currentPosition) is NavMeshNode enemyNode)
-			DrawNodeInfo(enemyNode, "Node");
+		if (navPath.path.Length > 0 && visualizationConfig.ShowPath)
+			DrawPath(navPath.path, visualizationConfig.PathColor);
 	}
 
 	public void DrawPath(Vector3[] pathPoints, Color color)
@@ -279,12 +249,12 @@ public class NavMeshProvider : MonoBehaviour
 			{
 				Handles.color = visualizationConfig.NavGraphColor;
 
-				foreach (var edgeIndex in node.edges)
+				foreach (var neighbourEntry in node.neighbours)
 				{
-					if (edgeIndex >= 0 && edgeIndex < navMesh.nodes.Count)
+					if (neighbourEntry.neighborIndex >= 0 && neighbourEntry.neighborIndex < navMesh.nodes.Count)
 					{
 						Vector3 a = node.Centroid;
-						Vector3 b = navMesh.nodes[edgeIndex].Centroid;
+						Vector3 b = navMesh.nodes[neighbourEntry.neighborIndex].Centroid;
 						Handles.DrawAAPolyLine(2f, a, b);
 					}
 				}

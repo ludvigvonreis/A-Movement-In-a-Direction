@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using NaughtyAttributes;
 using UnityEngine;
 
 [System.Serializable]
-public struct EdgeEntry
+public struct NeighbourEntry
 {
 	public int neighborIndex;
 	public Vector3 a;
@@ -18,9 +17,9 @@ public class NavMeshNode
 	public int polyIndex;
 
 	public Vector3[] vertices;
-	public List<int> edges = new();
+	//public List<int> edges = new();
 	public List<OffMeshLink> offMeshLinks = new();
-	public List<EdgeEntry> sharedEdges = new();
+	public List<NeighbourEntry> neighbours = new();
 
 	// Data from recast.
 	public int flags;
@@ -85,7 +84,7 @@ public class NavMeshNode
 
 	public bool TryGetSharedEdge(NavMeshNode other, out (Vector3 a, Vector3 b) edge)
 	{
-		foreach (var entry in sharedEdges)
+		foreach (var entry in neighbours)
 		{
 			if (entry.neighborIndex == other.polyIndex)
 			{
@@ -238,16 +237,10 @@ public class NavMesh
 						mesh.verts[v1 * 3 + 2] * recastConfig.cellSize
 					) + minBounds;
 
-					node.sharedEdges.Add(new() { neighborIndex = neighborIndex, a = vpos0, b = vpos1 });
+					node.neighbours.Add(new() { neighborIndex = neighborIndex, a = vpos0, b = vpos1 });
 				}
-
-				node.edges.Add(neighborIndex);
 			}
 		}
-		// foreach (var node in nodes)
-		// {
-		// 	Debug.Log($"Shared edges for poly {node.polyIndex}: {node.sharedEdges.Keys.Count}");
-		// }
 
 
 		// Third pass: find off-mesh links
@@ -364,7 +357,7 @@ public class NavMesh
 				Vector2 rayStartXZ = new Vector2(start.x, start.z);
 				Vector2 rayEndXZ = new Vector2(end.x, end.z);
 
-				if (LineSegmentIntersection(rayStartXZ, rayEndXZ, p0, p1, out var intersectionXZ))
+				if (GeometryLib.LineSegmentIntersection(rayStartXZ, rayEndXZ, p0, p1, out var intersectionXZ))
 				{
 					// Compute Y at intersection along ray
 					float t = ((intersectionXZ.x - rayStartXZ.x) / (rayEndXZ.x - rayStartXZ.x + 1e-6f));
@@ -378,7 +371,7 @@ public class NavMesh
 						continue; // edge is too high/low, ignore
 
 					// Check if edge is a shared/passable edge
-					bool isShared = node.sharedEdges.Any(e =>
+					bool isShared = node.neighbours.Any(e =>
 						(e.a == v0 && e.b == v1) ||
 						(e.a == v1 && e.b == v0)
 					);
@@ -397,59 +390,6 @@ public class NavMesh
 		}
 
 		return blocked;
-	}
-
-	public bool RayIntersectsTriangle(Vector3 rayOrigin, Vector3 rayDir, Vector3 v0, Vector3 v1, Vector3 v2, out float t)
-	{
-		t = 0f;
-		Vector3 edge1 = v1 - v0;
-		Vector3 edge2 = v2 - v0;
-		Vector3 h = Vector3.Cross(rayDir, edge2);
-		float a = Vector3.Dot(edge1, h);
-		if (Mathf.Abs(a) < 1e-6f) return false; // parallel
-
-		float f = 1f / a;
-		Vector3 s = rayOrigin - v0;
-		float u = f * Vector3.Dot(s, h);
-		if (u < 0f || u > 1f) return false;
-
-		Vector3 q = Vector3.Cross(s, edge1);
-		float v = f * Vector3.Dot(rayDir, q);
-		if (v < 0f || u + v > 1f) return false;
-
-		t = f * Vector3.Dot(edge2, q);
-		return t > 0f;
-	}
-
-	static bool LineSegmentIntersection(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, out Vector2 intersection)
-	{
-		intersection = new Vector2();
-
-		Vector2 s1 = p2 - p1;
-		Vector2 s2 = p4 - p3;
-
-		float s, t;
-		float denominator = -s2.x * s1.y + s1.x * s2.y;
-		if (denominator == 0) return true; // Parallel
-
-		s = (-s1.y * (p1.x - p3.x) + s1.x * (p1.y - p3.y)) / denominator;
-		t = (s2.x * (p1.y - p3.y) - s2.y * (p1.x - p3.x)) / denominator;
-
-		if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
-		{
-			intersection = p1 + (t * s1);
-			return true;
-		}
-
-		return false; // No intersection within the segments
-	}
-
-	private NavMeshNode FindContainingNode(Vector3 point)
-	{
-		foreach (var n in nodes)
-			if (PointInPolygon(point, n.vertices))
-				return n;
-		return null;
 	}
 
 	public List<NavMeshNode> AStar(Vector3 origin, Vector3 goal)
@@ -494,9 +434,9 @@ public class NavMesh
 			closed.Add(current);
 
 			// Process neighbours of current node.
-			foreach (int edgeIndex in current.edges)
+			foreach (var neighbourEntry in current.neighbours)
 			{
-				var neighbor = GetNodeFromIndex(edgeIndex);
+				var neighbor = nodes[neighbourEntry.neighborIndex];
 				if (closed.Contains(neighbor)) continue;
 
 				// Calculate cost addition of this neighbour.
@@ -597,21 +537,11 @@ public class NavMesh
 		return path;
 	}
 
-	private static bool PointInPolygon(Vector3 point, Vector3[] verts)
+	private NavMeshNode FindContainingNode(Vector3 point)
 	{
-		Vector2 p = new(point.x, point.z);
-		bool inside = false;
-
-		for (int i = 0, j = verts.Length - 1; i < verts.Length; j = i++)
-		{
-			Vector2 a = new(verts[i].x, verts[i].z);
-			Vector2 b = new(verts[j].x, verts[j].z);
-
-			if (((a.y > p.y) != (b.y > p.y)) &&
-				(p.x < (b.x - a.x) * (p.y - a.y) / (b.y - a.y + float.Epsilon) + a.x))
-				inside = !inside;
-		}
-
-		return inside;
+		foreach (var n in nodes)
+			if (GeometryLib.PointInPolygon(point, n.vertices))
+				return n;
+		return null;
 	}
 }

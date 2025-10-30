@@ -55,7 +55,7 @@ public class EnemyCharacter : MonoBehaviour, ICharacterController
 		if (navMeshProvider.GetPath(transform.position, target.position) is NavigationPath path)
 		{
 
-			if (NavPath.finalPath.Length < 1)
+			if (NavPath.path.Length < 1)
 			{
 				// First path request
 				NavPath = path;
@@ -66,26 +66,14 @@ public class EnemyCharacter : MonoBehaviour, ICharacterController
 			// Only reset path if the goal moved significantly
 			if (Vector3.Distance(path.goalPosition, NavPath.goalPosition) > 0.1f)
 			{
-
-				for (int i = 0; i < path.finalPath.Length; i++)
-				{
-					Vector3 p = path.finalPath[i];
-
-					// raycast straight down to find the real ground
-					//Debug.DrawRay(p + Vector3.up * 2f, Vector3.down * 100f, Color.red, 0.5f);
-					if (Physics.Raycast(p + Vector3.up * 2f, Vector3.down, out RaycastHit hit, 100f, 1 << 3))
-					{
-						path.finalPath[i] = hit.point;
-					}
-				}
 				NavPath = path;
 
 				// Find the closest point on the new path to our current position
 				float closestDistance = float.MaxValue;
 				int closestIndex = 0;
-				for (int i = 0; i < NavPath.finalPath.Length; i++)
+				for (int i = 0; i < NavPath.path.Length; i++)
 				{
-					float dist = Vector3.Distance(transform.position, NavPath.finalPath[i]);
+					float dist = Vector3.Distance(transform.position, NavPath.path[i]);
 					if (dist < closestDistance)
 					{
 						closestDistance = dist;
@@ -101,9 +89,7 @@ public class EnemyCharacter : MonoBehaviour, ICharacterController
 
 	public void AfterCharacterUpdate(float deltaTime) { }
 
-	public void BeforeCharacterUpdate(float deltaTime)
-	{
-	}
+	public void BeforeCharacterUpdate(float deltaTime) { }
 
 	public void UpdateRotation(ref Quaternion currentRotation, float deltaTime)
 	{
@@ -123,7 +109,7 @@ public class EnemyCharacter : MonoBehaviour, ICharacterController
 		if (!atGoal)
 		{
 			// no path
-			if (NavPath.finalPath == null || NavPath.finalPath.Length == 0)
+			if (NavPath.path == null || NavPath.path.Length == 0)
 			{
 				// gently remove external velocity if any
 				motor.BaseVelocity = Vector3.MoveTowards(motor.BaseVelocity, Vector3.zero, baseVelocityDecay * deltaTime);
@@ -131,7 +117,7 @@ public class EnemyCharacter : MonoBehaviour, ICharacterController
 				return;
 			}
 
-			Vector3 targetPos = NavPath.finalPath[currentPathIndex];
+			Vector3 targetPos = NavPath.path[currentPathIndex];
 			Vector3 toTarget = targetPos - motor.TransientPosition;
 			float distance = toTarget.magnitude;
 
@@ -141,7 +127,7 @@ public class EnemyCharacter : MonoBehaviour, ICharacterController
 				currentVelocity = Vector3.zero;
 				motor.BaseVelocity = Vector3.MoveTowards(motor.BaseVelocity, Vector3.zero, baseVelocityDecay * deltaTime);
 
-				if (currentPathIndex < NavPath.finalPath.Length - 1)
+				if (currentPathIndex < NavPath.path.Length - 1)
 				{
 					currentPathIndex++;
 				}
