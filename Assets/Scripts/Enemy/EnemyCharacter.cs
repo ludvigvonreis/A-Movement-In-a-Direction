@@ -32,12 +32,14 @@ public class EnemyCharacter : MonoBehaviour, ICharacterController
 	private NavMeshProvider navMeshProvider;
 	[SerializeField]
 	private Vector3 _requestedMovement;
-	private Quaternion _requestedRotation;
 
 	void Start()
 	{
 		motor.CharacterController = this;
 		navMeshProvider = NavMeshProvider.Instance;
+		
+		// Init navigation.
+		NavPath = new();
 		FetchPath();
 	}
 
@@ -52,22 +54,17 @@ public class EnemyCharacter : MonoBehaviour, ICharacterController
 
 	void FetchPath()
 	{
-		if (navMeshProvider.GetPath(transform.position, target.position) is NavigationPath path)
+		if (navMeshProvider.GetPath(transform.position, target.position, NavPath))
 		{
-
 			if (NavPath.path.Length < 1)
 			{
-				// First path request
-				NavPath = path;
 				currentPathIndex = 0;
 				return;
 			}
 
 			// Only reset path if the goal moved significantly
-			if (Vector3.Distance(path.goalPosition, NavPath.goalPosition) > 0.1f)
+			//if (Vector3.Distance(path.goalPosition, NavPath.goalPosition) > 0.1f)
 			{
-				NavPath = path;
-
 				// Find the closest point on the new path to our current position
 				float closestDistance = float.MaxValue;
 				int closestIndex = 0;
@@ -95,7 +92,7 @@ public class EnemyCharacter : MonoBehaviour, ICharacterController
 	{
 		var forward = Vector3.ProjectOnPlane
 		(
-			_requestedRotation * Vector3.forward,
+			_requestedMovement,
 			motor.CharacterUp
 		);
 		if (forward != Vector3.zero)
@@ -103,6 +100,15 @@ public class EnemyCharacter : MonoBehaviour, ICharacterController
 	}
 
 	public void UpdateVelocity(ref Vector3 currentVelocity, float deltaTime)
+	{
+		currentVelocity = CalculateVelocityAlongPath(currentVelocity, deltaTime);
+
+		_requestedMovement = currentVelocity;
+
+		currentVelocity += deltaTime * gravity * motor.CharacterUp;
+	}
+
+	Vector3 CalculateVelocityAlongPath(Vector3 currentVelocity, float deltaTime)
 	{
 		bool atGoal = Vector3.Distance(motor.TransientPosition, target.position) < 2f;
 
@@ -114,7 +120,6 @@ public class EnemyCharacter : MonoBehaviour, ICharacterController
 				// gently remove external velocity if any
 				motor.BaseVelocity = Vector3.MoveTowards(motor.BaseVelocity, Vector3.zero, baseVelocityDecay * deltaTime);
 				currentVelocity = Vector3.zero;
-				return;
 			}
 
 			Vector3 targetPos = NavPath.path[currentPathIndex];
@@ -136,7 +141,7 @@ public class EnemyCharacter : MonoBehaviour, ICharacterController
 					// final goal reached. snap to avoid being shoved around by collisions.
 					motor.SetTransientPosition(targetPos);
 				}
-				return;
+				return currentVelocity;
 			}
 
 			// compute desired velocity safely
@@ -181,7 +186,7 @@ public class EnemyCharacter : MonoBehaviour, ICharacterController
 			currentVelocity = Vector3.zero;
 		}
 
-		currentVelocity += deltaTime * gravity * motor.CharacterUp;
+		return currentVelocity;
 	}
 
 	public bool IsColliderValidForCollisions(Collider coll) { return true; }

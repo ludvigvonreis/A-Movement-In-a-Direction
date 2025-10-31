@@ -37,7 +37,7 @@ public struct PathProcessingConfig
 }
 
 [System.Serializable]
-public struct NavigationPath
+public class NavigationPath
 {
 	public Vector3 goalPosition;
 	public Vector3 startPosition;
@@ -49,6 +49,7 @@ public struct NavigationPath
 }
 
 [ExecuteAlways]
+[RequireComponent(typeof(CreateNavMesh))]
 public class NavMeshProvider : MonoBehaviour
 {
 	[SerializeField]
@@ -57,9 +58,6 @@ public class NavMeshProvider : MonoBehaviour
 	public VisualizationConfig visualizationConfig = new();
 	[SerializeField]
 	private PathProcessingConfig pathProcessingConfig = new();
-
-	public Transform A;
-	public Transform B;
 
 	[SerializeField]
 	private NavMesh navMesh;
@@ -127,24 +125,17 @@ public class NavMeshProvider : MonoBehaviour
 		return path.ToArray();
 	}
 
-	public NavigationPath? GetPath(Vector3 currentPosition, Vector3 goalPosition)
+	public bool GetPath(Vector3 current, Vector3 goal, NavigationPath path)
 	{
-		var nodePath = navMesh.AStar(currentPosition, goalPosition);
-		if (nodePath != null && nodePath.Count > 0)
-		{
-			var path = SmoothPath(nodePath, currentPosition, goalPosition);
+		var nodePath = navMesh.AStar(current, goal);
+		if (nodePath == null || nodePath.Count == 0)
+			return false;
 
-			return new NavigationPath
-			{
-				startPosition = currentPosition,
-				goalPosition = goalPosition,
-
-				path = path,
-				nodePath = nodePath.Select(x => x.polyIndex).ToArray(),
-			};
-		}
-
-		return null;
+		path.startPosition = current;
+		path.goalPosition = goal;
+		path.path = SmoothPath(nodePath, current, goal);
+		path.nodePath = nodePath.Select(x => x.polyIndex).ToArray();
+		return true;
 	}
 
 	[Button("Regen Graph")]

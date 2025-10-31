@@ -127,6 +127,8 @@ public class NavMesh
 
 	[SerializeField]
 	private RcPolyMeshData polyMesh;
+
+
 	private NavMeshConfig recastConfig;
 
 	public NavMesh(RcPolyMeshData _polyMesh, NavMeshConfig _recastConfig)

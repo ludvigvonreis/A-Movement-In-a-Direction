@@ -79,7 +79,6 @@ public class CreateNavMesh : MonoBehaviour
 	private List<float> vertexPositions;
 	private List<int> meshFaces;
 
-	//[Button("Generate Mesh")]
 	public RcPolyMeshData GenerateRecastMesh(NavMeshConfig config)
 	{
 		if (levelGeometry.Count < 1) FetchGeometry();
@@ -121,7 +120,6 @@ public class CreateNavMesh : MonoBehaviour
 		var result = rcBuilder.Build(geomProvider, bcfg, true);
 
 		var finalPolyMesh = new RcPolyMeshData(result.Mesh);
-
 
 		return finalPolyMesh;
 	}
