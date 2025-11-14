@@ -314,7 +314,11 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 				_state.Stance = Stance.Dashing;
 
 				// Dash direction is the current requested movement direction.
-				var direction = _requestedMovement;
+				var direction = Vector3.ProjectOnPlane
+					(
+						vector: _requestedMovement,
+						planeNormal: motor.CharacterUp
+					).normalized;
 
 				// If player is not moving dash forward.
 				if (direction.magnitude <= 0f)
@@ -324,6 +328,7 @@ public class PlayerCharacter : MonoBehaviour, ICharacterController, IKnockbackab
 
 				var calculatedSpeed = dashSpeed * direction;
 
+				currentVelocity.y *= 0.1f;
 				currentVelocity = calculatedSpeed;
 
 				return;
