@@ -10,7 +10,7 @@ public class ProjectileAction : WeaponActionBase
 	private bool isRunning = false;
 	protected bool canShoot = true;
 
-	public override IEnumerator Execute(WeaponBehaviour weapon)
+	public override IEnumerator Execute(WeaponBehaviour weapon, System.Action onComplete)
 	{
 		if (canShoot == false) yield break;
 
@@ -19,16 +19,8 @@ public class ProjectileAction : WeaponActionBase
 		canShoot = false;
 		yield return new WaitForSeconds(weapon.WeaponStats.Firerate);
 		canShoot = true;
-	}
 
-	protected virtual void ModifyWeaponStats(ref WeaponStats weaponStats)
-	{
-		return;
-	}
-
-	protected virtual int GetAmmoUsage()
-	{
-		return 1;
+		onComplete?.Invoke();
 	}
 
 	protected void SpawnProjectile(WeaponBehaviour weapon)
@@ -44,7 +36,6 @@ public class ProjectileAction : WeaponActionBase
 			// Spawn the required amount of projectiles for this weapon cycle.
 			for (int i = 0; i < weapon.WeaponStats.projectileCount; i++)
 			{
-
 				// Spread.
 				var rotation = Quaternion.AngleAxis(
 						Random.Range(0f, weapon.WeaponStats.spreadAngle), Random.onUnitSphere
@@ -60,9 +51,6 @@ public class ProjectileAction : WeaponActionBase
 
 				Physics.IgnoreCollision(weapon.Context.GetOwnerCollider(), spawnedProjectile.GetComponent<Collider>());
 
-				// Modifies in place.
-				ModifyWeaponStats(ref weaponStats);
-
 				var projectileObject = spawnedProjectile.GetComponent<ProjectileObject>();
 				projectileObject.Initialize(
 					rotation,
@@ -73,22 +61,24 @@ public class ProjectileAction : WeaponActionBase
 			}
 		}
 		// Decrease ammo.
-		weapon.WeaponAmmo.currentAmmo -= GetAmmoUsage();
+		weapon.WeaponAmmo.currentAmmo -= 1;
 		weapon.WeaponAmmo = weapon.WeaponAmmo;
 	}
 
 
-	public override IEnumerator StartAction(WeaponBehaviour weapon)
+	public override IEnumerator StartAction(WeaponBehaviour weapon, System.Action onComplete)
 	{
 		if (!isRunning)
 		{
 			isRunning = true;
 			currentRoutine = weapon.StartCoroutine(SustainedFireLoop(weapon));
 		}
+
+		onComplete?.Invoke();
 		yield return null;
 	}
 
-	public override IEnumerator StopAction(WeaponBehaviour weapon)
+	public override IEnumerator StopAction(WeaponBehaviour weapon, System.Action onComplete)
 	{
 		if (isRunning)
 		{
@@ -96,6 +86,8 @@ public class ProjectileAction : WeaponActionBase
 			currentRoutine = null;
 			isRunning = false;
 		}
+
+		onComplete?.Invoke();
 		yield return null;
 	}
 
@@ -106,7 +98,7 @@ public class ProjectileAction : WeaponActionBase
 			// Prevent firing when no ammo or reloading
 			if (weapon.WeaponAmmo.currentAmmo > 0 && !weapon.WeaponAmmo.isReloading)
 			{
-				yield return Execute(weapon);
+				yield return Execute(weapon, null);
 			}
 			else
 			{

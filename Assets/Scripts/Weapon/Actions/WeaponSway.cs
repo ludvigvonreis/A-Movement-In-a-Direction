@@ -24,7 +24,7 @@ public class WeaponSway : WeaponActionBase
 		base.Initialize(weapon);
 	}
 
-	public override IEnumerator Execute(WeaponBehaviour weapon)
+	public override IEnumerator Execute(WeaponBehaviour weapon, System.Action onComplete)
 	{
 		Vector2 current = weapon.MouseDelta;
 
@@ -51,7 +51,7 @@ public class WeaponSway : WeaponActionBase
 			weapon.ModelObjectMovement += DoSway();
 
 
-		return base.Execute(weapon);
+		return base.Execute(weapon, onComplete);
 	}
 
 	public Vector3 DoSway()

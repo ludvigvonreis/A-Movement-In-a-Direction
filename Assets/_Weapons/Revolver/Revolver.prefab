@@ -46,8 +46,8 @@ GameObject:
   - component: {fileID: 8383321957720921901}
   - component: {fileID: 2132135458785979486}
   - component: {fileID: 8195242034025275728}
-  - component: {fileID: 414235094338250090}
   - component: {fileID: 599456899753145636}
+  - component: {fileID: 8111949897678919152}
   m_Layer: 9
   m_Name: Revolver
   m_TagString: Untagged
@@ -97,7 +97,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   primaryActionSource: {fileID: 8195242034025275728}
-  secondaryActionSource: {fileID: 414235094338250090}
+  secondaryActionSource: {fileID: 8111949897678919152}
   reloadActionSource: {fileID: 599456899753145636}
   continuousActionSources:
   - {fileID: 74429901806678904}
@@ -159,18 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5deac65bbb2cf4023860f10a72034d3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &414235094338250090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8206525270728625406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 592a73559e7a140f58f52d72808a08cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &599456899753145636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,6 +171,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a28fc8da7267d4307a8fd3489893f3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8111949897678919152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8206525270728625406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab72754acc978ca4abf61c0af91a487d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomedCameraFov: 75
 --- !u!1 &8623719998485544939
 GameObject:
   m_ObjectHideFlags: 0

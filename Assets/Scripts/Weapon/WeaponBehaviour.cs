@@ -13,13 +13,22 @@ public class WeaponBehaviour : MonoBehaviour
 {
 	[SerializeField]
 	private WeaponStats weaponStats;
+
+	// The weapon stats that are actually used. will be reset to weaponStats every "frame"
+	private WeaponStats workingWeaponStats;
+
 	[SerializeField]
 	private Transform projectileFirePoint;
 	[SerializeField]
 	private GameObject modelObject;
 	private Vector3 modelObjectMovement;
 
-	public WeaponStats WeaponStats => weaponStats;
+	[Space]
+	public bool isEnabled = false;
+	public bool hasBeenInitialized = false;
+	public bool canUnequip = true;
+
+	public WeaponStats WeaponStats => workingWeaponStats;
 	public Transform ProjectileFirePoint => projectileFirePoint;
 	public GameObject ModelObject => modelObject;
 	public Vector3 ModelObjectMovement
@@ -58,6 +67,7 @@ public class WeaponBehaviour : MonoBehaviour
 	public MessageBus weaponMessageBus;
 
 	// Modular action handlers
+	[Space]
 	[SerializeField] private MonoBehaviour primaryActionSource;
 	[SerializeField] private MonoBehaviour secondaryActionSource;
 	[SerializeField] private MonoBehaviour reloadActionSource;
@@ -71,14 +81,11 @@ public class WeaponBehaviour : MonoBehaviour
 
 	private IWeaponAction[] continuousActions;
 
-	[Space]
-	public bool isEnabled = false;
-	public bool hasBeenInitialized = false;
-	public bool canUnequip = true;
-
 	public void Initialize(IWeaponContext newContext)
 	{
 		if (hasBeenInitialized) return;
+
+		workingWeaponStats = Instantiate(weaponStats);
 
 		primaryAction = primaryActionSource as IWeaponAction;
 		secondaryAction = secondaryActionSource as IWeaponAction;
@@ -119,7 +126,7 @@ public class WeaponBehaviour : MonoBehaviour
 		// Run every continuous action if it exists.
 		foreach (var continuousAction in continuousActions)
 		{
-			continuousAction.Execute(this);
+			continuousAction.Execute(this, () => OnActionComplete());
 		}
 	}
 
@@ -149,7 +156,7 @@ public class WeaponBehaviour : MonoBehaviour
 
 		reloadActionEvent.Invoke();
 
-		StartCoroutine(reloadAction.Execute(this));
+		StartCoroutine(reloadAction.Execute(this, () => OnActionComplete()));
 	}
 
 	public void RequestPrimaryAction(bool value)
@@ -160,7 +167,7 @@ public class WeaponBehaviour : MonoBehaviour
 
 		if (WeaponStats.fireMode is FireMode.Automatic || weaponStats.fireMode is FireMode.Charged) return;
 
-		StartCoroutine(primaryAction.Execute(this));
+		StartCoroutine(primaryAction.Execute(this, () => OnActionComplete()));
 	}
 
 	public void RequestSecondaryAction(bool value)
@@ -169,7 +176,7 @@ public class WeaponBehaviour : MonoBehaviour
 
 		secondaryActionEvent.Invoke();
 
-		StartCoroutine(secondaryAction.Execute(this));
+		StartCoroutine(secondaryAction.Execute(this, () => OnActionComplete()));
 	}
 
 	// Holding fire button
@@ -182,10 +189,10 @@ public class WeaponBehaviour : MonoBehaviour
 
 		if (value)
 		{
-			StartCoroutine(primaryAction.StartAction(this));
+			StartCoroutine(primaryAction.StartAction(this, () => OnActionComplete()));
 		}
 		else
-			StartCoroutine(primaryAction.StopAction(this));
+			StartCoroutine(primaryAction.StopAction(this, () => OnActionComplete()));
 	}
 
 	// Holding secondary button
@@ -196,10 +203,15 @@ public class WeaponBehaviour : MonoBehaviour
 
 		if (value)
 		{
-			StartCoroutine(secondaryAction.StartAction(this));
+			StartCoroutine(secondaryAction.StartAction(this, () => OnActionComplete()));
 		}
 		else
-			StartCoroutine(secondaryAction.StopAction(this));
+			StartCoroutine(secondaryAction.StopAction(this, () => OnActionComplete()));
+	}
+
+	void OnActionComplete()
+	{
+		workingWeaponStats.CopyFrom(weaponStats);
 	}
 
 	public void ProvideMouseDelta(Vector2 _mouseDelta)

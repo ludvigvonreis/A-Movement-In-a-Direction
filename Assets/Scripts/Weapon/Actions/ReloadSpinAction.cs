@@ -5,13 +5,14 @@ public class ReloadSpinAction : WeaponActionBase
 {
 	public override bool IsSustained => false;
 
-	public override IEnumerator Execute(WeaponBehaviour weapon)
+	public override IEnumerator Execute(WeaponBehaviour weapon, System.Action onComplete)
 	{
 		if (weapon.WeaponAmmo.isReloading) yield break;
 
 		// Magazine or the alike is full, we cannot reload.
 		if (weapon.WeaponAmmo.currentAmmo > weapon.WeaponStats.magazineAmount) yield break;
 
+		onComplete?.Invoke();
 		yield return Reload(weapon);
 	}
 

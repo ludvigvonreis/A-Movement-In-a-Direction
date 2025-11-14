@@ -1,7 +1,9 @@
 using UnityEngine;
 using NaughtyAttributes;
+using System;
 
-public enum FireMode {
+public enum FireMode
+{
 	Single,
 	Automatic,
 	Charged,
@@ -57,4 +59,21 @@ public class WeaponStats : ScriptableObject
 	[Header("Weapon Specific")]
 	[EnableIf("isCharged")]
 	public float chargeTime;
+
+	public void CopyFrom(WeaponStats other)
+	{
+		var type = GetType();
+		var fields = type.GetFields(System.Reflection.BindingFlags.Public |
+									System.Reflection.BindingFlags.NonPublic |
+									System.Reflection.BindingFlags.Instance);
+
+		foreach (var field in fields)
+		{
+			// Skip ScriptableObject internal Unity fields
+			if (field.IsDefined(typeof(NonSerializedAttribute), false))
+				continue;
+
+			field.SetValue(this, field.GetValue(other));
+		}
+	}
 }

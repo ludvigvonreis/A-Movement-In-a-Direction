@@ -1,9 +1,15 @@
 using System.Collections;
 using UnityEngine;
 
-public class ChargedProjectileAction : ProjectileAction
+public class ChargedAction : WeaponActionBase
 {
+	[SerializeField, WeaponProperty]
 	private float chargeTime = 1.4f;
+	[SerializeField, WeaponProperty]
+	private float zoomedCameraFov = 75f;
+
+	[SerializeField, WeaponProperty]
+	private WeaponActionBase subAction;
 
 	private readonly float epsilon = 0.04f;
 	private float timer = 0f;
@@ -12,12 +18,11 @@ public class ChargedProjectileAction : ProjectileAction
 	private int ammoPerFire = 0;
 	private int chargedAmmoPerFire = 0;
 
-	[SerializeField] private float zoomedCameraFov = 75f;
 	private float cameraFov = 0f;
 
 	public override bool IsSustained => true;
 
-	protected new bool canShoot = true;
+	protected bool canShoot = true;
 
 	public override void Initialize(WeaponBehaviour weapon)
 	{
@@ -30,19 +35,19 @@ public class ChargedProjectileAction : ProjectileAction
 		base.Initialize(weapon);
 	}
 
-	protected override void ModifyWeaponStats(ref WeaponStats  weaponStats)
+	void ModifyWeaponStats(WeaponStats weaponStats)
 	{
 		var baseDamage = weaponStats.damage;
 		// Increase damage by chargedDamageMultiplier when fully charged.
 		weaponStats.damage = Mathf.Abs(chargeTime - timer) > epsilon ? baseDamage * chargedDamageMultiplier : baseDamage;
 	}
 
-	protected override int GetAmmoUsage()
+	protected int GetAmmoUsage()
 	{
 		return Mathf.Abs(chargeTime - timer) < epsilon ? chargedAmmoPerFire : ammoPerFire;
 	}
 
-	public override IEnumerator StartAction(WeaponBehaviour weapon)
+	public override IEnumerator StartAction(WeaponBehaviour weapon, System.Action onComplete)
 	{
 		if (canShoot == false) yield break;
 		if (weapon.WeaponAmmo.currentAmmo < 0 || weapon.WeaponAmmo.isReloading) yield break;
@@ -57,10 +62,11 @@ public class ChargedProjectileAction : ProjectileAction
 				weapon.Context.ChangeCameraFov(Mathf.Lerp(cameraFov, zoomedCameraFov, (timer - 0.2f) / chargeTime), false);
 		}
 
+		onComplete?.Invoke();
 		yield return null;
 	}
 
-	public override IEnumerator StopAction(WeaponBehaviour weapon)
+	public override IEnumerator StopAction(WeaponBehaviour weapon, System.Action onComplete)
 	{
 		if (canShoot == false) yield break;
 
@@ -70,7 +76,8 @@ public class ChargedProjectileAction : ProjectileAction
 
 			if (weapon.WeaponAmmo.currentAmmo > 0 && !weapon.WeaponAmmo.isReloading)
 			{
-				SpawnProjectile(weapon);
+				ModifyWeaponStats(weapon.WeaponStats);
+				StartCoroutine(subAction.Execute(weapon, onComplete));
 			}
 
 			timer = 0f;
@@ -79,5 +86,7 @@ public class ChargedProjectileAction : ProjectileAction
 			yield return new WaitForSeconds(weapon.WeaponStats.Firerate);
 			canShoot = true;
 		}
+
+		onComplete?.Invoke();
 	}
 }

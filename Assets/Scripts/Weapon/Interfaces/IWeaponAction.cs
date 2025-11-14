@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public interface IWeaponAction {
-	IEnumerator Execute(WeaponBehaviour weapon);
-	IEnumerator StartAction(WeaponBehaviour weapon);
-	IEnumerator StopAction(WeaponBehaviour weapon);
+	IEnumerator Execute(WeaponBehaviour weapon, Action onComplete);
+	IEnumerator StartAction(WeaponBehaviour weapon, Action onComplete);
+	IEnumerator StopAction(WeaponBehaviour weapon, Action onComplete);
 	bool IsSustained { get; }
 
 	void Initialize(WeaponBehaviour weapon);
@@ -13,9 +14,9 @@ public interface IWeaponAction {
 
 public abstract class WeaponActionBase : MonoBehaviour, IWeaponAction
 {
-	public virtual IEnumerator Execute(WeaponBehaviour weapon) { yield return null; }
-	public virtual IEnumerator StartAction(WeaponBehaviour weapon) { yield return null; }
-	public virtual IEnumerator StopAction(WeaponBehaviour weapon) { yield return null; }
+	public virtual IEnumerator Execute(WeaponBehaviour weapon, Action onComplete) { onComplete?.Invoke(); yield return null; }
+	public virtual IEnumerator StartAction(WeaponBehaviour weapon, Action onComplete) { onComplete?.Invoke(); yield return null; }
+	public virtual IEnumerator StopAction(WeaponBehaviour weapon, Action onComplete) { onComplete?.Invoke(); yield return null; }
 
 	public virtual void Initialize(WeaponBehaviour weapon) {}
 

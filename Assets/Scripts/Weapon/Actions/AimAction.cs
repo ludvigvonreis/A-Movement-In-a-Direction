@@ -21,9 +21,10 @@ public class AimAction : WeaponActionBase
 	private bool isAiming = false;
 
 	public override bool IsSustained => true;
+	Coroutine currentMovement;
 
 
-	public override IEnumerator StartAction(WeaponBehaviour weapon)
+	public override IEnumerator StartAction(WeaponBehaviour weapon, System.Action onComplete)
 	{
 		if (isAiming == true)
 		{
@@ -33,10 +34,11 @@ public class AimAction : WeaponActionBase
 		// Start aiming
 		isAiming = true;
 		CancelCurrentMovement();
+		onComplete?.Invoke();
 		yield return currentMovement = StartCoroutine(AimTransition(weapon.Context));
 	}
 
-	public override IEnumerator StopAction(WeaponBehaviour weapon)
+	public override IEnumerator StopAction(WeaponBehaviour weapon, System.Action onComplete)
 	{
 		if (isAiming == false)
 		{
@@ -46,6 +48,7 @@ public class AimAction : WeaponActionBase
 		// Stop aiming
 		isAiming = false;
 		CancelCurrentMovement();
+		onComplete?.Invoke();
 		yield return currentMovement = StartCoroutine(AimTransition(weapon.Context));
 	}
 
@@ -54,7 +57,6 @@ public class AimAction : WeaponActionBase
 		origin = transform.localPosition;
 		originRotation = transform.localRotation;
 	}
-	Coroutine currentMovement;
 
 	void CancelCurrentMovement()
 	{

@@ -21,7 +21,7 @@ public class VisualWeaponMovement : WeaponActionBase
 		base.Initialize(weapon);
 	}
 
-	public override IEnumerator Execute(WeaponBehaviour weapon)
+	public override IEnumerator Execute(WeaponBehaviour weapon, System.Action onComplete)
 	{
 		Vector3 limitedMovement = Vector3.ClampMagnitude(
 			weapon.ModelObjectMovement,
@@ -38,6 +38,6 @@ public class VisualWeaponMovement : WeaponActionBase
 		// Reset movement offset.
 		weapon.ModelObjectMovement = Vector3.zero;
 
-		return base.Execute(weapon);
+		return base.Execute(weapon, onComplete);
 	}
 }
